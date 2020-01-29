@@ -1,0 +1,1234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>C与C++语法区别</title>
+    <url>/blog/2020/01/27/C%E4%B8%8EC++%E8%AF%AD%E6%B3%95%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>OS 虚拟内存</title>
+    <url>/blog/2020/01/24/OS%20%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Algorithm 排序</title>
+    <url>/blog/2020/01/21/Algorithm-%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Leetcode 刷题技巧</title>
+    <url>/blog/2020/01/21/Leetcode%20%E5%88%B7%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h2 id="std"><a href="#std" class="headerlink" title="std"></a>std</h2><ol>
+<li>partation() 将容器分为两部分，返回第二部分的首个元素的迭代器</li>
+</ol>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ol>
+<li>模运算很慢，如需判断 n%2 可已判断 n&amp;1</li>
+<li>在不需要顺序的情况下，使用 unordered_map, unordered_set</li>
+<li>数组记得初始化</li>
+</ol>
+<h2 id="题目分类技巧"><a href="#题目分类技巧" class="headerlink" title="题目分类技巧"></a>题目分类技巧</h2><h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><ol>
+<li>stringstream 类可用来分隔字符串</li>
+<li>尽量在原字符串上操作，减少空间消耗</li>
+<li>匹配问题<ol>
+<li>stack</li>
+<li>两个指针</li>
+<li>对称计数</li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Algorithm 字符串匹配KMP</title>
+    <url>/blog/2020/01/18/Algorithm%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8DKMP/</url>
+    <content><![CDATA[<h2 id="暴力匹配方法"><a href="#暴力匹配方法" class="headerlink" title="暴力匹配方法"></a>暴力匹配方法</h2><p>时间复杂度为 $O(mn)$</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = s.length(), n = p.length();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m - n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] == p[<span class="number">0</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (s[i + j] != p[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (j == n - <span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><p>KMP算法作用在于在某处匹配失败时，不必使下标 $i,j$ 完全回溯，减少比必要的匹配</p>
+<p>KMP的部分匹配表<strong>PMT</strong>的值是字符串的前缀集合与后缀集合的交集中最长元素的长度,<br>同时匹配失败时，根据前缀和后缀的共有长度进行移动</p>
+<ol>
+<li>“a” 的前缀为空，后缀为空，共有长度为0</li>
+<li>“ab“的前缀为[a]，后缀为[b]，共有长度为0</li>
+<li>“aba“的前缀为[a,ab]，后缀为[a,ba]，共有长度为1</li>
+<li>“abab“的前缀为[a,ab,aba]，后缀为[b,ab,bab]，共有长度为2</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>char</th>
+<th>a</th>
+<th>b</th>
+<th>a</th>
+<th>b</th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>pmt</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>为了编程方便，使用next数组替换PMT，就是将PMT表向右偏移一位，第0位的值设为-1</p>
+<ol>
+<li>next[i] 表示子串 p[0,i) 的前后缀最大共有长度</li>
+<li>next[0] 的前缀和后缀的共有长度=-1 （可理解为因为此时没有前缀和后缀）</li>
+<li>next[1] 代表 p[0,1) 的前缀和后缀共有长度=0</li>
+<li>next[2] 代表 p[0,2) 的前缀和后缀共有长度=1</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>char</th>
+<th>a</th>
+<th>b</th>
+<th>a</th>
+<th>b</th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>pmt</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>next</td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>求next数组的方法为，从模式串的下标为1处开始对自身进行匹配，next值为能匹配的最长长度</p>
+<p><img src="https://s2.ax1x.com/2020/01/19/19dtns.png" alt="next"></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getnext</span><span class="params">(<span class="built_in">string</span> p, <span class="keyword">int</span> next[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">-1</span>, m = p.length();</span><br><span class="line">    <span class="keyword">while</span> (i &lt; m)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">-1</span> || p[i] == p[j])</span><br><span class="line">        &#123;</span><br><span class="line">            next[++i] = ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>KMP的核心便是通过next数组，和之前的匹配避免不必要的匹配</p>
+<p><img src="https://s2.ax1x.com/2020/01/19/19dV6H.jpg" alt="KMP"></p>
+<p>当在 i=6 匹配失败时，不将 j 回溯为 0，而是 <code>j = next[j]</code>，<br>这样移动后，j 之前的子串的后缀和跟他相等的前缀继续匹配</p>
+<p>时间复杂度为 $O(m+n)$</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kmp</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p, <span class="keyword">int</span> next[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, m = s.length(), n = p.length();</span><br><span class="line">    <span class="keyword">while</span> (i &lt; m &amp;&amp; j &lt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">-1</span> || s[i] == p[j])</span><br><span class="line">        &#123;</span><br><span class="line">            ++i, ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (j == n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> i - j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 多线程</title>
+    <url>/blog/2020/01/16/C++%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>Multithreading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Network 基础</title>
+    <url>/blog/2020/01/16/Network%20%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h2><h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><h2 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h2><h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2>]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux bash&amp;shell</title>
+    <url>/blog/2020/01/08/Linux%20bash&amp;shell/</url>
+    <content><![CDATA[<h2 id="bash-变量"><a href="#bash-变量" class="headerlink" title="bash 变量"></a>bash 变量</h2><h3 id="设置规则"><a href="#设置规则" class="headerlink" title="设置规则"></a>设置规则</h3><ol>
+<li>变量与变量内容以 = 连接</li>
+<li>等号两边不能直接接空白字符</li>
+<li>变量名只能是英文字母和数字，且以字母开头</li>
+<li>变量内容若有空白字符可以使用双引号或单引号将变量内容结合起来<ol>
+<li>双引号<code>&quot;&quot;</code>内的特殊字符，保留原本的特性</li>
+<li>单引号<code>&#39;&#39;</code>内的特殊字符作为一般字符</li>
+</ol>
+</li>
+<li>可以用 \ 将特殊字符变为一般字符</li>
+<li>在一串指令的执行中，还需要借由其他额外指令提供信息，可使用 $(指令)</li>
+<li>可累加内容<code>PATH=$PATH:newpath</code></li>
+<li>若该变量需要在其他子程序执行，则需要以export来使变量编程环境变量</li>
+<li>通常大写名称的变量为系统默认变量<ol>
+<li>PATH</li>
+<li>HOME</li>
+<li>SHELL</li>
+<li>HISTSIZE</li>
+<li>LANG</li>
+<li>PS1 提示符设置，就是命令行前的 $ 的设置</li>
+</ol>
+</li>
+<li>可使用 unset 变量名 取消变量设置</li>
+</ol>
+<h2 id="数据流重导向"><a href="#数据流重导向" class="headerlink" title="数据流重导向"></a>数据流重导向</h2><p><img src="https://s2.ax1x.com/2020/01/09/lfdiqS.png" alt="数据流重导向"></p>
+<ol>
+<li>标准输入 &lt; &lt;&lt; 两个箭头为累加，一个为覆盖</li>
+<li>标准输出 &gt; &gt;&gt;</li>
+<li>标准错误输出 &gt; &gt;&gt;</li>
+</ol>
+<h2 id="连续命令执行"><a href="#连续命令执行" class="headerlink" title="连续命令执行"></a>连续命令执行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cmd1;cmd2 <span class="comment"># 连续执行</span></span><br><span class="line"></span><br><span class="line">cmd1&amp;&amp;cmd2 <span class="comment"># 当cmd1执行且指令回传值 $?=0 即正常执行，执行cmd2</span></span><br><span class="line"></span><br><span class="line">cmd1||cmd2 <span class="comment"># 若cmd正常执行cmd2不执行，否则cmd2执行</span></span><br></pre></td></tr></table></figure>
+<h2 id="管线命令-pipe"><a href="#管线命令-pipe" class="headerlink" title="管线命令 pipe"></a>管线命令 pipe</h2><p>管线命令使用界定符 | 将上一次的输出作为下一次的输入</p>
+<p><img src="https://s2.ax1x.com/2020/01/24/1VX9Re.png" alt="pipe"></p>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim hello.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#Program:</span></span><br><span class="line"><span class="comment">#       Print Hello World</span></span><br><span class="line"><span class="comment">#History:</span></span><br><span class="line"><span class="comment">#01/24/2020    username    v1.0</span></span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/<span class="built_in">local</span>/bin:usr/<span class="built_in">local</span>/sbin:~/bin</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"Hello World!\n"</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"></span><br><span class="line">sh hello.sh</span><br></pre></td></tr></table></figure>
+<p>程序说明</p>
+<ol>
+<li><code>#!/bin/bash</code> 非必要，说明该script使用的shell名称，此处为bash</li>
+<li><code>#Program:</code> 非必要</li>
+<li><code>#History:</code> 非必要</li>
+<li><code>PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:usr/local/sbin:~/bin</code> 非必要，主要环境变量</li>
+<li>主程序</li>
+<li><code>exit 0</code> 回传值</li>
+</ol>
+<p>script三种执行方式</p>
+<ol>
+<li>sh 在新子bash中执行，结果无法返回到当前bash<ol>
+<li>在debian系，sh 调用为 dash 不是 bash</li>
+</ol>
+</li>
+<li>./<ol>
+<li>调用脚本开头<code>#!/bin/bash</code> 设定的shell</li>
+</ol>
+</li>
+<li>source 在当前bash中执行</li>
+</ol>
+<p>script的默认变量</p>
+<ol>
+<li>```bash<br>sh script arg1   arg2   arg3   arg4<pre><code> $0    $1     $2     $3     $4
+</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. $# 参数个数，此处为 4</span><br><span class="line">3. $@ 代表&quot;$1&quot; &quot;$2&quot; &quot;$3&quot; &quot;$4&quot; 每个变量是独立的</span><br><span class="line">4. $* 代表 &quot;$1 $2 $3 $4&quot;</span><br><span class="line">5. 脚本中可用shift x 移除前x个参数，不加个数x时默认为1个</span><br><span class="line"></span><br><span class="line">条件</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;bash</span><br><span class="line">if [condition]; then</span><br><span class="line">    code</span><br><span class="line">elif [condition]; then</span><br><span class="line">    code</span><br><span class="line">else</span><br><span class="line">    code</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">case $var in</span><br><span class="line">    &quot;xxx1&quot;)</span><br><span class="line">    code</span><br><span class="line">    ;;</span><br><span class="line">    &quot;xxx2&quot;)</span><br><span class="line">    code</span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">    code</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>循环</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> [condigion]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    code</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">until [condition]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    code</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> var <span class="keyword">in</span> con1 con2 con3 ...</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    code</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>((初值; 条件; 变化))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    code</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>函数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> func()</span><br><span class="line">&#123;</span><br><span class="line">    code</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">funct arg1 arg2</span><br></pre></td></tr></table></figure>
+<p>shell 的debug</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -nvx script.sh</span><br><span class="line"><span class="comment"># -n 仅检查语法不执行</span></span><br><span class="line"><span class="comment"># -v 执行前将脚本内容输出</span></span><br><span class="line"><span class="comment"># -x 将使用到的脚本内容输出</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>bash</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ Template</title>
+    <url>/blog/2020/01/07/C++%20Template/</url>
+    <content><![CDATA[<h2 id="编写类型无关的代码"><a href="#编写类型无关的代码" class="headerlink" title="编写类型无关的代码"></a>编写类型无关的代码</h2><ol>
+<li>模板中的函数参数是<code>const</code>引用<ol>
+<li>保证函数可用于不能拷贝的类型</li>
+</ol>
+</li>
+<li>函数体中的条件判断仅使用<code>&lt;</code>或<code>less</code>比较运算</li>
+<li>尽量减少对实参类型的要求</li>
+<li>当使用模板时，所有不依赖于模板参数的名字都必须是可见的，<br>当模板实例化时，模板的定义，包括类模板的成员的定义，也必须是可见的</li>
+</ol>
+<h2 id="模板实参推断"><a href="#模板实参推断" class="headerlink" title="模板实参推断"></a>模板实参推断</h2><h3 id="函数模板显式实参"><a href="#函数模板显式实参" class="headerlink" title="函数模板显式实参"></a>函数模板显式实参</h3><p>有时编译器无法推断出模板实参类型，有时用户希望控制模板实例化</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt;</span><br><span class="line"><span class="function">T1 <span class="title">sum</span><span class="params">(T2, T3)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// T1 类型无法推断，需要显式指定</span></span><br><span class="line"><span class="keyword">auto</span> ret = sum&lt;<span class="keyword">int</span>&gt;(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示模板实参由左至右顺序与对应的模板参数匹配，只有最右边参数的显示模板实参才可以忽略(可推断出的前提下)</span></span><br><span class="line"><span class="comment">// 下面模板需显示指定所有三个模板参数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt;</span><br><span class="line"><span class="function">T3 <span class="title">sum</span><span class="params">(T2, T1)</span></span>;</span><br><span class="line"><span class="keyword">auto</span> ret = sum&lt;<span class="keyword">long</span> <span class="keyword">long</span>, <span class="keyword">int</span>, <span class="keyword">long</span>&gt;(i, lng);</span><br></pre></td></tr></table></figure>
+<h3 id="尾置返回类型与类型转换"><a href="#尾置返回类型与类型转换" class="headerlink" title="尾置返回类型与类型转换"></a>尾置返回类型与类型转换</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> It&gt;</span><br><span class="line">auto fcn(It beg, It end) -&gt; decltype(*beg)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> *beg; <span class="comment">//返回序列中一个元素的引用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="从左值引用函数参数推断类型"><a href="#从左值引用函数参数推断类型" class="headerlink" title="从左值引用函数参数推断类型"></a>从左值引用函数参数推断类型</h3><p>当一个函数参数是模板类型参数的一个普通（左值）引用时（T&amp;），只能传递给它一个左值；<br>实参可以是 const 类型，也可以不是，如果实参是const的，则T被推断为const类型</p>
+<h3 id="从右值引用函数参数推断类型"><a href="#从右值引用函数参数推断类型" class="headerlink" title="从右值引用函数参数推断类型"></a>从右值引用函数参数推断类型</h3><p>当一个函数参数是一个右值引用时（T&amp;&amp;），可传递给它一个右值，推断过程类似普通左值引用函数参数推断过程</p>
+<h3 id="引用折叠和右值引用参数"><a href="#引用折叠和右值引用参数" class="headerlink" title="引用折叠和右值引用参数"></a>引用折叠和右值引用参数</h3><p>当我们将一个左值传递给函数的右值引用参数，且该右值引用只想模板类型参数（如T&amp;&amp;）时，编译器推断模板<br>类型参数为实参的左值引用类型，当调用<code>template&lt;typename T&gt;void f(T&amp;&amp;); f(i)</code>时，编译器推断T的类型<br>为<code>int&amp;</code>而非 int</p>
+<p>T 被推断为 T&amp; 看起来像是 f3 的函数参数应该是一个类型 int&amp; 的右值引用，通常不能直接定义一个引用的引用<br>但可以通过类型别名或模板类型参数间接定义</p>
+<p>如果我们间接创建一个引用的引用，则这些引用形成<strong>折叠</strong>，引用会折叠成一个普通的左值引用类型，<br>只有右值引用的右值引用会折叠成右值引用</p>
+<p><code>T&amp; &amp; / T&amp; &amp;&amp; / T&amp;&amp; &amp; -&gt; T&amp;</code></p>
+<p><code>T&amp;&amp; &amp;&amp; -&gt; T&amp;&amp;</code></p>
+<ol>
+<li>如果一个函数参数是一个只想模板类型参数的右值引用，则它可以被绑定到一个左值，且</li>
+<li>如果实参是一个左值，则推断出的模板实参类型将是一个左值引用，且函数参数将被实例化为一个（普通）<br>左值医用参数（T&amp;）</li>
+<li>以上两条规则暗示，可以将任意类型的实参传递给 T&amp;&amp; 类型的函数参数</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T &amp;&amp;val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T t = val; <span class="comment">//当val是右值时，t是int类型</span></span><br><span class="line">               <span class="comment">//当val是左值时，t是int&amp;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="std-move"><a href="#std-move" class="headerlink" title="std::move"></a>std::move</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type &amp;&amp;<span class="title">move</span><span class="params">(T &amp;&amp;t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">typename</span> remove_reference&lt;T&gt;::type &amp;&amp;&gt;(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">string s1("hi"), s2;</span><br><span class="line">s2 = <span class="built_in">std</span>::move(<span class="built_in">string</span>(<span class="string">"bye"</span>)); <span class="comment">//正确，从一个右值移动数据</span></span><br><span class="line"><span class="comment">// 推断出 T 的类型为 string</span></span><br><span class="line"><span class="comment">// remove_reference 用 string 实例化</span></span><br><span class="line"><span class="comment">// remove_reference&lt;string&gt;::type 是 string</span></span><br><span class="line"><span class="comment">// move 的返回类型是 string&amp;&amp;</span></span><br><span class="line"><span class="comment">// move 的函数参数 t 的类型为 string&amp;&amp;</span></span><br><span class="line"><span class="comment">// string&amp;&amp; move(string &amp;&amp;t);</span></span><br><span class="line"></span><br><span class="line">s2 = <span class="built_in">std</span>::move(s1); <span class="comment">//正确，但移动后，s1的值不确定</span></span><br><span class="line"><span class="comment">// 推断出 T 的类型为 string&amp;</span></span><br><span class="line"><span class="comment">// remove_reference 用 string&amp; 实例化</span></span><br><span class="line"><span class="comment">// remove_reference&lt;string&amp;&gt;:: type 是 string</span></span><br><span class="line"><span class="comment">// move 的返回类型仍是 string&amp;&amp;</span></span><br><span class="line"><span class="comment">// move 的函数参数 t 实例化为 string&amp;&amp; 折叠为 string&amp;</span></span><br><span class="line"><span class="comment">// string&amp;&amp; move(string &amp;t);</span></span><br></pre></td></tr></table></figure>
+<h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><p>某些函数需要将其一个或多个实参连同类型不变地转发给其他函数，在此情况下，<br>需要保持被转发实参的所有性质，包裹实参类型是否是 const 的以及实参是左值还是右值</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flip1</span><span class="params">(F f, T1 t1, T2 t2)</span> <span class="comment">// 不完整的转发，顶层const和引用丢失</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f(t2, t1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> v1, <span class="keyword">int</span> &amp;v2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v1 &lt;&lt; <span class="string">" "</span> &lt;&lt; ++v2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用右值引用保持实参的所有类型信息</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flip2</span><span class="params">(F f, T1 &amp;&amp;t1, T2 &amp;&amp;t2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f(t2, t1);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可工作于左值引用，但不能用于接受右值引用参数的函数</span></span><br><span class="line"><span class="comment">// 因为此时传递给 g 的参数 t2 和其他任意变量一样，是左值表达式</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> &amp;&amp;i, <span class="keyword">int</span> &amp;&amp;j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span> &lt;&lt; j &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 std::forward 保持类型信息</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flip</span><span class="params">(F f, T1 &amp;&amp;t1, T2 &amp;&amp;t2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f(<span class="built_in">std</span>::forward&lt;T2&gt;(t2), <span class="built_in">std</span>::forward&lt;T1&gt;(t1)); <span class="comment">//forward 必须显式指定类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="可变参数模板"><a href="#可变参数模板" class="headerlink" title="可变参数模板"></a>可变参数模板</h2><p>一个可变参数模板就是一个可接受可变数目参数的模板函数或模板类。<br>可变数目的参数被称为<strong>参数包</strong>：1.模板参数包，表示0*个模板参数 2.函数参数包，表示0*个函数参数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;     <span class="comment">//Args 表示零个或多个模板类型参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">const</span> T &amp;t, <span class="keyword">const</span> Args &amp;... rest)</span></span>; <span class="comment">//rest 表示零个或多个函数参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//sizeof... 可产看包中元素个数</span></span><br></pre></td></tr></table></figure>
+<h3 id="编写可变参数函数模板"><a href="#编写可变参数函数模板" class="headerlink" title="编写可变参数函数模板"></a>编写可变参数函数模板</h3><p>对于编写可变参数的函数，也可以使用<code>initializer_list</code>,但此时所有实参都具有相同的类型</p>
+<p>对于可变参数函数，通常是递归的，为了终止递归，需要定义一个非可变参数的函数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">ostream &amp;<span class="title">print</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> T &amp;t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> os &lt;&lt; t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="function">ostream &amp;<span class="title">print</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> T &amp;t, <span class="keyword">const</span> Args &amp;... rest)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    os &lt;&lt; t &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="keyword">return</span> print(os, rest...); <span class="comment">// 递归调用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="包扩展"><a href="#包扩展" class="headerlink" title="包扩展"></a>包扩展</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="function">ostream &amp;<span class="title">print</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> T &amp;t, <span class="keyword">const</span> Args &amp;... rest)</span> <span class="comment">// 扩展 Args</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    os &lt;&lt; t &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="keyword">return</span> print(os, rest...); <span class="comment">// 扩展 rest</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个扩展操作扩展模板参数包，为 print 生成函数参数列表，</span></span><br><span class="line"><span class="comment">// 将 const Arg&amp; 引用到每个类型中</span></span><br><span class="line">print(<span class="built_in">cout</span>, i, s, <span class="number">42</span>);</span><br><span class="line"><span class="comment">// 实例化为</span></span><br><span class="line">print(ostrean &amp;, <span class="keyword">const</span> <span class="keyword">int</span> &amp;, <span class="keyword">const</span> <span class="built_in">string</span> &amp;, <span class="keyword">const</span> <span class="keyword">int</span> &amp;);</span><br><span class="line"><span class="comment">// 第二个扩展操作出现在对 print 的调用中，为 print 调用生成实参列表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 还可以对每个实参调用某个函数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="function">ostream &amp;<span class="title">errorMsg</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> Args &amp;... rest)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> print(os, debug_rep(rest)...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">errorMsg(<span class="built_in">cerr</span>, e1, e2, e3);</span><br><span class="line"><span class="comment">//==</span></span><br><span class="line">print(<span class="built_in">cerr</span>, debug_rep(e1), debug_rep(e2), debug_rep(e3));</span><br><span class="line"><span class="comment">// print(os, debug_rep(rest...)); compile error</span></span><br></pre></td></tr></table></figure>
+<h2 id="模板特例化"><a href="#模板特例化" class="headerlink" title="模板特例化"></a>模板特例化</h2><p>在某些情况下，通用模板的定义对特定类型不合适</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> T &amp;, <span class="keyword">const</span> T &amp;)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">size_t</span> N, <span class="keyword">size_t</span> M&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> (&amp;)[N], <span class="keyword">const</span> <span class="keyword">char</span> (&amp;)[M])</span></span>;</span><br><span class="line"><span class="comment">// 只有给compare一个字符串字面常量或数组时，编译器才会调用第二个compare</span></span><br><span class="line"><span class="comment">//当传递字符指针时，会调用第一个</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 此时需要模板特例化处理字符指针（而不是数组）</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="comment">// &lt;&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(cosnt <span class="keyword">char</span> *<span class="keyword">const</span> &amp;p1, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">const</span> &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(p1, p2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类模板特里化</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="built_in">std</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">template</span>&lt;&gt;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hash</span>&lt;MyClass&gt;</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Algorithm 动态规划</title>
+    <url>/blog/2020/01/03/Algorithm%20%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
+    <content><![CDATA[<h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><p>通过记录之前的最优结果，推导出本次最优解</p>
+<ol>
+<li>最优子结构</li>
+<li>重叠子问题</li>
+</ol>
+<h2 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h2><p>状态排布为线性 <code>dp[i]</code>根据<code>dp[0...i-1]</code>得出</p>
+<h2 id="区间模型"><a href="#区间模型" class="headerlink" title="区间模型"></a>区间模型</h2><p>区间模型的状态表示一般为<code>dp[i][j]</code>，表示区间<code>[i, j]</code>上的最优解，然后通过状态转移计算出<code>[i+1, j]</code>或者<code>[i, j+1]</code>上的最优解，逐步扩大区间的范围，最终求得<code>[0, n]</code>的最优解</p>
+<h2 id="背包模型"><a href="#背包模型" class="headerlink" title="背包模型"></a>背包模型</h2><p>有$N$件物品和一个容量为$j$的背包，放入第$i$件物品耗费的费用是$C_{i}^{1}$<br>得到的价值是$W_{i}$，求将那些物品放入背包可是总价值最大</p>
+<h3 id="01-背包"><a href="#01-背包" class="headerlink" title="01 背包"></a>01 背包</h3><p>每种物品仅有一件，可以选择放或不放</p>
+<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>用子问题定义状态：$dp[i, j]$表示将前$i$件物品恰好放入容量为$j$的背包可获得的最大价值，<br>状态转移方程为</p>
+<script type="math/tex; mode=display">
+dp[i,j]=max(dp[i-1,j],dp[i-1,j-C_i]+W_i)</script><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = c[i]; j &lt;= j; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        dp[i, j] = max(dp[i - <span class="number">1</span>, j], dp[i - <span class="number">1</span>, j - c[i]] + w[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="初始化细节问题"><a href="#初始化细节问题" class="headerlink" title="初始化细节问题"></a>初始化细节问题</h4><ol>
+<li>恰好装满背包<ul>
+<li><code>dp[0]=0; dp[1...V]=-infinty</code> 开始时只有容量为0的背包处于合法状态，最大价值为0</li>
+</ul>
+</li>
+<li>不要求装满<ul>
+<li><code>dp[0...V]=0</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="优化空间复杂度"><a href="#优化空间复杂度" class="headerlink" title="优化空间复杂度"></a>优化空间复杂度</h4><p>以上方法时间和空间复杂度均为$O(VN)$，时间复杂度已不能优化，空间复杂度可优化到$O(V)$</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = v; j &gt;= c[i]; ++j) <span class="comment">//已递减次序遍历容量，保证dp[j]的值等价于dp[i-1,j]</span></span><br><span class="line">    &#123;</span><br><span class="line">        dp[j] = max(dp[j], dp[j - c[i]] + w[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h3><p>每种物品可以无限使用</p>
+<h4 id="基本思路-1"><a href="#基本思路-1" class="headerlink" title="基本思路"></a>基本思路</h4><p>对于每种物品，可取件数为 $0\rightarrow V/C_i$</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = c[i]; j &lt;= j; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= v / c[i]; ++k)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i, j] = max(dp[i, j], dp[i - <span class="number">1</span>, j - k * c[i]] + k * w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一个简单优化"><a href="#一个简单优化" class="headerlink" title="一个简单优化"></a>一个简单优化</h4><p>如果两件物品 $i,j\rightarrow C_i\leq C_j \quad\And\And\quad W_i\geq W_j$ 可将物品 $j$ 丢弃不考虑</p>
+<h4 id="转化为01背包"><a href="#转化为01背包" class="headerlink" title="转化为01背包"></a>转化为01背包</h4><ul>
+<li>最直接的方法是把第 $i$ 件物品转化为 $V/C_i$ 件相等的物品</li>
+<li>更有效的方法为，将第 $i$ 件物品拆成费用为 $C_i2^k$ 价值为$W_i2^k$ 的若干件物品,<br>其中 $k$ 取遍满足 $C_i2^k\leq V$ 的非负整数</li>
+</ul>
+<h4 id="优化空间复杂度-1"><a href="#优化空间复杂度-1" class="headerlink" title="优化空间复杂度"></a>优化空间复杂度</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = c[i]; j &lt;= v; ++j) <span class="comment">//与01背包不同，此时是递增次序，因为此时第 i 件物品可以选择多次</span></span><br><span class="line">    &#123;</span><br><span class="line">        dp[j] = max(dp[j], dp[j - c[i]] + w[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h3><p>第 $i$ 件物品最多有 $M_i$ 件可选</p>
+<h4 id="基本思路-2"><a href="#基本思路-2" class="headerlink" title="基本思路"></a>基本思路</h4><p>第 $i$ 件物品可取 $0\rightarrow M_i$ 件，共 $M_i+1$ 种情况</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = c[i]; j &lt;= j; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= m[i]; ++k)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i, j] = max(dp[i, j], dp[i - <span class="number">1</span>, j - k * c[i]] + k * w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="转化为01背包-1"><a href="#转化为01背包-1" class="headerlink" title="转化为01背包"></a>转化为01背包</h4><p>将物品划分为 $k$ 件，每件的系数为 $1,2,2^2,\cdots ,M_i-2^k+1$，且 $k$ 是满足 $M_i-2^k+1&gt;0$ 的最大整数，如 $k=13 \rightarrow\text{coefficient}=1,2,4,6$</p>
+<h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><h4 id="二维费用"><a href="#二维费用" class="headerlink" title="二维费用"></a>二维费用</h4><p>对每种物品，有两种不同的费用或对物品总个数有限制</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">dp[i, j, k] = max(dp[i<span class="number">-1</span>,j,k],dp[i<span class="number">-1</span>,v-c[i],vv-cc[i]]+w[i]);</span><br><span class="line"></span><br><span class="line">dp[j, k] = max(dp[j,k],dp[v-c[i],vv-cc[i]]+w[i]); <span class="comment">//改善空间复杂度</span></span><br></pre></td></tr></table></figure>
+<h4 id="分组的背包"><a href="#分组的背包" class="headerlink" title="分组的背包"></a>分组的背包</h4><p>物品被分为 $k$ 组，每组中只能选一个</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; k : groups)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (j = v; j &gt;= <span class="number">0</span>; --j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : k) <span class="comment">//每组中选0或1件</span></span><br><span class="line">        &#123;</span><br><span class="line">            dp[j] = max(dp[j], dp[j - c[i]] + w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="泛化物品"><a href="#泛化物品" class="headerlink" title="泛化物品"></a>泛化物品</h4><p>泛化物品值物品价值随分配的费用变化而变化，$w=f(v)| v\in[0,V]$</p>
+<p>给定两个泛化物品 $a$ 和 $b$</p>
+<script type="math/tex; mode=display">
+dp[v]=max(f_a(k)+f_b(v-k)|0\leq k \leq v)</script><h4 id="输出方案"><a href="#输出方案" class="headerlink" title="输出方案"></a>输出方案</h4><p>可以使用一般动态规划方案输出方法，记录每个状态的最优解是由哪个状态转移而来</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = c[i]; j &lt;= j; ++j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (dp[i - <span class="number">1</span>, j] &gt;= dp[i - <span class="number">1</span>, j - c[i]] + w[i])</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i, j] = dp[i - <span class="number">1</span>, j];</span><br><span class="line">            record[i, j] = <span class="number">0</span>; <span class="comment">//该情况下，第 i 件物品没有选</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            dp[i, j] = dp[i - <span class="number">1</span>, j - c[i]] + w[i];</span><br><span class="line">            record[i, j] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="求方案总数"><a href="#求方案总数" class="headerlink" title="求方案总数"></a>求方案总数</h4><p>如求装满背包或装至一定容量的方案总数</p>
+<script type="math/tex; mode=display">
+dp[i,j]=sum(dp[i-1,j],dp[i,j-c[i]]) \qquad dp[0,0]=1</script><h4 id="求解第-k-优解"><a href="#求解第-k-优解" class="headerlink" title="求解第 k 优解"></a>求解第 k 优解</h4><p>如果要求第 $k$ 优解，那么状态 <code>dp[i,j]</code> 是一个大小为 k 的队列<code>dp[i,j,1...K]</code>，<br>其中<code>dp[i,j,k]</code>表示前 i 个物品中，背包大小为 j 时，第 k 优解的值</p>
+<p><code>dp[i,j]</code>这个有序队列由<code>dp[i-1,j];dp[i-1,j-c[i]]+w[i]</code>两个队列合并而来，合并操作为$O(K)$，<br>总时间$O(NVK)$</p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tool 正则表达式</title>
+    <url>/blog/2020/01/01/Tool%20%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="表达式全集"><a href="#表达式全集" class="headerlink" title="表达式全集"></a>表达式全集</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字符</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\\</td>
+<td style="text-align:left">将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，“n”匹配字符“n”。“\n”匹配一个换行符。串行“\\”匹配“\”而“(”则匹配“(”。</td>
+</tr>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">匹配输入字符串的开始位置。如果设置了RegExp对象的Multiline属性，^也匹配“\n”或“\r”之后的位置。</td>
+</tr>
+<tr>
+<td style="text-align:left">$</td>
+<td style="text-align:left">匹配输入字符串的结束位置。如果设置了RegExp对象的Multiline属性，$也匹配“\n”或“\r”之前的位置。</td>
+</tr>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">匹配前面的子表达式零次或多次。例如，zo<em>能匹配“z”以及“zoo”。</em>等价于{0,}。</td>
+</tr>
+<tr>
+<td style="text-align:left">+</td>
+<td style="text-align:left">匹配前面的子表达式一次或多次。例如，“zo+”能匹配“zo”以及“zoo”，但不能匹配“z”。+等价于{1,}。</td>
+</tr>
+<tr>
+<td style="text-align:left">?</td>
+<td style="text-align:left">匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“does”或“does”中的“do”。?等价于{0,1}。</td>
+</tr>
+<tr>
+<td style="text-align:left">{n}</td>
+<td style="text-align:left">n是一个非负整数。匹配确定的n次。例如，“o{2}”不能匹配“Bob”中的“o”，但是能匹配“food”中的两个o。</td>
+</tr>
+<tr>
+<td style="text-align:left">{n,}</td>
+<td style="text-align:left">n是一个非负整数。至少匹配n次。例如，“o{2,}”不能匹配“Bob”中的“o”，但能匹配“foooood”中的所有o。“o{1,}”等价于“o+”。“o{0,}”则等价于“o*”。</td>
+</tr>
+<tr>
+<td style="text-align:left">{n,m}</td>
+<td style="text-align:left">m和n均为非负整数，其中n&lt;=m。最少匹配n次且最多匹配m次。例如，“o{1,3}”将匹配“fooooood”中的前三个o。“o{0,1}”等价于“o?”。请注意在逗号和两个数之间不能有空格。</td>
+</tr>
+<tr>
+<td style="text-align:left">?</td>
+<td style="text-align:left">当该字符紧跟在任何一个其他限制符（*,+,?，{n}，{n,}，{n,m}）后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串“oooo”，“o+?”将匹配单个“o”，而“o+”将匹配所有“o”。</td>
+</tr>
+<tr>
+<td style="text-align:left">.</td>
+<td style="text-align:left">匹配除“\n”之外的任何单个字符。要匹配包括“\n”在内的任何字符，请使用像“(.</td>
+<td>\n)”的模式。</td>
+</tr>
+<tr>
+<td style="text-align:left">(pattern)</td>
+<td style="text-align:left">匹配pattern并获取这一匹配。所获取的匹配可以从产生的Matches集合得到，在VBScript中使用SubMatches集合，在JScript中则使用$0…$9属性。要匹配圆括号字符，请使用“(”或“)”。</td>
+</tr>
+<tr>
+<td style="text-align:left">(?:pattern)</td>
+<td style="text-align:left">匹配pattern但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用或字符“(</td>
+<td>)”来组合一个模式的各个部分是很有用。例如“industr(?:y</td>
+<td>ies)”就是一个比“industry</td>
+<td>industries”更简略的表达式。</td>
+</tr>
+<tr>
+<td style="text-align:left">(?=pattern)</td>
+<td style="text-align:left">正向肯定预查，在任何匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，“Windows(?=95</td>
+<td>98</td>
+<td>NT</td>
+<td>2000)”能匹配“Windows2000”中的“Windows”，但不能匹配“Windows3.1”中的“Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</td>
+</tr>
+<tr>
+<td style="text-align:left">(?!pattern)</td>
+<td style="text-align:left">正向否定预查，在任何不匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如“Windows(?!95</td>
+<td>98</td>
+<td>NT</td>
+<td>2000)”能匹配“Windows3.1”中的“Windows”，但不能匹配“Windows2000”中的“Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始</td>
+</tr>
+<tr>
+<td style="text-align:left">(?&lt;=pattern)</td>
+<td style="text-align:left">反向肯定预查，与正向肯定预查类拟，只是方向相反。例如，“(?&lt;=95</td>
+<td>98</td>
+<td>NT</td>
+<td>2000)Windows”能匹配“2000Windows”中的“Windows”，但不能匹配“3.1Windows”中的“Windows”。</td>
+</tr>
+<tr>
+<td style="text-align:left">(?&lt;!pattern)</td>
+<td style="text-align:left">反向否定预查，与正向否定预查类拟，只是方向相反。例如“(?&lt;!95</td>
+<td>98</td>
+<td>NT</td>
+<td>2000)Windows”能匹配“3.1Windows”中的“Windows”，但不能匹配“2000Windows”中的“Windows”。</td>
+</tr>
+<tr>
+<td style="text-align:left">x</td>
+<td style="text-align:left">y</td>
+<td>匹配x或y。例如，“z</td>
+<td>food”能匹配“z”或“food”。“(z</td>
+<td>f)ood”则匹配“zood”或“food”。</td>
+</tr>
+<tr>
+<td style="text-align:left">[xyz]</td>
+<td style="text-align:left">字符集合。匹配所包含的任意一个字符。例如，“[abc]”可以匹配“plain”中的“a”。</td>
+</tr>
+<tr>
+<td style="text-align:left"><sup><a href="#fn_xyz" id="reffn_xyz">xyz</a></sup></td>
+<td style="text-align:left">负值字符集合。匹配未包含的任意字符。例如，“<sup><a href="#fn_abc" id="reffn_abc">abc</a></sup>”可以匹配“plain”中的“p”。</td>
+</tr>
+<tr>
+<td style="text-align:left">[a-z]</td>
+<td style="text-align:left">字符范围。匹配指定范围内的任意字符。例如，“[a-z]”可以匹配“a”到“z”范围内的任意小写字母字符。</td>
+</tr>
+<tr>
+<td style="text-align:left"><sup><a href="#fn_a-z" id="reffn_a-z">a-z</a></sup></td>
+<td style="text-align:left">负值字符范围。匹配任何不在指定范围内的任意字符。例如，“<sup><a href="#fn_a-z" id="reffn_a-z">a-z</a></sup>”可以匹配任何不在“a”到“z”范围内的任意字符。</td>
+</tr>
+<tr>
+<td style="text-align:left">\b</td>
+<td style="text-align:left">匹配一个单词边界，也就是指单词和空格间的位置。例如，“er\b”可以匹配“never”中的“er”，但不能匹配“verb”中的“er”。</td>
+</tr>
+<tr>
+<td style="text-align:left">\B</td>
+<td style="text-align:left">匹配非单词边界。“er\B”能匹配“verb”中的“er”，但不能匹配“never”中的“er”。</td>
+</tr>
+<tr>
+<td style="text-align:left">\cx</td>
+<td style="text-align:left">匹配由x指明的控制字符。例如，\cM匹配一个Control-M或回车符。x的值必须为A-Z或a-z之一。否则，将c视为一个原义的“c”字符。</td>
+</tr>
+<tr>
+<td style="text-align:left">\d</td>
+<td style="text-align:left">匹配一个数字字符。等价于[0-9]。</td>
+</tr>
+<tr>
+<td style="text-align:left">\D</td>
+<td style="text-align:left">匹配一个非数字字符。等价于<sup><a href="#fn_0-9" id="reffn_0-9">0-9</a></sup>。</td>
+</tr>
+<tr>
+<td style="text-align:left">\f</td>
+<td style="text-align:left">匹配一个换页符。等价于\x0c和\cL。</td>
+</tr>
+<tr>
+<td style="text-align:left">\n</td>
+<td style="text-align:left">匹配一个换行符。等价于\x0a和\cJ。</td>
+</tr>
+<tr>
+<td style="text-align:left">\r</td>
+<td style="text-align:left">匹配一个回车符。等价于\x0d和\cM。</td>
+</tr>
+<tr>
+<td style="text-align:left">\s</td>
+<td style="text-align:left">匹配任何空白字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td style="text-align:left">\S</td>
+<td style="text-align:left">匹配任何非空白字符。等价于<sup><a href="#fn_ \f\n\r\t\v" id="reffn_ \f\n\r\t\v"> \f\n\r\t\v</a></sup>。</td>
+</tr>
+<tr>
+<td style="text-align:left">\t</td>
+<td style="text-align:left">匹配一个制表符。等价于\x09和\cI。</td>
+</tr>
+<tr>
+<td style="text-align:left">\v</td>
+<td style="text-align:left">匹配一个垂直制表符。等价于\x0b和\cK。</td>
+</tr>
+<tr>
+<td style="text-align:left">\w</td>
+<td style="text-align:left">匹配包括下划线的任何单词字符。等价于“[A-Za-z0-9_]”。</td>
+</tr>
+<tr>
+<td style="text-align:left">\W</td>
+<td style="text-align:left">匹配任何非单词字符。等价于“<sup><a href="#fn_A-Za-z0-9_" id="reffn_A-Za-z0-9_">A-Za-z0-9_</a></sup>”。</td>
+</tr>
+<tr>
+<td style="text-align:left">\xn</td>
+<td style="text-align:left">匹配n，其中n为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，“\x41”匹配“A”。“\x041”则等价于“\x04&amp;1”。正则表达式中可以使用ASCII编码。.</td>
+</tr>
+<tr>
+<td style="text-align:left">\num</td>
+<td style="text-align:left">匹配num，其中num是一个正整数。对所获取的匹配的引用。例如，“(.)\1”匹配两个连续的相同字符。</td>
+</tr>
+<tr>
+<td style="text-align:left">\n</td>
+<td style="text-align:left">标识一个八进制转义值或一个向后引用。如果\n之前至少n个获取的子表达式，则n为向后引用。否则，如果n为八进制数字（0-7），则n为一个八进制转义值。</td>
+</tr>
+<tr>
+<td style="text-align:left">\nm</td>
+<td style="text-align:left">标识一个八进制转义值或一个向后引用。如果\nm之前至少有nm个获得子表达式，则nm为向后引用。如果\nm之前至少有n个获取，则n为一个后跟文字m的向后引用。如果前面的条件都不满足，若n和m均为八进制数字（0-7），则</td>
+</tr>
+<tr>
+<td style="text-align:left">\nm</td>
+<td style="text-align:left">将匹配八进制转义值nm。</td>
+</tr>
+<tr>
+<td style="text-align:left">\nml</td>
+<td style="text-align:left">如果n为八进制数字（0-3），且m和l均为八进制数字（0-7），则匹配八进制转义值nml。</td>
+</tr>
+<tr>
+<td style="text-align:left">\un</td>
+<td style="text-align:left">匹配n，其中n是一个用四个十六进制数字表示的Unicode字符。例如，\u00A9匹配版权符号（©）</td>
+</tr>
+</tbody>
+</table>
+</div>
+]]></content>
+      <categories>
+        <category>Tool</category>
+      </categories>
+      <tags>
+        <tag>Tool</tag>
+        <tag>Regular Expression</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 宏</title>
+    <url>/blog/2019/12/29/C++%20%E5%AE%8F/</url>
+    <content><![CDATA[<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><p>宏定义<code>#define</code> 将一个标识符定义为一个字符串，宏处理（宏展开）发生在预处理阶段</p>
+<h3 id="宏就是简单替换"><a href="#宏就是简单替换" class="headerlink" title="宏就是简单替换"></a>宏就是简单替换</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//simple macro</span></span><br><span class="line"><span class="comment">//#define &lt;macro name&gt; &lt;string&gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//macro with parameter</span></span><br><span class="line"><span class="comment">//#define &lt;macro name&gt; (&lt;parameter list&gt;) &lt;body&gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> A(x) x</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQUARE(X) X * X</span></span><br><span class="line"><span class="keyword">int</span> tmp = SQUARE(<span class="number">3</span> + <span class="number">3</span>); <span class="comment">//tmp=3+3*3+3=15</span></span><br><span class="line"><span class="comment">//to get 6*6</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQUARE(X) ((X) * (X)) <span class="comment">//SQUARE((3+3)*(3+3))</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="宏定义的特点"><a href="#宏定义的特点" class="headerlink" title="宏定义的特点"></a>宏定义的特点</h3><ol>
+<li>宏一般用大写，且末尾不加分号</li>
+<li>宏定义的参数无类型，不做语法检查，不做表达式求解，只替换</li>
+<li>宏定义通常在文件开头，可用 #undef 宏名 终止</li>
+<li>宏定义可嵌套，但 “ “ 中永远不包含宏</li>
+</ol>
+<h3 id="宏定义的三个特殊符号"><a href="#宏定义的三个特殊符号" class="headerlink" title="宏定义的三个特殊符号"></a>宏定义的三个特殊符号</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// # 给x加双引号</span></span><br><span class="line"><span class="comment">//char* str = ToString(123132); -&gt; str="123132";</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ToString(x) #x</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ## 连接xy</span></span><br><span class="line"><span class="comment">//int n = Conn(123,456); -&gt; n=123456; char* str = Conn("asdf", "adf"); -&gt; str = "asdfadf";</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Conn(x, y) x##y</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// #@ 给x加上单引号，结果返回是一个const char</span></span><br><span class="line"><span class="comment">//char a = ToChar(1); -&gt; a='1';</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ToChar(x) #@ x</span></span><br></pre></td></tr></table></figure>
+<h3 id="do…while-0-在宏中的技巧"><a href="#do…while-0-在宏中的技巧" class="headerlink" title="do…while(0)在宏中的技巧"></a>do…while(0)在宏中的技巧</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> foo(x) do&#123;</span></span><br><span class="line">      statement one;</span><br><span class="line">      statement two;</span><br><span class="line">  &#125;<span class="keyword">while</span> (<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> foo(x) &#123;</span></span><br><span class="line">      statement one;</span><br><span class="line">      statement two;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//do...while(0) 将宏定义为一个非复合语句,可用于如下情况</span></span><br><span class="line"><span class="keyword">if</span>(condition)</span><br><span class="line">  foo(x);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  ...;</span><br></pre></td></tr></table></figure>
+<h3 id="预定义的宏名"><a href="#预定义的宏名" class="headerlink" title="预定义的宏名"></a>预定义的宏名</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">__LINE__ <span class="comment">//当前行号</span></span><br><span class="line">__FILE__ <span class="comment">//当前源文件名</span></span><br><span class="line">__DATE__ <span class="comment">//编译日期</span></span><br><span class="line">__TIME__ <span class="comment">//编译时间</span></span><br><span class="line">__STDC__ <span class="comment">//当要求程序严格遵守ANSI C标准时赋值为1</span></span><br><span class="line">__cplusplus <span class="comment">//当编写C++程序时该标识被定义</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ new与malloc区别</title>
+    <url>/blog/2019/12/29/C++%20new%E4%B8%8Emalloc%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h2 id="本质不同"><a href="#本质不同" class="headerlink" title="本质不同"></a>本质不同</h2><ol>
+<li><code>new/delete</code> 是C++操作符，需要编译器支持</li>
+<li><code>malloc/free</code>是库函数，需要头文件支持</li>
+</ol>
+<h2 id="参数不同"><a href="#参数不同" class="headerlink" title="参数不同"></a>参数不同</h2><ol>
+<li><p><code>new</code> 操作符申请内存时无需指定内存块大小，编译器根据类型信息自动计算</p>
+<p><code>int *p2 = new int[length];</code></p>
+</li>
+<li><p><code>malloc</code> 需要显示的指出所需内存大小</p>
+<p><code>int *p1 = (int *)malloc(sizeof(int) * length);</code></p>
+</li>
+</ol>
+<h2 id="返回类型不同"><a href="#返回类型不同" class="headerlink" title="返回类型不同"></a>返回类型不同</h2><ol>
+<li><code>new</code><ol>
+<li>成功：返回对象类型的指针，无须强制转化，是<strong>类型安全</strong>的操作符</li>
+<li>失败：抛出<code>bad_alloc</code>异常</li>
+</ol>
+</li>
+<li><code>malloc</code><ol>
+<li>成功：返回<code>void*</code>指针，需要强制类型转换</li>
+<li>失败：返回<code>NULL</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="是否调用构造函数不同"><a href="#是否调用构造函数不同" class="headerlink" title="是否调用构造函数不同"></a>是否调用构造函数不同</h2><ol>
+<li><code>new</code>会自动调用类型的构造函数</li>
+<li><code>malloc</code>不调用，仅分配空间</li>
+</ol>
+<h2 id="是否能重新分配内存不同"><a href="#是否能重新分配内存不同" class="headerlink" title="是否能重新分配内存不同"></a>是否能重新分配内存不同</h2><ol>
+<li><code>new</code>无对应重新分配操作</li>
+<li><code>malloc</code>分配后，可使用<code>relooc</code>重新分配内存，如果指针所指有足够的连续空间<br>直接扩大分配，返回原来的指针，若空间不够，按新指定的大小开辟空间，将原有数据拷贝到新空间中</li>
+</ol>
+<h2 id="是否允许重载不同"><a href="#是否允许重载不同" class="headerlink" title="是否允许重载不同"></a>是否允许重载不同</h2><ol>
+<li><code>new</code>可以重载</li>
+<li><code>malloc</code>不可重载</li>
+</ol>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 内存</title>
+    <url>/blog/2019/12/29/C++%20%E5%86%85%E5%AD%98/</url>
+    <content><![CDATA[<h2 id="C-C-编译的程序占用的内存分布"><a href="#C-C-编译的程序占用的内存分布" class="headerlink" title="C/C++编译的程序占用的内存分布"></a>C/C++编译的程序占用的内存分布</h2><ol>
+<li>栈区（stack）— 由编译器自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈</li>
+<li>堆区（heap） — 一般由程序员分配释放（malloc/free, new/delete），若程序员不释放，程序结束后可能由操作系统回收。注意它与数据结构中的堆石两回事，分配方式倒是类似与链表。其中有malloc/free分配释放的也可以叫自由存储区</li>
+<li>全局区（静态存储区）（static）— 全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。 - 程序结束后有系统释放 （在C++中他们初始化和未初始化的共同占用一块内存区）</li>
+<li>文字常量区 — 常量字符串就是放在这里的。 程序结束后由系统释放</li>
+<li>程序代码区 — 存放函数体的二进制代码</li>
+</ol>
+<h2 id="例子程序"><a href="#例子程序" class="headerlink" title="例子程序"></a>例子程序</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>; 全局初始化区</span><br><span class="line"><span class="keyword">char</span> *p1; 全局未初始化区</span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">int</span> b; <span class="comment">//栈</span></span><br><span class="line">   <span class="keyword">char</span> s[] = <span class="string">"abc"</span>; <span class="comment">//栈</span></span><br><span class="line">   <span class="keyword">char</span> *p2; <span class="comment">//栈</span></span><br><span class="line">   <span class="keyword">char</span> *p3 = <span class="string">"123456"</span>; <span class="comment">//123456在常量区，p3在栈上</span></span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">int</span> c =<span class="number">0</span>;     <span class="comment">//全局（静态）初始化区</span></span><br><span class="line">   p1 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>);</span><br><span class="line">   p2 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">20</span>);<span class="comment">//分配得来得10和20字节的区域就在堆区</span></span><br><span class="line">   <span class="built_in">strcpy</span>(p1, <span class="string">"123456"</span>);   <span class="comment">//123456放在常量区，编译器可能会将它与p3所指向的"123456"优化成一个地方</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="堆和栈的理论知识"><a href="#堆和栈的理论知识" class="headerlink" title="堆和栈的理论知识"></a>堆和栈的理论知识</h2><h3 id="管理方式不同"><a href="#管理方式不同" class="headerlink" title="管理方式不同"></a>管理方式不同</h3><ul>
+<li>stack:由系统自动分配。 例如，声明在函数中一个局部变量 int b; 系统自动在栈中为b开辟空间</li>
+<li>heap: 需要程序员自己申请，并指明大小，在c中malloc函数</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">p1 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>);</span><br><span class="line"><span class="comment">//在C++中用new运算符</span></span><br><span class="line">p2 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>);</span><br><span class="line"><span class="comment">//但是注意p1、p2本身是在栈中的</span></span><br></pre></td></tr></table></figure>
+<h3 id="申请后系统的响应"><a href="#申请后系统的响应" class="headerlink" title="申请后系统的响应"></a>申请后系统的响应</h3><ul>
+<li>栈：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出。</li>
+<li>堆：首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时， 会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。</li>
+</ul>
+<h3 id="碎片问题"><a href="#碎片问题" class="headerlink" title="碎片问题"></a>碎片问题</h3><ul>
+<li>对于堆来讲，频繁的new/delete势必会造成内存空间的不连续，从而产生大量的碎片，使程序效率降低。</li>
+<li>对于栈来讲，则不会存在这个问题，因为栈是后进先出的队列，他们是如此的一一对应，以至于永远都不可能有一个内存块从栈中间弹出，在它弹出之前，在它上面的后进栈的内容已经被弹出。</li>
+</ul>
+<h3 id="生长方向"><a href="#生长方向" class="headerlink" title="生长方向"></a>生长方向</h3><ul>
+<li>对于堆来讲，生长方向是向上的，也就是想着内存地址增加的方向。</li>
+<li>对于栈来讲，它的生长方向是向下的，是向着内存地址减小的方向增长。</li>
+</ul>
+<h3 id="分配方式"><a href="#分配方式" class="headerlink" title="分配方式"></a>分配方式</h3><ul>
+<li>堆是动态分配的，没有静态分配的堆。</li>
+<li>栈有两种分配方式：静态分配和动态分配。静态分配时编译器完成的，比如局部变量的分配。动态分配由函数alloca函数进行分配，但是栈的动态分配和堆石不同的，它的动态分配是由编译器进行释放，无需我们手工是想。</li>
+</ul>
+<h3 id="分配效率"><a href="#分配效率" class="headerlink" title="分配效率"></a>分配效率</h3><ul>
+<li>栈是机器系统提供的数据结构，计算机会在底层堆栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。</li>
+<li>堆则是c/c++函数库提供的，它的机制是很复杂的，例如为了分配一块内存，库函数会按照一定的算法在堆内存中搜索可用的足够大小的空间，如果没有足够大小的空间（可能是由于碎片太多），就有可能调用系统功能去增加程序数据段的内存空间，这样就有机会分到足够大小的内存，然后进行返回。显然，堆得效率比栈要低得多。</li>
+</ul>
+<h3 id="申请大小的限制"><a href="#申请大小的限制" class="headerlink" title="申请大小的限制"></a>申请大小的限制</h3><ul>
+<li>栈：在Windows下,栈是向低地址扩展的数据结构，是一块连续的内存的区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，在 WINDOWS下，栈的大小是2M（也有的说是1M，总之是一个编译时就确定的常数），如果申请的空间超过栈的剩余空间时，将提示overflow。因此，能从栈获得的空间较小。</li>
+<li>堆：堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆的大小受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。</li>
+</ul>
+<h3 id="申请效率的比较"><a href="#申请效率的比较" class="headerlink" title="申请效率的比较"></a>申请效率的比较</h3><ul>
+<li>栈由系统自动分配，速度较快。但程序员是无法控制的。</li>
+<li>堆是由new分配的内存，一般速度比较慢，而且容易产生内存碎片,不过用起来最方便.<br>另外，在WINDOWS下，最好的方式是用VirtualAlloc分配内存，他不是在堆，也不是在栈是直接在进程的地址空间中保留一快内存，虽然用起来最不方便。但是速度快，也最灵活。</li>
+</ul>
+<h3 id="堆和栈中的存储内容"><a href="#堆和栈中的存储内容" class="headerlink" title="堆和栈中的存储内容"></a>堆和栈中的存储内容</h3><ul>
+<li>栈： 在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。</li>
+<li>堆：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容有程序员安排。</li>
+</ul>
+<h3 id="存取效率的比较"><a href="#存取效率的比较" class="headerlink" title="存取效率的比较"></a>存取效率的比较</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> s1[] = <span class="string">"aaaaaaaaaaaaaaa"</span>;</span><br><span class="line"><span class="keyword">char</span> *s2 = <span class="string">"bbbbbbbbbbbbbbbbb"</span>;</span><br><span class="line"><span class="comment">// aaaaaaaaaa是在运行时刻赋值的；</span></span><br><span class="line"><span class="comment">// 而bbbbbbbbbbb是在编译时就确定的；</span></span><br><span class="line"><span class="comment">// 但是，在以后的存取中，在栈上的数组比指针所指向的字符串(例如堆)快。比如：</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> a = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">char</span> c[] = <span class="string">"1234567890"</span>;</span><br><span class="line">  <span class="keyword">char</span> *p =<span class="string">"1234567890"</span>;</span><br><span class="line">  a = c[<span class="number">1</span>];</span><br><span class="line">  a = p[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 对应的汇编代码</span></span><br><span class="line"><span class="comment">// 10: a = c[1];</span></span><br><span class="line"><span class="comment">// 00401067 8A 4D F1 mov cl,byte ptr [ebp-0Fh]</span></span><br><span class="line"><span class="comment">// 0040106A 88 4D FC mov byte ptr [ebp-4],cl</span></span><br><span class="line"><span class="comment">// 11: a = p[1];</span></span><br><span class="line"><span class="comment">// 0040106D 8B 55 EC mov edx,dword ptr [ebp-14h]</span></span><br><span class="line"><span class="comment">// 00401070 8A 42 01 mov al,byte ptr [edx+1]</span></span><br><span class="line"><span class="comment">// 00401073 88 45 FC mov byte ptr [ebp-4],al</span></span><br><span class="line"><span class="comment">// 第一种在读取时直接就把字符串中的元素读到寄存器cl中，而第二种则要先把指针值读到edx中，在根据edx读取字符，显然慢了</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tool VSCode+Latex</title>
+    <url>/blog/2019/12/27/Tool%20VSCode+Latex/</url>
+    <content><![CDATA[<h2 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h2><h3 id="Tex-Live"><a href="#Tex-Live" class="headerlink" title="Tex Live"></a>Tex Live</h3><ol>
+<li>下载<a href="https://www.tug.org/texlive/" target="_blank" rel="noopener">Tex Live</a>的<a href="http://mirror.las.iastate.edu/tex-archive/systems/texlive/Images/" target="_blank" rel="noopener">镜像文件</a></li>
+<li>安装，可一路默认</li>
+</ol>
+<h3 id="VSCode"><a href="#VSCode" class="headerlink" title="VSCode"></a>VSCode</h3><ol>
+<li>下载<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a></li>
+<li>安装，一路默认</li>
+<li>安装插件 Latex Workshop</li>
+<li><p>配置编译设置 file-&gt; preference -&gt; 搜索latex，可根据自己需要勾选<br>这里给出如何配置编译命令，recipes规定如何编译，tools对应每种编译方法的参数</p>
+<p><em>latex通常需要多次编译（如获得正确目录通常需要2次），中文推荐使用xelatex</em></p>
+<p><img src="https://s2.ax1x.com/2019/12/29/lnY3Xd.png" alt="settings"></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"latex-workshop.latex.recipes": [</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"pdflatex*2"</span>,</span><br><span class="line">         <span class="attr">"tools"</span>: [</span><br><span class="line">             <span class="string">"pdflatex"</span>,</span><br><span class="line">             <span class="string">"pdflatex"</span></span><br><span class="line">         ]</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"xelatex*2"</span>,</span><br><span class="line">         <span class="attr">"tools"</span>: [</span><br><span class="line">             <span class="string">"xelatex"</span>,</span><br><span class="line">             <span class="string">"xelatex"</span></span><br><span class="line">         ]</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"pdflatex ➞ bibtex ➞ pdflatex × 2"</span>,</span><br><span class="line">         <span class="attr">"tools"</span>: [</span><br><span class="line">             <span class="string">"pdflatex"</span>,</span><br><span class="line">             <span class="string">"bibtex"</span>,</span><br><span class="line">             <span class="string">"pdflatex"</span>,</span><br><span class="line">             <span class="string">"pdflatex"</span></span><br><span class="line">         ]</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"xelatex ➞ bibtex ➞ xelatex × 2"</span>,</span><br><span class="line">         <span class="attr">"tools"</span>: [</span><br><span class="line">             <span class="string">"xelatex"</span>,</span><br><span class="line">             <span class="string">"bibtex"</span>,</span><br><span class="line">             <span class="string">"xelatex"</span>,</span><br><span class="line">             <span class="string">"xelatex"</span></span><br><span class="line">         ]</span><br><span class="line">     &#125;</span><br><span class="line"> ],</span><br><span class="line"> "latex-workshop.latex.tools": [</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"xelatex"</span>,</span><br><span class="line">         <span class="attr">"command"</span>: <span class="string">"xelatex"</span>,</span><br><span class="line">         <span class="attr">"args"</span>: [</span><br><span class="line">             <span class="string">"-synctex=1"</span>,</span><br><span class="line">             <span class="string">"-interaction=nonstopmode"</span>,</span><br><span class="line">             <span class="string">"-file-line-error"</span>,</span><br><span class="line">             <span class="string">"%DOC%"</span></span><br><span class="line">         ],</span><br><span class="line">         <span class="attr">"env"</span>: &#123;&#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"latexmk"</span>,</span><br><span class="line">         <span class="attr">"command"</span>: <span class="string">"latexmk"</span>,</span><br><span class="line">         <span class="attr">"args"</span>: [</span><br><span class="line">             <span class="string">"-synctex=1"</span>,</span><br><span class="line">             <span class="string">"-interaction=nonstopmode"</span>,</span><br><span class="line">             <span class="string">"-file-line-error"</span>,</span><br><span class="line">             <span class="string">"-pdf"</span>,</span><br><span class="line">             <span class="string">"-outdir=%OUTDIR%"</span>,</span><br><span class="line">             <span class="string">"%DOC%"</span></span><br><span class="line">         ],</span><br><span class="line">         <span class="attr">"env"</span>: &#123;&#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"pdflatex"</span>,</span><br><span class="line">         <span class="attr">"command"</span>: <span class="string">"pdflatex"</span>,</span><br><span class="line">         <span class="attr">"args"</span>: [</span><br><span class="line">             <span class="string">"-synctex=1"</span>,</span><br><span class="line">             <span class="string">"-interaction=nonstopmode"</span>,</span><br><span class="line">             <span class="string">"-file-line-error"</span>,</span><br><span class="line">             <span class="string">"%DOC%"</span></span><br><span class="line">         ],</span><br><span class="line">         <span class="attr">"env"</span>: &#123;&#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="attr">"name"</span>: <span class="string">"bibtex"</span>,</span><br><span class="line">         <span class="attr">"command"</span>: <span class="string">"bibtex"</span>,</span><br><span class="line">         <span class="attr">"args"</span>: [</span><br><span class="line">             <span class="string">"%DOCFILE%"</span></span><br><span class="line">         ],</span><br><span class="line">         <span class="attr">"env"</span>: &#123;&#125;</span><br><span class="line">     &#125;</span><br><span class="line"> ],</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="tex-源文件"><a href="#tex-源文件" class="headerlink" title=".tex 源文件"></a>.tex 源文件</h2><h3 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h3><ol>
+<li>空格和制表符等空白字符再$\Latex$中看作相同空白距离，连续多个空白字符视为一个</li>
+<li>特殊字符 <code># $ % ^ &amp; _ {} \</code>具有特殊含义，要表示这些字符本身在前面加反斜杠<code>\#</code></li>
+<li>latex命令以 \ 开始</li>
+<li>latex环境<code>\begin{environment} ... \end{environment}</code></li>
+<li>% 后接注释</li>
+</ol>
+<h3 id="源文件的结构"><a href="#源文件的结构" class="headerlink" title="源文件的结构"></a>源文件的结构</h3><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 文档类型</span></span><br><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[options]</span><span class="string">&#123;class&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 需要的宏包</span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">[options]</span><span class="string">&#123;class&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;example&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">&#123;author&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">&#123;date&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">maketitle</span></span> <span class="comment">%</span></span><br><span class="line">    <span class="tag">\<span class="name">tableofcontents</span></span> <span class="comment">% 目录</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">% 文档内容</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">\<span class="name">part</span><span class="string">&#123;&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">chapter</span><span class="string">&#123;&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">section</span><span class="string">&#123;&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">subsection</span><span class="string">&#123;&#125;</span></span></span><br><span class="line"></span><br><span class="line">    <span class="tag">\<span class="name">include</span><span class="string">&#123;filename&#125;</span></span> <span class="comment">% 用来包含其他tex文件，会另起新的一页</span></span><br><span class="line">    <span class="tag">\<span class="name">input</span><span class="string">&#123;filename&#125;</span></span> <span class="comment">% 简单插入</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="常用文档类型"><a href="#常用文档类型" class="headerlink" title="常用文档类型"></a>常用文档类型</h3><ol>
+<li>article / ctexart ,ctex前缀类型支持中文</li>
+<li>report / ctexrep</li>
+<li>book / ctexbook</li>
+</ol>
+<h3 id="常用命令与环境"><a href="#常用命令与环境" class="headerlink" title="常用命令与环境"></a>常用命令与环境</h3><h4 id="换行、缩进、空格"><a href="#换行、缩进、空格" class="headerlink" title="换行、缩进、空格"></a>换行、缩进、空格</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">a <span class="tag">\<span class="name">quad</span></span><span class="tag">\<span class="name">quad</span></span><span class="tag">\<span class="name">quad</span></span><span class="tag">\<span class="name">quad</span></span><span class="tag">\<span class="name">quad</span></span> b</span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">noindent</span></span> <span class="comment">% 无缩进</span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">newline</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">newpage</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 无序列表</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;itemize&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">item</span></span> item 1</span><br><span class="line">    <span class="tag">\<span class="name">item</span><span class="string">[a]</span></span> item a <span class="comment">% 可以规定前面的标号</span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;itemize&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 有序列表</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;enumerate&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">item</span></span> item 1</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;enumerate&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;tabular&#125;</span><span class="string">&#123;|l|c|r|&#125;</span></span> <span class="comment">% | 为表格中的竖线，lcr为表格内容居左中或右</span></span><br><span class="line">    <span class="tag">\<span class="name">hline</span></span></span><br><span class="line">    l &amp; c &amp; r <span class="tag">\<span class="name">\</span></span></span><br><span class="line">    <span class="tag">\<span class="name">hline</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;tabular&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="等式和多行等式"><a href="#等式和多行等式" class="headerlink" title="等式和多行等式"></a>等式和多行等式</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;equation&#125;</span></span> <span class="comment">% euqation* ，*号一般表示不需要序号</span></span><br><span class="line">    1+1=2</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;equation&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;align&#125;</span></span></span><br><span class="line">    x&amp;=1<span class="tag">\<span class="name">\</span></span> <span class="comment">% &amp; 表明对齐点</span></span><br><span class="line">    y&amp;=2</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;align&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;figure&#125;</span><span class="string">[H]</span></span></span><br><span class="line">    <span class="tag">\<span class="name">centering</span></span></span><br><span class="line">    <span class="tag">\<span class="name">includegraphics</span><span class="string">[width=\textwidth]</span><span class="string">&#123;img.jpg&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">caption</span><span class="string">&#123;caption&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">label</span><span class="string">&#123;Fig 1.&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;figure&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 文章中引用</span></span><br><span class="line"><span class="tag">\<span class="name">cite</span><span class="string">&#123;ref1&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 在文章末尾添加引用文献详情</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;thebibliography&#125;</span><span class="string">&#123;10&#125;</span></span></span><br><span class="line">  <span class="tag">\<span class="name">bibitem</span><span class="string">&#123;ref1&#125;</span></span> Dean, Jeffrey, and Sanjay Ghemawat. "MapReduce: simplified data processing on large clusters." Communications of the ACM 51.1 (2008): 107-113.</span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;thebibliography&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 段内数学文本</span></span><br><span class="line"><span class="formula">$...$</span> or <span class="tag">\<span class="name">(</span></span>...<span class="tag">\<span class="name">)</span></span></span><br><span class="line"><span class="comment">% 段间</span></span><br><span class="line"><span class="formula">$$...$$</span> or <span class="tag">\<span class="name">[</span></span>...<span class="tag">\<span class="name">]</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% example</span></span><br><span class="line"><span class="formula">$$</span></span><br><span class="line"><span class="formula"><span class="tag">\<span class="name">hat</span><span class="string">&#123;x&#125;</span></span>_&#123;down&#125;^&#123;up&#125;=<span class="tag">\<span class="name">frac</span><span class="string">&#123;\alpha\times\sum_&#123;0&#125;</span></span>^&#123;n&#125;i&#125;&#123;<span class="tag">\<span class="name">infty</span></span>&#125;</span></span><br><span class="line"><span class="formula">$$</span></span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+\hat{x}_{down}^{up}=\frac{\alpha\times\sum_{0}^{n}i}{\infty}</script><h3 id="常用宏包"><a href="#常用宏包" class="headerlink" title="常用宏包"></a>常用宏包</h3><h4 id="设置页边距"><a href="#设置页边距" class="headerlink" title="设置页边距"></a>设置页边距</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;geometry&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">geometry</span><span class="string">&#123;top=3cm,bottom=3cm,left=1cm,right=1cm&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="设置页码形式"><a href="#设置页码形式" class="headerlink" title="设置页码形式"></a>设置页码形式</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">pagenumbering</span><span class="string">&#123;arabic&#125;</span></span></span><br><span class="line"><span class="comment">% arabic - 阿拉伯数字</span></span><br><span class="line"><span class="comment">% roman - 小写的罗马数字</span></span><br><span class="line"><span class="comment">% Roman - 大写的罗马数字</span></span><br><span class="line"><span class="comment">% alph - 小写的字符形式</span></span><br><span class="line"><span class="comment">% Alph -大写的字符形式</span></span><br></pre></td></tr></table></figure>
+<h4 id="定制页眉和页脚"><a href="#定制页眉和页脚" class="headerlink" title="定制页眉和页脚"></a>定制页眉和页脚</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;fancyhdr&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">pagestyle</span><span class="string">&#123;fancy&#125;</span></span> <span class="comment">% change the style from “plain” to “fancy”</span></span><br><span class="line"><span class="comment">% Latex预设的页眉页脚</span></span><br><span class="line"><span class="comment">% empty 没有页眉页脚；</span></span><br><span class="line"><span class="comment">% plain 没有页眉，页脚是居中的页码；</span></span><br><span class="line"><span class="comment">% heading 没有页脚，页眉是章节名称的页码；</span></span><br><span class="line"><span class="comment">% myheading 没有页脚，页眉是页码和用户自定义的内容</span></span><br><span class="line"><span class="tag">\<span class="name">fancyhead</span><span class="string">[LO]</span><span class="string">&#123;\leftmark&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">fancyhead</span><span class="string">[R]</span><span class="string">&#123;\rightmark&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">fancyfoot</span><span class="string">[C]</span><span class="string">&#123;\thepage&#125;</span></span></span><br><span class="line"><span class="comment">% E: Even page</span></span><br><span class="line"><span class="comment">% O: Odd page</span></span><br><span class="line"><span class="comment">% L: Left field</span></span><br><span class="line"><span class="comment">% C: Center field</span></span><br><span class="line"><span class="comment">% R: Right field</span></span><br><span class="line"><span class="comment">% \thepage	number of the current page</span></span><br><span class="line"><span class="comment">% \leftmark	current chapter name printed like "CHAPTER 3. THIS IS THE CHAPTER TITLE"</span></span><br><span class="line"><span class="comment">% \rightmark	current section name printed like "1.6. THIS IS THE SECTION TITLE"</span></span><br><span class="line"><span class="comment">% \chaptername	the name chapter in the current language. If this is English, it will display "Chapter"</span></span><br><span class="line"><span class="comment">% \thechapter	current chapter number</span></span><br><span class="line"><span class="comment">% \thesection	current section number</span></span><br></pre></td></tr></table></figure>
+<h4 id="目录点击可达"><a href="#目录点击可达" class="headerlink" title="目录点击可达"></a>目录点击可达</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;hyperref&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="使用图片"><a href="#使用图片" class="headerlink" title="使用图片"></a>使用图片</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;graphicx&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">includegraphics</span><span class="string">[scale=.5\textwidth]</span><span class="string">&#123;xxx.img&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="数学包"><a href="#数学包" class="headerlink" title="数学包"></a>数学包</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amsmath&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amssymb&#125;</span></span> <span class="comment">% 包含常用数学字符运算符</span></span><br></pre></td></tr></table></figure>
+<h4 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;color&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">definecolor</span><span class="string">&#123;ColorName&#125;</span><span class="string">&#123;RGB&#125;</span><span class="string">&#123;0,123,255&#125;</span></span> <span class="comment">% 可自己定义颜色</span></span><br><span class="line"><span class="tag">\<span class="name">textcolor</span><span class="string">&#123;red&#125;</span><span class="string">&#123;123&#125;</span></span> <span class="comment">% red blue 等颜色已被默认定义</span></span><br></pre></td></tr></table></figure>
+<h4 id="双栏"><a href="#双栏" class="headerlink" title="双栏"></a>双栏</h4><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[twocolumn]</span><span class="string">&#123;article&#125;</span></span> <span class="comment">% method 1 直接设置文档,所有文档都双栏</span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;multicol&#125;</span></span> <span class="comment">% method 2 可具体控制</span></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;multicols&#125;</span><span class="string">[2]</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;multicols&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="自定义命令和环境"><a href="#自定义命令和环境" class="headerlink" title="自定义命令和环境"></a>自定义命令和环境</h3><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% \newcommand&#123;name&#125;[num]&#123;definition&#125;</span></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span><span class="string">&#123;\textbfsl&#125;</span><span class="string">[1]</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">    \textbf&#123;\textsl&#123;#1&#125;</span></span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">% \newenvironment&#123;name&#125;[num]&#123;before&#125;&#123;after&#125;</span></span><br><span class="line"><span class="comment">% 在before 中的内容将在此环境包含的文本之前处理，</span></span><br><span class="line"><span class="comment">% 而在after 中的内容将在遇到\end&#123;name&#125; 命令时处理。</span></span><br><span class="line"><span class="tag">\<span class="name">newenvironment</span><span class="string">&#123;textslbf&#125;</span><span class="string">[1]</span><span class="string">&#123;do before&#125;</span><span class="string">&#123;do after&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="编写-cls-文件"><a href="#编写-cls-文件" class="headerlink" title="编写 .cls 文件"></a>编写 .cls 文件</h3><p>可以自己编写 .cls 文件，提供一个文档类型，方便以后使用， .cls 文件放在与 .tex 文件同目录下</p>
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="comment">% Example</span></span><br><span class="line"><span class="comment">% My document class for note</span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">ProvidesClass</span><span class="string">&#123;note&#125;</span></span> <span class="comment">% .tex 中使用，\documentclass&#123;note&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">LoadClass</span><span class="string">[a4paper,UTF8]</span><span class="string">&#123;ctexbook&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">%Layout</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;hyperref,fancyhdr,geometry&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">geometry</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">    left=1cm,</span></span></span><br><span class="line"><span class="tag"><span class="string">    right=1cm,</span></span></span><br><span class="line"><span class="tag"><span class="string">    top=1cm,</span></span></span><br><span class="line"><span class="tag"><span class="string">    bottom=1cm</span></span></span><br><span class="line"><span class="tag"><span class="string">&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">setlength</span></span><span class="tag">\<span class="name">parindent</span><span class="string">&#123;0pt&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">%Language</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;ctex,fontspec&#125;</span></span></span><br><span class="line"><span class="comment">%Color</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;xcolor&#125;</span></span></span><br><span class="line"><span class="comment">%Math</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;amsmath,amsthm,amsfonts,amssymb&#125;</span></span></span><br><span class="line"><span class="comment">%graph</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;graphicx&#125;</span></span></span><br><span class="line"><span class="comment">%Item</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;enumerate&#125;</span></span></span><br><span class="line"><span class="comment">%tabularx</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;tabularx,booktabs&#125;</span></span></span><br><span class="line"><span class="comment">%Code</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;listings&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">%define color</span></span><br><span class="line"><span class="tag">\<span class="name">definecolor</span><span class="string">&#123;termgreen&#125;</span><span class="string">&#123;RGB&#125;</span><span class="string">&#123;0,100,0&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% New Command</span></span><br><span class="line"><span class="tag">\<span class="name">newcommand*</span><span class="string">&#123;\cover&#125;</span><span class="string">[1]</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">    \title&#123;#1&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">author</span><span class="string">&#123;Ruiji Wei&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">maketitle</span></span></span><br><span class="line">    <span class="tag">\<span class="name">tableofcontents</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">newcommand*</span><span class="string">&#123;\centergpaph&#125;</span><span class="string">[2]</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">    \begin&#123;center&#125;</span></span></span><br><span class="line">        <span class="tag">\<span class="name">includegraphics</span><span class="string">[scale=#1]</span><span class="string">&#123;#2&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">newcommand*</span><span class="string">&#123;\term&#125;</span><span class="string">[2]</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">    \textcolor&#123;termgreen&#125;</span><span class="string">&#123;\textbf&#123;#1(#2)&#125;</span></span>&#125; <span class="comment">%Chinese and Engilish</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span><span class="string">&#123;\ra&#125;</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">    \(\rightarrow\)</span></span></span><br><span class="line"><span class="tag"><span class="string">&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">newcommand</span><span class="string">&#123;\la&#125;</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">    \(\leftarrow\)</span></span></span><br><span class="line"><span class="tag"><span class="string">&#125;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">% New Environment</span></span><br><span class="line"><span class="tag">\<span class="name">newenvironment</span><span class="string">&#123;pros&#125;</span><span class="string">&#123;\paragraph&#123;\emph&#123;Pros:&#125;</span></span>&#125;<span class="tag">\<span class="name">begin</span><span class="string">&#123;itemize&#125;</span></span>&#125;&#123;<span class="tag">\<span class="name">end</span><span class="string">&#123;itemize&#125;</span></span>&#125;</span><br><span class="line"><span class="tag">\<span class="name">newenvironment</span><span class="string">&#123;cons&#125;</span><span class="string">&#123;\paragraph&#123;\emph&#123;Cons:&#125;</span></span>&#125;<span class="tag">\<span class="name">begin</span><span class="string">&#123;itemize&#125;</span></span>&#125;&#123;<span class="tag">\<span class="name">end</span><span class="string">&#123;itemize&#125;</span></span>&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tool</category>
+      </categories>
+      <tags>
+        <tag>Latex</tag>
+        <tag>VSCode</tag>
+        <tag>Tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 静态和动态链接库</title>
+    <url>/blog/2019/12/26/C++%20%E9%9D%99%E6%80%81%E5%92%8C%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93/</url>
+    <content><![CDATA[<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="静态链接库"><a href="#静态链接库" class="headerlink" title="静态链接库"></a>静态链接库</h3><ol>
+<li><p>创建文件</p>
+   <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// hello.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> HELLO_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HELLO_H</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// hello.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"hello.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    hello(<span class="string">"hello"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态库和动态库都由 .o 文件创建</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">g++ -c hello.cpp</span><br><span class="line"><span class="comment"># nm -C hello.o</span></span><br><span class="line"><span class="comment"># U _GLOBAL_OFFSET_TABLE_</span></span><br><span class="line"><span class="comment">#                  U puts</span></span><br><span class="line"><span class="comment"># 0000000000000000 T hello(char const*)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态库命名 libxxx.a</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ar rcs libhello.a hello.o</span><br><span class="line"><span class="comment"># r[ab][f][u]  - replace existing or insert new file(s) into the archive</span></span><br><span class="line"><span class="comment"># [c]          - do not warn if the library had to be created</span></span><br><span class="line"><span class="comment"># [s]          - create an archive index (cf. ranlib)</span></span><br><span class="line"></span><br><span class="line">g++ main.cpp -L. -l:libhello.a  -o main</span><br><span class="line">./main</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="动态链接库"><a href="#动态链接库" class="headerlink" title="动态链接库"></a>动态链接库</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">g++ main.cpp -L. -l:libhello.so  -o main</span><br><span class="line"><span class="comment"># g++: error trying to exec 'cc1plus': execvp: No such file or directory</span></span><br><span class="line"><span class="comment"># solve -&gt; sudo apt-get install g++</span></span><br><span class="line"></span><br><span class="line">./main</span><br><span class="line"><span class="comment"># ./main: error while loading shared libraries: libhello.so: cannot open shared object file: No such file or directory</span></span><br><span class="line"><span class="comment"># solve -&gt; 1. add current path to /etc/ld/so.conf -&gt; run ldconfig</span></span><br><span class="line"><span class="comment">#          2. add current path to environment variable</span></span><br><span class="line"><span class="comment">#             export LD_LIBRARY_PATH = $LD_LIBRARY_PATH:.</span></span><br></pre></td></tr></table></figure>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><h3 id="静态链接库-1"><a href="#静态链接库-1" class="headerlink" title="静态链接库"></a>静态链接库</h3><blockquote>
+<p><a href="https://docs.microsoft.com/en-us/cpp/build/walkthrough-creating-and-using-a-static-library-cpp?view=vs-2019" target="_blank" rel="noopener">reference</a></p>
+</blockquote>
+<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><ol>
+<li>新建static library项目<br><img src="https://s2.ax1x.com/2019/12/28/leC0Dx.png" alt="create static library"></li>
+<li>添加一个对应的.h文件（eg. StaticLib.h）</li>
+<li>在头文件中编写类或函数声明</li>
+<li>cpp中完成实现</li>
+<li>Build</li>
+</ol>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ol>
+<li>创建一个新的 c++ console app 在同一个solution下<ol>
+<li>在console项目上-&gt;右键-&gt;add-&gt;reference-&gt;选择StaticLib1</li>
+<li>在console项目上-&gt;右键-&gt;properties-&gt;general-&gt;C/C++-&gt;Additional Include Directories添加StaticLib目录</li>
+<li>在cpp中包含头文件<code>#include&quot;StaticLib1/StaticLib.h&quot;</code></li>
+</ol>
+</li>
+<li><p>在不同solution下</p>
+<ol>
+<li>将静态库的所有 .h .lib 文件复制到项目下</li>
+<li><p>cpp中</p>
+  <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"StaticLib.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib,<span class="meta-string">"StaticLib"</span>)</span></span><br><span class="line"><span class="comment">//在同一个solution下也可使用该方法，可省去配置proerties</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="动态链接库-1"><a href="#动态链接库-1" class="headerlink" title="动态链接库"></a>动态链接库</h3><blockquote>
+<p><a href="https://docs.microsoft.com/en-us/cpp/build/walkthrough-creating-and-using-a-dynamic-link-library-cpp?view=vs-2019" target="_blank" rel="noopener">reference</a></p>
+</blockquote>
+<ol>
+<li>基本方法同上</li>
+<li>额外工作<ol>
+<li>properties-&gt;linker-&gt;General-&gt;Additional Library Directories-&gt;add Dynamic Lib folder</li>
+<li>properties-&gt;linker-&gt;input-&gt;Additional Dependencies-&gt;DynamicLib.lib</li>
+<li>copy .dll to Debug folder</li>
+</ol>
+</li>
+</ol>
+<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><h3 id="链接库版本"><a href="#链接库版本" class="headerlink" title="链接库版本"></a>链接库版本</h3><p>在其他项目中使用时，不能混用debug和release版本的dll</p>
+<h3 id="h-lib-dll"><a href="#h-lib-dll" class="headerlink" title=".h .lib .dll"></a>.h .lib .dll</h3><ol>
+<li>.h头文件是编译时必须的，lib是链接时需要的，dll是运行时需要的</li>
+<li>.h文件的作用：声明函数接口</li>
+<li>DLL文件作用：函数可执行代码</li>
+<li>LIB文件作用：当我们在自己的程序中引用了一个H文件里的函数,链接器怎么知 道该调用哪个DLL文件呢?这就是LIB文件的作用了。它告诉链接器调用的函数在哪个DLL中，函数执行代码在DLL中的什么位置，这也就是为什么需要附加依赖项.LIB文件，它起到桥梁的作用</li>
+<li>如果是生成静态库文件，则没有DLL，只有lib，这时函数可执行代码部分也在lib文件中</li>
+</ol>
+<h3 id="gcc与g"><a href="#gcc与g" class="headerlink" title="gcc与g++"></a>gcc与g++</h3><p>g++在编译 .c 文件会去调用gcc</p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>gcc</tag>
+        <tag>g++</tag>
+        <tag>Linux</tag>
+        <tag>Visual Studio</tag>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git</title>
+    <url>/blog/2019/12/26/Tool%20git/</url>
+    <content><![CDATA[<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git Docs</a></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="文件存储方式"><a href="#文件存储方式" class="headerlink" title="文件存储方式"></a>文件存储方式</h3><p><img src="https://s2.ax1x.com/2019/12/27/lE4UL6.png" alt="文件存储方式"></p>
+<p>Git 更像是把数据看作是对小型文件系统的一组快照。 每次你提交更新，或在 Git 中保存项目状态时，<br>它主要对当时的全部文件制作一个快照并保存这个快照的索引。<br>为了高效，如果文件没有修改，Git 不再重新存储该文件，而是只保留一个链接指向之前存储的文件。<br>Git 对待数据更像是一个 快照流。</p>
+<h3 id="文件的三种状态"><a href="#文件的三种状态" class="headerlink" title="文件的三种状态"></a>文件的三种状态</h3><p><img src="https://s2.ax1x.com/2019/12/27/lE4byq.png" alt="文件三种状态"></p>
+<ol>
+<li>已提交的 cmooitted</li>
+<li>已修改的 modified</li>
+<li>已暂存 staged</li>
+</ol>
+<h3 id="基本Git流程"><a href="#基本Git流程" class="headerlink" title="基本Git流程"></a>基本Git流程</h3><ol>
+<li>在<strong>工作目录</strong>中修改文件</li>
+<li>暂存文件，将文件的快照放入<strong>暂存区域</strong></li>
+<li>提交更新，找到暂存区的文件，将快照永久性存储到<strong>Git仓库</strong></li>
+</ol>
+<h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><ol>
+<li><p>用户信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">"John Doe"</span></span><br><span class="line">git config --global user.email johndoe@example.com</span><br><span class="line"><span class="comment"># check config info</span></span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="获取Git仓库"><a href="#获取Git仓库" class="headerlink" title="获取Git仓库"></a>获取Git仓库</h2><ol>
+<li><p>从现有项目或目录创建</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line"></span><br><span class="line"><span class="comment"># git add .</span></span><br><span class="line"><span class="comment"># git commit -m "initial"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>克隆仓库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> [url]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p><img src="https://s2.ax1x.com/2019/12/27/lE4jTU.png" alt="文件的状态变化周期"></p>
+<h3 id="检查当前文件状态"><a href="#检查当前文件状态" class="headerlink" title="检查当前文件状态"></a>检查当前文件状态</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 状态简览</span></span><br><span class="line">git status -s</span><br><span class="line"><span class="comment">#  M README             -&gt; 右边 M 文件已修改但未暂存</span></span><br><span class="line"><span class="comment"># MM Rakefile           -&gt; 左边 M 文件已暂存</span></span><br><span class="line"><span class="comment"># A  lib/git.rb         -&gt; A 新添加到暂存区的文件</span></span><br><span class="line"><span class="comment"># ?? LICENSE.txt        -&gt; ?? 新添加的问跟踪文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="跟踪文件或暂存修改"><a href="#跟踪文件或暂存修改" class="headerlink" title="跟踪文件或暂存修改"></a>跟踪文件或暂存修改</h3><p>git add 是多功能命令，相当于添加内容到下一次提交中，可用来</p>
+<ol>
+<li>开始跟踪新文件</li>
+<li>把一跟踪文件放到暂存区</li>
+<li>合并时把有冲突的文件标记为已解决状态</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add [file]</span><br></pre></td></tr></table></figure>
+<h3 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h3><p>使用 .gitignore 文件忽略不需要的文件</p>
+<h3 id="查看已暂存和未暂存的修改"><a href="#查看已暂存和未暂存的修改" class="headerlink" title="查看已暂存和未暂存的修改"></a>查看已暂存和未暂存的修改</h3><p>使用 git diff 可查看</p>
+<ol>
+<li>当前那些更新未被暂存</li>
+<li>哪些更新已经暂存准备好下次提交</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git diff <span class="comment"># 查看尚未暂存的文件更新了哪些部分</span></span><br><span class="line"></span><br><span class="line">git diff --staged <span class="comment"># 查看已暂存的更改</span></span><br></pre></td></tr></table></figure>
+<h3 id="提交更新"><a href="#提交更新" class="headerlink" title="提交更新"></a>提交更新</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">"message"</span></span><br><span class="line"></span><br><span class="line">git commit -a <span class="comment"># 跳过使用暂存区，将所有已跟踪文件暂存并提交</span></span><br></pre></td></tr></table></figure>
+<h3 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git rm -f [file] <span class="comment"># 同时删除文件</span></span><br><span class="line"></span><br><span class="line">git rm --cached [file] <span class="comment"># 从git仓库中删除，但任然保留在工作目录中</span></span><br></pre></td></tr></table></figure>
+<h3 id="移动文件"><a href="#移动文件" class="headerlink" title="移动文件"></a>移动文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git mv [file_from] [file_to]</span><br><span class="line"></span><br><span class="line"><span class="comment"># equal to</span></span><br><span class="line">mv [file_from] [file_to]</span><br><span class="line">git rm [file_from]</span><br><span class="line">git rm [file_to]</span><br></pre></td></tr></table></figure>
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><h4 id="commit后发现，遗留文件没有添加或提交信息错误"><a href="#commit后发现，遗留文件没有添加或提交信息错误" class="headerlink" title="commit后发现，遗留文件没有添加或提交信息错误"></a>commit后发现，遗留文件没有添加或提交信息错误</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git commit --amend <span class="comment"># 该命令将暂存区的文件提交</span></span><br><span class="line">                   <span class="comment"># 如果自上次提交未做任何修改，那么快照不变，仅修改提交信息</span></span><br></pre></td></tr></table></figure>
+<h4 id="取消暂存的文件"><a href="#取消暂存的文件" class="headerlink" title="取消暂存的文件"></a>取消暂存的文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git reset HEAD [file]</span><br></pre></td></tr></table></figure>
+<h4 id="撤销对文件的修改"><a href="#撤销对文件的修改" class="headerlink" title="撤销对文件的修改"></a>撤销对文件的修改</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout -- [file]</span><br></pre></td></tr></table></figure>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><p>远程仓库是指托管在因特网或其他网络中的你的项目的版本库。<br>你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看远程仓库</span></span><br><span class="line">git remote -v <span class="comment"># origin是git给clone的仓库服务器的默认名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加远程</span></span><br><span class="line">git remote add [remote-name] [url]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从远程仓库抓取与拉取</span></span><br><span class="line">git fetch [remote-name]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送到远程仓库</span></span><br><span class="line">git push [remote-name] [branch-name]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某个远程仓库</span></span><br><span class="line">git remote show [remote-name]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 远程仓库移除和重命名</span></span><br><span class="line">git remote rm [remote-name]</span><br><span class="line">git remote rename [old_name] [new_name]</span><br></pre></td></tr></table></figure>
+<h3 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h3><p>Git 可以给历史中的某一个提交打上标签，以示重要。 比较有代表性的是人们会使用这个功能来标记发布结点（v1.0 等等）</p>
+<p>两种类型标签</p>
+<ol>
+<li>轻量标签（lightweight），一个轻量标签很像一个不会改变的分支——它只是一个特定提交的引用</li>
+<li>附注标签（annotated），附注标签是存储在 Git 数据库中的一个完整对象。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 GNU Privacy Guard （GPG）签名与验证。 通常建议创建附注标签</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 轻量标签</span></span><br><span class="line">git tag v1.0-lw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 附注标签 -a</span></span><br><span class="line">git tag -a v1.0 -m <span class="string">"message"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 后期打标签</span></span><br><span class="line">git <span class="built_in">log</span> --pretty=oneline</span><br><span class="line">git tag -a v1.0 9fceb02</span><br><span class="line"></span><br><span class="line"><span class="comment"># 共享标签</span></span><br><span class="line"><span class="comment"># 默认情况下，git push 命令并不会传送标签到远程仓库服务器上。 在创建完标签后你必须显式地推送标签到共享服务器上</span></span><br><span class="line">git push origin v1.0</span><br><span class="line">git push origin --tags <span class="comment"># 一次推送多个标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除标签</span></span><br><span class="line">git tag -d &lt;tagname&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="分支branch"><a href="#分支branch" class="headerlink" title="分支branch"></a>分支branch</h2><p><img src="https://s2.ax1x.com/2019/12/27/lEIyrt.png" alt="分支"></p>
+<p>Git 的分支，其实本质上仅仅是指向提交对象的可变指针。 Git 的默认分支名字是 master。 在多次提交操作之后，你其实已经有一个指向最后那个提交对象的 master 分支。 它会在每次的提交操作中自动向前移动.HEAD记录当前位于哪个分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建分支</span></span><br><span class="line">git branch [newbranch]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换分支</span></span><br><span class="line">git checkout [branch]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看项目分叉历史</span></span><br><span class="line">git <span class="built_in">log</span> --oneline --decorate --graph --all</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并分支</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge hotfix</span><br><span class="line">git branch -d hotfix</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并冲突</span></span><br><span class="line"><span class="comment"># 当两个分支同时对同一个文件的同一部分做了修改，git无法干净的的合并</span></span><br><span class="line">git status <span class="comment"># 可以查看包含合并冲突而处于未合并状态的文件</span></span><br><span class="line">git mergetool</span><br></pre></td></tr></table></figure>
+<h2 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h2><h3 id="添加SSH公钥"><a href="#添加SSH公钥" class="headerlink" title="添加SSH公钥"></a>添加SSH公钥</h3><ol>
+<li>生成SSH <code>$ ssh-keygen</code></li>
+<li>添加到github<br><img src="https://s2.ax1x.com/2019/12/27/lEITrq.png" alt="Github添加SSH"></li>
+</ol>
+<h3 id="Fork"><a href="#Fork" class="headerlink" title="Fork"></a>Fork</h3><p>要参与某个项目，但是并没有推送权限，这时可以对这个项目进行“派生”。 派生的意思是指，GitHub 将在你的空间中创建一个完全属于你的项目副本，且你对其具有推送权限</p>
+<ol>
+<li>将派生出的副本克隆到本地</li>
+<li>创建出名称有意义的分支</li>
+<li>修改代码</li>
+<li>检查改动</li>
+<li>将改动提交到分支中</li>
+<li>将新分支推送到 GitHub 的副本中</li>
+<li>在fork的副本中可看到<code>Compare &amp; pull request</code></li>
+</ol>
+<h3 id="添加合作者"><a href="#添加合作者" class="headerlink" title="添加合作者"></a>添加合作者</h3><p>在项目settings中设置collaborators</p>
+<h3 id="组织管理"><a href="#组织管理" class="headerlink" title="组织管理"></a>组织管理</h3><p>创建一个组织，只需要点击任意 GitHub 页面右上角的“+”图标，在菜单中选择“New organization”</p>
+]]></content>
+      <categories>
+        <category>Tool</category>
+      </categories>
+      <tags>
+        <tag>Tool</tag>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tool shadowsocks搭建</title>
+    <url>/blog/2019/12/25/Tool%20shadowsocks%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="Shadowsocks"><a href="#Shadowsocks" class="headerlink" title="Shadowsocks"></a>Shadowsocks</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span><br><span class="line">python get-pip.py</span><br><span class="line">pip install shadowsocks</span><br><span class="line"></span><br><span class="line">vi /etc/shadowsocks.json</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>:<span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="string">"server_port"</span>:50013,</span><br><span class="line">    <span class="string">"local_port"</span>:1080,</span><br><span class="line">    <span class="string">"password"</span>:<span class="string">"1234567890"</span>,</span><br><span class="line">    <span class="string">"timeout"</span>:600,</span><br><span class="line">    <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vi /etc/systemd/system/shadowsocks.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=Shadowsocks</span><br><span class="line">[Service]</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置开机自启命令</span></span><br><span class="line">systemctl <span class="built_in">enable</span> shadowsocks</span><br><span class="line"><span class="comment"># 启动命令</span></span><br><span class="line">systemctl start shadowsocks</span><br><span class="line"><span class="comment">#查看状态命令</span></span><br><span class="line">systemctl status shadowsocks</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#过程有2步，第1步安装相应的内核，第2步开启内核对应的加速</span></span><br><span class="line">wget -N --no-check-certificate <span class="string">"https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh"</span> &amp;&amp; chmod +x tcp.sh &amp;&amp; ./tcp.sh</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tool</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Network</tag>
+        <tag>Tool</tag>
+        <tag>Shadowsocks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Debian10 双网卡配置</title>
+    <url>/blog/2019/12/25/Linux%20Debian10%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="配置VirtualBox双网卡"><a href="#配置VirtualBox双网卡" class="headerlink" title="配置VirtualBox双网卡"></a>配置VirtualBox双网卡</h2><h3 id="set-VM-network-adapter-nat-netwok-and-host-only"><a href="#set-VM-network-adapter-nat-netwok-and-host-only" class="headerlink" title="set VM network adapter (nat netwok and host-only)"></a>set VM network adapter (nat netwok and host-only)</h3><p>nat network用于链接外网</p>
+<p><img src="https://s2.ax1x.com/2019/12/29/lnhvu9.png" alt="nat network用于链接外网"></p>
+<p>host-only用于与物理机通信</p>
+<p><img src="https://s2.ax1x.com/2019/12/29/ln4AjH.png" alt="host-only用于与物理机通信"></p>
+<h3 id="查看网卡名称"><a href="#查看网卡名称" class="headerlink" title="查看网卡名称"></a>查看网卡名称</h3><p>   <img src="https://s2.ax1x.com/2019/12/29/ln42Ux.png" alt="查看网卡名称"></p>
+<p>   可看到三个网卡</p>
+<ol>
+<li>lo 回环网络</li>
+<li>enp0s3</li>
+<li>enp0s8</li>
+</ol>
+<h3 id="编辑-etc-network-interfaces文件"><a href="#编辑-etc-network-interfaces文件" class="headerlink" title="编辑/etc/network/interfaces文件"></a>编辑/etc/network/interfaces文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/network/interfaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># for centos</span></span><br><span class="line">sudo vim /etc/sysconfig/network-scripts/ifcfg-enp0s3</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/12/29/lnIClD.png" alt="/etc/network/interfaces"></p>
+<p><code>重启 $ sudo reboot</code></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Debian</tag>
+        <tag>Network</tag>
+        <tag>Virtual Box</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github,hexo搭建博客</title>
+    <url>/blog/2019/12/25/Tool%20github-hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><ol>
+<li>github pages分为个人，组织和项目页面（前两个有数量限制，这里采取项目页面）</li>
+<li>new repository</li>
+<li>创建新分支 gh-pages</li>
+</ol>
+<h2 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h2><p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo docs</a></p>
+<h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><ol>
+<li>install nodejs</li>
+<li>install hexo</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h3 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="comment"># folder中包含</span></span><br><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">配置参考</a></p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><ol>
+<li><p>install <a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="noopener">hexo-deployer-git</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>add following configurations to _config.yml</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/&lt;username&gt;/&lt;project&gt;</span></span><br><span class="line">  <span class="comment"># example, https://github.com/hexojs/hexojs.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>run</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="使用主题"><a href="#使用主题" class="headerlink" title="使用主题"></a>使用主题</h3><ol>
+<li>将主题放置与 themes 文件夹内，修改 _config.yml 内的 theme 设定</li>
+<li><p>这里使用<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">hexo-theme-next</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next.git</span><br><span class="line"><span class="comment"># delete .git .github docs folders</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>美化和添加功能</p>
+<blockquote>
+<p><a href="http://eternalzttz.com/hexo-next.html" target="_blank" rel="noopener">参考1</a></p>
+<p><a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" target="_blank" rel="noopener">参考2</a></p>
+<p><a href="https://io-oi.me/tech/hexo-next-optimization/" target="_blank" rel="noopener">参考3</a></p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Tool</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>github</tag>
+        <tag>hexo</tag>
+        <tag>Next</tag>
+        <tag>Node.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux文件系统</title>
+    <url>/blog/2019/12/25/Linux%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h2 id="Linux文件权限与目录配置"><a href="#Linux文件权限与目录配置" class="headerlink" title="Linux文件权限与目录配置"></a>Linux文件权限与目录配置</h2><h3 id="Linux文件属性"><a href="#Linux文件属性" class="headerlink" title="Linux文件属性"></a>Linux文件属性</h3><p><a href="![leFkHx.png](https://s2.ax1x.com/2019/12/28/leFkHx.png">文件属性</a>)</p>
+<ol>
+<li>文件权限<ol>
+<li>第一个字符 d 是目录，- 是文件，l 是链接文件，b 是</li>
+<li>后面每三个字符一组，代表文件所有者权限，用户组权限，其他人权限,rwx=4+2+1=7</li>
+<li>目录的 x 权限代表使用者能否进入该目录或成为工作目录的用途</li>
+</ol>
+</li>
+<li>链接数</li>
+<li>所有者</li>
+<li>所属群组</li>
+<li>大小</li>
+<li>最后修改时间</li>
+<li>文件名</li>
+</ol>
+<h3 id="目录配置（FHS-3-0）"><a href="#目录配置（FHS-3-0）" class="headerlink" title="目录配置（FHS 3.0）"></a>目录配置（FHS 3.0）</h3><p>目录分类</p>
+<p><img src="https://s2.ax1x.com/2019/12/28/leAaBn.png" alt="目录分类"></p>
+<p>目录树</p>
+<p><img src="https://s2.ax1x.com/2020/01/01/lJcuN9.png" alt="目录树"></p>
+<p>The following directories, or symbolic links to directories, are required in /.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Directory</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">bin</td>
+<td style="text-align:left">Essential command binaries</td>
+</tr>
+<tr>
+<td style="text-align:left">boot</td>
+<td style="text-align:left">Static files of the boot loader</td>
+</tr>
+<tr>
+<td style="text-align:left">dev</td>
+<td style="text-align:left">Device files</td>
+</tr>
+<tr>
+<td style="text-align:left">etc</td>
+<td style="text-align:left">Host-specific system configuration</td>
+</tr>
+<tr>
+<td style="text-align:left">lib</td>
+<td style="text-align:left">Essential shared libraries and kernel modules</td>
+</tr>
+<tr>
+<td style="text-align:left">media</td>
+<td style="text-align:left">Mount point for removable media</td>
+</tr>
+<tr>
+<td style="text-align:left">mnt</td>
+<td style="text-align:left">Mount point for mounting a filesystem temporarily</td>
+</tr>
+<tr>
+<td style="text-align:left">opt</td>
+<td style="text-align:left">Add-on application software packages</td>
+</tr>
+<tr>
+<td style="text-align:left">run</td>
+<td style="text-align:left">Data relevant to running processes</td>
+</tr>
+<tr>
+<td style="text-align:left">sbin</td>
+<td style="text-align:left">Essential system binaries</td>
+</tr>
+<tr>
+<td style="text-align:left">srv</td>
+<td style="text-align:left">Data for services provided by this system</td>
+</tr>
+<tr>
+<td style="text-align:left">tmp</td>
+<td style="text-align:left">Temporary files</td>
+</tr>
+<tr>
+<td style="text-align:left">usr</td>
+<td style="text-align:left">Secondary hierarchy</td>
+</tr>
+<tr>
+<td style="text-align:left">var</td>
+<td style="text-align:left">Variable data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="文件默认权限和隐藏属性"><a href="#文件默认权限和隐藏属性" class="headerlink" title="文件默认权限和隐藏属性"></a>文件默认权限和隐藏属性</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">umask</span></span><br><span class="line"><span class="comment"># 0022</span></span><br><span class="line"><span class="comment"># 0 特殊权限 0 拥有者 2 用户组 2 其他人</span></span><br><span class="line"></span><br><span class="line">lsattr</span><br><span class="line">chatter</span><br></pre></td></tr></table></figure>
+<h3 id="文件特殊权限"><a href="#文件特殊权限" class="headerlink" title="文件特殊权限"></a>文件特殊权限</h3><p>SUID=4，SGID=2，SBIT=1</p>
+<h4 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ls -l /usr/bin/passwd</span><br><span class="line"><span class="comment"># -rwsr-xr-x 1 root root 63736 Jul 27  2018 /usr/bin/passwd</span></span><br></pre></td></tr></table></figure>
+<p>当 s 这个标志出现在文件拥有者的 x 权限上时,就被设施SUID特殊权限</p>
+<ol>
+<li>SUID 权限仅对二进制程序（binary program）有效</li>
+<li>执行者对于该程序需要具有 x 的可执行权限</li>
+<li>本权限仅在执行该程序的过程中有效 （run-time）</li>
+<li>执行者将具有该程序拥有者 （owner） 的权限</li>
+</ol>
+<h4 id="SGID"><a href="#SGID" class="headerlink" title="SGID"></a>SGID</h4><ol>
+<li>SGID 对二进制程序有用；</li>
+<li>程序执行者对于该程序来说，需具备 x 的权限；</li>
+<li>执行者在执行的过程中将会获得该程序群组的支持！</li>
+</ol>
+<h4 id="SBIT"><a href="#SBIT" class="headerlink" title="SBIT"></a>SBIT</h4><p>Sticky Bit, SBIT 目前只针对目录有效</p>
+<ol>
+<li>当使用者对于此目录具有 w, x 权限，亦即具有写入的权限时；</li>
+<li>当使用者在该目录下创建文件或目录时，仅有自己与 root 才有权力删除该文件</li>
+</ol>
+<h3 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="comment"># 跟换目录</span></span><br><span class="line"><span class="built_in">pwd</span> <span class="comment"># 显示当前目录</span></span><br><span class="line"></span><br><span class="line">mkdir <span class="comment"># 创建新目录</span></span><br><span class="line">touch <span class="comment"># 创建空文件或修改文件时间</span></span><br><span class="line"></span><br><span class="line">chmod</span><br><span class="line">chgown</span><br><span class="line">chgrp</span><br><span class="line"></span><br><span class="line">cp</span><br><span class="line">mv</span><br><span class="line">rm</span><br><span class="line"></span><br><span class="line">ls</span><br><span class="line">cat</span><br><span class="line">tac</span><br><span class="line">nl</span><br><span class="line">more</span><br><span class="line">less</span><br><span class="line">head</span><br><span class="line">tail</span><br><span class="line">od <span class="comment"># 以二进制显示</span></span><br><span class="line"></span><br><span class="line">file <span class="comment"># 查看文件类型</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">which</span> <span class="comment"># 查找可执行文件</span></span><br><span class="line">whereis <span class="comment"># 在特定目录中查找文件</span></span><br><span class="line">locate/updatedb <span class="comment"># 在数据库中查找（/var/lib/mlocate）</span></span><br><span class="line">find</span><br></pre></td></tr></table></figure>
+<h2 id="文件系统与磁盘配置"><a href="#文件系统与磁盘配置" class="headerlink" title="文件系统与磁盘配置"></a>文件系统与磁盘配置</h2><h3 id="文件系统组成"><a href="#文件系统组成" class="headerlink" title="文件系统组成"></a>文件系统组成</h3><ol>
+<li>superblock 记录filesystem整体信息<ol>
+<li>block 与 inode 的总量；</li>
+<li>未使用与已使用的 inode / block 数量</li>
+<li>block 与 inode 的大小 （block 为 1, 2, 4K，inode 为 128Bytes 或 256Bytes）</li>
+<li>filesystem 的挂载时间、最近一次写入数据的时间、最近一次检验磁盘 （fsck） 的时间等文件系统的相关信息</li>
+<li>一个 valid bit 数值，若此文件系统已被挂载，则 valid bit 为 0 ，若未被挂载，则 valid bit为 1<br>文件系统的格式与相关信息</li>
+</ol>
+</li>
+<li>inode 记录文件的属性，一个文件占用一个inode，同时记录此文件数据所在的block号码</li>
+<li>block 实际记录文件内容，一个文件可能占用多个block</li>
+</ol>
+<p>Ext4 文件为索引式文件系统，基本不需要磁盘整理</p>
+<p><img src="https://s2.ax1x.com/2020/01/02/lJ5R1J.png" alt="索引式"></p>
+<p>FAT为顺序式</p>
+<p><img src="https://s2.ax1x.com/2020/01/02/lJ5TAK.png" alt="顺序式"></p>
+<h3 id="与目录树的关系"><a href="#与目录树的关系" class="headerlink" title="与目录树的关系"></a>与目录树的关系</h3><ul>
+<li>目录：当我们在 Linux 下的文件系统创建一个目录时，文件系统会分配一个 inode 与至少一块 block<br>给该目录。其中，inode 记录该目录的相关权限与属性，并可记录分配到的那块 block 号码；<br>而 block 则是记录在这个目录下的文件名与该文件名占用的 inode 号码数据</li>
+<li>文件：当我们在 Linux 下的 ext2 创建一个一般文件时， ext2 会分配一个 inode 与相对于该文件大小<br>的 block 数量给该文件。例如：假设我的一个 block 为 4 KBytes ，而我要创建一个 100<br>KBytes 的文件，那么 linux 将分配一个 inode 与 25 个 block 来储存该文件！ 但同时请注意，<br>由于 inode 仅有 12 个直接指向，因此还要多一个 block 来作为区块号码的记录</li>
+</ul>
+<h3 id="软链接与硬链接"><a href="#软链接与硬链接" class="headerlink" title="软链接与硬链接"></a>软链接与硬链接</h3><ul>
+<li>Symbolic Link<ol>
+<li>就是创建一个独立的文件，而这个文件会让数据的读取指向它link的文件</li>
+<li>Symbolic link 所创建的文件为一个独立的新的文件，所以会占用掉 inode 与 block</li>
+<li><code>ln -s [source] [target]</code></li>
+</ol>
+</li>
+<li>Hard Link<ol>
+<li>每个文件都会占用一个inode，文件内容由indoe的记录来指向</li>
+<li>读取文件时，必须经过目录记录的文件名来指向到正确的inode号码才能读取</li>
+<li>不能跨Filesystem，不能link目录</li>
+<li>hard link 只是在某个目录下的 block 多写入一个关连数据而已，既不会增加 inode 也不会耗用 block 数量</li>
+</ol>
+</li>
+</ul>
+<h3 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h3><ol>
+<li><code>lsblk</code> 列出系统上所有磁盘列表</li>
+<li><code>gdisk</code></li>
+<li><code>mkfs.xfs/mkfs.ext4</code></li>
+<li>对于swap分区，可以使用实体分区，也可用一个大文件挂载代替<code>dd if=/dev/zero of=/tmp/swap bs=1M count=128</code></li>
+</ol>
+<h3 id="相关命令-1"><a href="#相关命令-1" class="headerlink" title="相关命令"></a>相关命令</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">df <span class="comment"># 列出文件系统的整体磁盘使用</span></span><br><span class="line">du <span class="comment"># 评估文件系统的磁盘使用量</span></span><br><span class="line"></span><br><span class="line">dd <span class="keyword">if</span>=inputfile of=outputfile bs=blocksize</span><br><span class="line"></span><br><span class="line">mount/unmount</span><br></pre></td></tr></table></figure>
+<h2 id="文件压缩与打包"><a href="#文件压缩与打包" class="headerlink" title="文件压缩与打包"></a>文件压缩与打包</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 压　缩 -czf</span></span><br><span class="line">tar -czv -f 压缩后文件名.tar.bz2 要被压缩的文件或目录名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查　询</span></span><br><span class="line">tar -ztv -f 文件名.tar.bz2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压缩 -xzf</span></span><br><span class="line">tar -xcv -f 被解压文件名.tar.bz2 -C 欲解压缩的目录（默认 .）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># -z ：通过 gzip 的支持进行压缩/解压缩：此时文件名最好为 *.tar.gz</span></span><br><span class="line"><span class="comment"># -j ：通过 bzip2 的支持进行压缩/解压缩：此时文件名最好为 *.tar.bz2</span></span><br><span class="line"><span class="comment"># -J ：通过 xz 的支持进行压缩/解压缩：此时文件名最好为 *.tar.xz</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -c ：创建打包文件，可搭配 -v 来察看过程中被打包的文件名（filename）</span></span><br><span class="line"><span class="comment"># -t ：察看打包文件的内容含有哪些文件名，重点在察看“文件名”就是了；</span></span><br><span class="line"><span class="comment"># -x ：解打包或解压缩的功能，可以搭配 -C （大写） 在特定目录解开</span></span><br><span class="line"><span class="comment"># -v ：在压缩/解压缩的过程中，将正在处理的文件名显示出来</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -p（小写） ：保留备份数据的原本权限与属性，常用于备份（-c）重要的配置文件</span></span><br><span class="line"><span class="comment"># -P（大写） ：保留绝对路径，亦即允许备份数据中含有根目录存在之意!!!!! 具有绝对路径，可能发生覆盖</span></span><br><span class="line"><span class="comment"># --exclude=FILE：在压缩的过程中，不要将 FILE 打包</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>404</title>
+    <url>/blog/404/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>About</title>
+    <url>/blog/about/index.html</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">,-.----.                            ,-.                     .---.                    </span><br><span class="line">\    &#x2F;  \    ,--,               ,--&#x2F; &#x2F;|                    &#x2F;. .&#x2F;|            ,--,    </span><br><span class="line">;   :    \ ,--.&#39;|             ,--. :&#x2F; |                .--&#39;.  &#39; ;          ,--.&#39;|    </span><br><span class="line">|   | .\ : |  |,              :  : &#39; &#x2F;                &#x2F;__.&#x2F; \ : |          |  |,     </span><br><span class="line">.   : |: | &#96;--&#39;_       ,---.  |  &#39;  &#x2F;        .--, .--&#39;.  &#39;   \&#39; .   ,---.  &#96;--&#39;_     </span><br><span class="line">|   |  \ : ,&#39; ,&#39;|     &#x2F;     \ &#39;  |  :      &#x2F;_ .&#x2F;|&#x2F;___&#x2F; \ |    &#39; &#39;  &#x2F;     \ ,&#39; ,&#39;|    </span><br><span class="line">|   : .  &#x2F; &#39;  | |    &#x2F;    &#x2F; &#39; |  |   \  , &#39; , &#39; :;   \  \;      : &#x2F;    &#x2F;  |&#39;  | |    </span><br><span class="line">;   | |  \ |  | :   .    &#39; &#x2F;  &#39;  : |. \&#x2F;___&#x2F; \: | \   ;  &#96;      |.    &#39; &#x2F; ||  | :    </span><br><span class="line">|   | ;\  \&#39;  : |__ &#39;   ; :__ |  | &#39; \ \.  \  &#39; |  .   \    .\  ;&#39;   ;   &#x2F;|&#39;  : |__  </span><br><span class="line">:   &#39; | \.&#39;|  | &#39;.&#39;|&#39;   | &#39;.&#39;|&#39;  : |--&#39;  \  ;   :   \   \   &#39; \ |&#39;   |  &#x2F; ||  | &#39;.&#39;| </span><br><span class="line">:   : :-&#39;  ;  :    ;|   :    :;  |,&#39;      \  \  ;    :   &#39;  |--&quot; |   :    |;  :    ; </span><br><span class="line">|   |.&#39;    |  ,   &#x2F;  \   \  &#x2F; &#39;--&#39;         :  \  \    \   \ ;     \   \  &#x2F; |  ,   &#x2F;  </span><br><span class="line">&#96;---&#39;       ---&#96;-&#39;    &#96;----&#39;                \  &#39; ;     &#39;---&quot;       &#96;----&#39;   ---&#96;-&#39;   </span><br><span class="line">                                             &#96;--&#96;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>Categories</title>
+    <url>/blog/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Tags</title>
+    <url>/blog/tags/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+</search>

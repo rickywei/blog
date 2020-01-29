@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://rickywei.github.io/blog').hostname,
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Linux文件系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux文件系统">
+<meta property="og:url" content="https://rickywei.github.io/blog/2019/12/25/Linux%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="RickyWei">
+<meta property="og:description" content="Linux文件系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/28/leAaBn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/01/01/lJcuN9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/01/02/lJ5R1J.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/01/02/lJ5TAK.png">
+<meta property="article:published_time" content="2019-12-25T21:19:04.000Z">
+<meta property="article:modified_time" content="2020-01-24T18:47:34.416Z">
+<meta property="article:author" content="RickyWei">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/12/28/leAaBn.png">
+
+<link rel="canonical" href="https://rickywei.github.io/blog/2019/12/25/Linux%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><style>
+#needsharebutton-float {
+  bottom: 88px;
+  cursor: pointer;
+  left: -8px;
+  position: fixed;
+  z-index: 9999;
+}
+#needsharebutton-float .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 4px;
+  padding: 0 10px 0 14px;
+}
+</style>
+  <title>Linux文件系统 | RickyWei</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?950a0235c91ac9df953ae02367e4bddb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">RickyWei</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Blog</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">21</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/RickyWei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://rickywei.github.io/blog/2019/12/25/Linux%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="RickyWei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RickyWei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux文件系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-25 16:19:04" itemprop="dateCreated datePublished" datetime="2019-12-25T16:19:04-05:00">2019-12-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-24 13:47:34" itemprop="dateModified" datetime="2020-01-24T13:47:34-05:00">2020-01-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">Linux文件系统</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Linux文件权限与目录配置"><a href="#Linux文件权限与目录配置" class="headerlink" title="Linux文件权限与目录配置"></a>Linux文件权限与目录配置</h2><h3 id="Linux文件属性"><a href="#Linux文件属性" class="headerlink" title="Linux文件属性"></a>Linux文件属性</h3><p><a href="![leFkHx.png](https://s2.ax1x.com/2019/12/28/leFkHx.png">文件属性</a>)</p>
+<ol>
+<li>文件权限<ol>
+<li>第一个字符 d 是目录，- 是文件，l 是链接文件，b 是</li>
+<li>后面每三个字符一组，代表文件所有者权限，用户组权限，其他人权限,rwx=4+2+1=7</li>
+<li>目录的 x 权限代表使用者能否进入该目录或成为工作目录的用途</li>
+</ol>
+</li>
+<li>链接数</li>
+<li>所有者</li>
+<li>所属群组</li>
+<li>大小</li>
+<li>最后修改时间</li>
+<li>文件名</li>
+</ol>
+<h3 id="目录配置（FHS-3-0）"><a href="#目录配置（FHS-3-0）" class="headerlink" title="目录配置（FHS 3.0）"></a>目录配置（FHS 3.0）</h3><p>目录分类</p>
+<p><img src="https://s2.ax1x.com/2019/12/28/leAaBn.png" alt="目录分类"></p>
+<p>目录树</p>
+<p><img src="https://s2.ax1x.com/2020/01/01/lJcuN9.png" alt="目录树"></p>
+<p>The following directories, or symbolic links to directories, are required in /.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Directory</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">bin</td>
+<td style="text-align:left">Essential command binaries</td>
+</tr>
+<tr>
+<td style="text-align:left">boot</td>
+<td style="text-align:left">Static files of the boot loader</td>
+</tr>
+<tr>
+<td style="text-align:left">dev</td>
+<td style="text-align:left">Device files</td>
+</tr>
+<tr>
+<td style="text-align:left">etc</td>
+<td style="text-align:left">Host-specific system configuration</td>
+</tr>
+<tr>
+<td style="text-align:left">lib</td>
+<td style="text-align:left">Essential shared libraries and kernel modules</td>
+</tr>
+<tr>
+<td style="text-align:left">media</td>
+<td style="text-align:left">Mount point for removable media</td>
+</tr>
+<tr>
+<td style="text-align:left">mnt</td>
+<td style="text-align:left">Mount point for mounting a filesystem temporarily</td>
+</tr>
+<tr>
+<td style="text-align:left">opt</td>
+<td style="text-align:left">Add-on application software packages</td>
+</tr>
+<tr>
+<td style="text-align:left">run</td>
+<td style="text-align:left">Data relevant to running processes</td>
+</tr>
+<tr>
+<td style="text-align:left">sbin</td>
+<td style="text-align:left">Essential system binaries</td>
+</tr>
+<tr>
+<td style="text-align:left">srv</td>
+<td style="text-align:left">Data for services provided by this system</td>
+</tr>
+<tr>
+<td style="text-align:left">tmp</td>
+<td style="text-align:left">Temporary files</td>
+</tr>
+<tr>
+<td style="text-align:left">usr</td>
+<td style="text-align:left">Secondary hierarchy</td>
+</tr>
+<tr>
+<td style="text-align:left">var</td>
+<td style="text-align:left">Variable data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="文件默认权限和隐藏属性"><a href="#文件默认权限和隐藏属性" class="headerlink" title="文件默认权限和隐藏属性"></a>文件默认权限和隐藏属性</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">umask</span></span><br><span class="line"><span class="comment"># 0022</span></span><br><span class="line"><span class="comment"># 0 特殊权限 0 拥有者 2 用户组 2 其他人</span></span><br><span class="line"></span><br><span class="line">lsattr</span><br><span class="line">chatter</span><br></pre></td></tr></table></figure>
+<h3 id="文件特殊权限"><a href="#文件特殊权限" class="headerlink" title="文件特殊权限"></a>文件特殊权限</h3><p>SUID=4，SGID=2，SBIT=1</p>
+<h4 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /usr/bin/passwd</span><br><span class="line"><span class="comment"># -rwsr-xr-x 1 root root 63736 Jul 27  2018 /usr/bin/passwd</span></span><br></pre></td></tr></table></figure>
+<p>当 s 这个标志出现在文件拥有者的 x 权限上时,就被设施SUID特殊权限</p>
+<ol>
+<li>SUID 权限仅对二进制程序（binary program）有效</li>
+<li>执行者对于该程序需要具有 x 的可执行权限</li>
+<li>本权限仅在执行该程序的过程中有效 （run-time）</li>
+<li>执行者将具有该程序拥有者 （owner） 的权限</li>
+</ol>
+<h4 id="SGID"><a href="#SGID" class="headerlink" title="SGID"></a>SGID</h4><ol>
+<li>SGID 对二进制程序有用；</li>
+<li>程序执行者对于该程序来说，需具备 x 的权限；</li>
+<li>执行者在执行的过程中将会获得该程序群组的支持！</li>
+</ol>
+<h4 id="SBIT"><a href="#SBIT" class="headerlink" title="SBIT"></a>SBIT</h4><p>Sticky Bit, SBIT 目前只针对目录有效</p>
+<ol>
+<li>当使用者对于此目录具有 w, x 权限，亦即具有写入的权限时；</li>
+<li>当使用者在该目录下创建文件或目录时，仅有自己与 root 才有权力删除该文件</li>
+</ol>
+<h3 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="comment"># 跟换目录</span></span><br><span class="line"><span class="built_in">pwd</span> <span class="comment"># 显示当前目录</span></span><br><span class="line"></span><br><span class="line">mkdir <span class="comment"># 创建新目录</span></span><br><span class="line">touch <span class="comment"># 创建空文件或修改文件时间</span></span><br><span class="line"></span><br><span class="line">chmod</span><br><span class="line">chgown</span><br><span class="line">chgrp</span><br><span class="line"></span><br><span class="line">cp</span><br><span class="line">mv</span><br><span class="line">rm</span><br><span class="line"></span><br><span class="line">ls</span><br><span class="line">cat</span><br><span class="line">tac</span><br><span class="line">nl</span><br><span class="line">more</span><br><span class="line">less</span><br><span class="line">head</span><br><span class="line">tail</span><br><span class="line">od <span class="comment"># 以二进制显示</span></span><br><span class="line"></span><br><span class="line">file <span class="comment"># 查看文件类型</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">which</span> <span class="comment"># 查找可执行文件</span></span><br><span class="line">whereis <span class="comment"># 在特定目录中查找文件</span></span><br><span class="line">locate/updatedb <span class="comment"># 在数据库中查找（/var/lib/mlocate）</span></span><br><span class="line">find</span><br></pre></td></tr></table></figure>
+<h2 id="文件系统与磁盘配置"><a href="#文件系统与磁盘配置" class="headerlink" title="文件系统与磁盘配置"></a>文件系统与磁盘配置</h2><h3 id="文件系统组成"><a href="#文件系统组成" class="headerlink" title="文件系统组成"></a>文件系统组成</h3><ol>
+<li>superblock 记录filesystem整体信息<ol>
+<li>block 与 inode 的总量；</li>
+<li>未使用与已使用的 inode / block 数量</li>
+<li>block 与 inode 的大小 （block 为 1, 2, 4K，inode 为 128Bytes 或 256Bytes）</li>
+<li>filesystem 的挂载时间、最近一次写入数据的时间、最近一次检验磁盘 （fsck） 的时间等文件系统的相关信息</li>
+<li>一个 valid bit 数值，若此文件系统已被挂载，则 valid bit 为 0 ，若未被挂载，则 valid bit为 1<br>文件系统的格式与相关信息</li>
+</ol>
+</li>
+<li>inode 记录文件的属性，一个文件占用一个inode，同时记录此文件数据所在的block号码</li>
+<li>block 实际记录文件内容，一个文件可能占用多个block</li>
+</ol>
+<p>Ext4 文件为索引式文件系统，基本不需要磁盘整理</p>
+<p><img src="https://s2.ax1x.com/2020/01/02/lJ5R1J.png" alt="索引式"></p>
+<p>FAT为顺序式</p>
+<p><img src="https://s2.ax1x.com/2020/01/02/lJ5TAK.png" alt="顺序式"></p>
+<h3 id="与目录树的关系"><a href="#与目录树的关系" class="headerlink" title="与目录树的关系"></a>与目录树的关系</h3><ul>
+<li>目录：当我们在 Linux 下的文件系统创建一个目录时，文件系统会分配一个 inode 与至少一块 block<br>给该目录。其中，inode 记录该目录的相关权限与属性，并可记录分配到的那块 block 号码；<br>而 block 则是记录在这个目录下的文件名与该文件名占用的 inode 号码数据</li>
+<li>文件：当我们在 Linux 下的 ext2 创建一个一般文件时， ext2 会分配一个 inode 与相对于该文件大小<br>的 block 数量给该文件。例如：假设我的一个 block 为 4 KBytes ，而我要创建一个 100<br>KBytes 的文件，那么 linux 将分配一个 inode 与 25 个 block 来储存该文件！ 但同时请注意，<br>由于 inode 仅有 12 个直接指向，因此还要多一个 block 来作为区块号码的记录</li>
+</ul>
+<h3 id="软链接与硬链接"><a href="#软链接与硬链接" class="headerlink" title="软链接与硬链接"></a>软链接与硬链接</h3><ul>
+<li>Symbolic Link<ol>
+<li>就是创建一个独立的文件，而这个文件会让数据的读取指向它link的文件</li>
+<li>Symbolic link 所创建的文件为一个独立的新的文件，所以会占用掉 inode 与 block</li>
+<li><code>ln -s [source] [target]</code></li>
+</ol>
+</li>
+<li>Hard Link<ol>
+<li>每个文件都会占用一个inode，文件内容由indoe的记录来指向</li>
+<li>读取文件时，必须经过目录记录的文件名来指向到正确的inode号码才能读取</li>
+<li>不能跨Filesystem，不能link目录</li>
+<li>hard link 只是在某个目录下的 block 多写入一个关连数据而已，既不会增加 inode 也不会耗用 block 数量</li>
+</ol>
+</li>
+</ul>
+<h3 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h3><ol>
+<li><code>lsblk</code> 列出系统上所有磁盘列表</li>
+<li><code>gdisk</code></li>
+<li><code>mkfs.xfs/mkfs.ext4</code></li>
+<li>对于swap分区，可以使用实体分区，也可用一个大文件挂载代替<code>dd if=/dev/zero of=/tmp/swap bs=1M count=128</code></li>
+</ol>
+<h3 id="相关命令-1"><a href="#相关命令-1" class="headerlink" title="相关命令"></a>相关命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df <span class="comment"># 列出文件系统的整体磁盘使用</span></span><br><span class="line">du <span class="comment"># 评估文件系统的磁盘使用量</span></span><br><span class="line"></span><br><span class="line">dd <span class="keyword">if</span>=inputfile of=outputfile bs=blocksize</span><br><span class="line"></span><br><span class="line">mount/unmount</span><br></pre></td></tr></table></figure>
+<h2 id="文件压缩与打包"><a href="#文件压缩与打包" class="headerlink" title="文件压缩与打包"></a>文件压缩与打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 压　缩 -czf</span></span><br><span class="line">tar -czv -f 压缩后文件名.tar.bz2 要被压缩的文件或目录名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查　询</span></span><br><span class="line">tar -ztv -f 文件名.tar.bz2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压缩 -xzf</span></span><br><span class="line">tar -xcv -f 被解压文件名.tar.bz2 -C 欲解压缩的目录（默认 .）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># -z ：通过 gzip 的支持进行压缩/解压缩：此时文件名最好为 *.tar.gz</span></span><br><span class="line"><span class="comment"># -j ：通过 bzip2 的支持进行压缩/解压缩：此时文件名最好为 *.tar.bz2</span></span><br><span class="line"><span class="comment"># -J ：通过 xz 的支持进行压缩/解压缩：此时文件名最好为 *.tar.xz</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -c ：创建打包文件，可搭配 -v 来察看过程中被打包的文件名（filename）</span></span><br><span class="line"><span class="comment"># -t ：察看打包文件的内容含有哪些文件名，重点在察看“文件名”就是了；</span></span><br><span class="line"><span class="comment"># -x ：解打包或解压缩的功能，可以搭配 -C （大写） 在特定目录解开</span></span><br><span class="line"><span class="comment"># -v ：在压缩/解压缩的过程中，将正在处理的文件名显示出来</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -p（小写） ：保留备份数据的原本权限与属性，常用于备份（-c）重要的配置文件</span></span><br><span class="line"><span class="comment"># -P（大写） ：保留绝对路径，亦即允许备份数据中含有根目录存在之意!!!!! 具有绝对路径，可能发生覆盖</span></span><br><span class="line"><span class="comment"># --exclude=FILE：在压缩的过程中，不要将 FILE 打包</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+    <div>
+    
+    <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+    
+    </div><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/blog/images/wechatpay.jpg" alt="RickyWei 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>RickyWei
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://rickywei.github.io/blog/2019/12/25/Linux%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="Linux文件系统">https://rickywei.github.io/blog/2019/12/25/Linux 文件系统/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/blog/2019/12/25/Tool%20github-hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="github,hexo搭建博客">
+      github,hexo搭建博客 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODA1Ny8yNDU1NA"></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux文件权限与目录配置"><span class="nav-number">1.</span> <span class="nav-text">Linux文件权限与目录配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">1.1.</span> <span class="nav-text">Linux文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录配置（FHS-3-0）"><span class="nav-number">1.2.</span> <span class="nav-text">目录配置（FHS 3.0）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件默认权限和隐藏属性"><span class="nav-number">1.3.</span> <span class="nav-text">文件默认权限和隐藏属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件特殊权限"><span class="nav-number">1.4.</span> <span class="nav-text">文件特殊权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SUID"><span class="nav-number">1.4.1.</span> <span class="nav-text">SUID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SGID"><span class="nav-number">1.4.2.</span> <span class="nav-text">SGID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SBIT"><span class="nav-number">1.4.3.</span> <span class="nav-text">SBIT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关命令"><span class="nav-number">1.5.</span> <span class="nav-text">相关命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件系统与磁盘配置"><span class="nav-number">2.</span> <span class="nav-text">文件系统与磁盘配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件系统组成"><span class="nav-number">2.1.</span> <span class="nav-text">文件系统组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与目录树的关系"><span class="nav-number">2.2.</span> <span class="nav-text">与目录树的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软链接与硬链接"><span class="nav-number">2.3.</span> <span class="nav-text">软链接与硬链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘分区"><span class="nav-number">2.4.</span> <span class="nav-text">磁盘分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关命令-1"><span class="nav-number">2.5.</span> <span class="nav-text">相关命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件压缩与打包"><span class="nav-number">3.</span> <span class="nav-text">文件压缩与打包</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="RickyWei"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">RickyWei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/blog/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RickyWei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">34k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:02</span>
+</div>
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+  -->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+<div id="needsharebutton-float">
+      <span class="btn">
+        <i class="fa fa-share-alt" aria-hidden="true"></i>
+      </span>
+    </div>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+      flOptions = {};
+        flOptions.iconStyle = "box";
+        flOptions.boxForm = "horizontal";
+        flOptions.position = "middleRight";
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-float', flOptions);
+  </script>
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
+
+<!-- clicl fireworks -->
+<script type="text/javascript" src="/blog/js/fireworks.js"></script>
