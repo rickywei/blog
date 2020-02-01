@@ -63,6 +63,8 @@ hexo init <folder>
      branch: gh-pages
    ```
 
+   **gh-pages 分支用来存放静态网页，同时可使用master分支来存放整个blog源文件**
+
 3. run
 
    ```bash

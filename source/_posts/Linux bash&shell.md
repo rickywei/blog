@@ -83,7 +83,7 @@ sh hello.sh
 script三种执行方式
 
 1. sh 在新子bash中执行，结果无法返回到当前bash
-   1. 在debian系，sh 调用为 dash 不是 bash
+   1. 在debian系，sh 调用为 dash 不是 bash, 可直接使用`bash script.sh`
 2. ./
    1. 调用脚本开头`#!/bin/bash` 设定的shell
 3. source 在当前bash中执行
@@ -100,74 +100,134 @@ script的默认变量
 4. $* 代表 "$1 $2 $3 $4"
 5. 脚本中可用shift x 移除前x个参数，不加个数x时默认为1个
 
-条件
+### shell中的反引号
+
+反引号中的命令会优先被执行
 
 ```bash
-if [condition]; then
-    code
-elif [condition]; then
-    code
+for file in `ls .`;do # file 取 ls 的结果
+    #code
+done
+```
+
+### 流程控制
+
+[ condition ] **前后括号和条件之间有空格 ！！！**
+
+#### 条件
+
+```bash
+if [ condition ]; then
+    # code
+elif [ condition ]; then
+    # code
 else
-    code
+    # code
 fi
 
 
 case $var in
     "xxx1")
-    code
+    # code
     ;;
     "xxx2")
-    code
+    # code
     ;;
     *)
-    code
+    # code
     ;;
 esac
 ```
 
-循环
+#### 循环
 
 ```bash
-while [condigion]
+while [ condition ]
 do
-    code
+    # code
 done
 
 
-until [condition]
+until [ condition ]
 do
-    code
+    # code
 done
 
 
 for var in con1 con2 con3 ...
 do
-    code
+    # code
 done
 
 
-for((初值; 条件; 变化))
+for(( 初值; 条件; 变化 ))
 do
-    code
+    # code
 done
 ```
 
-函数
+### 函数
 
 ```bash
 function func()
 {
-    code
+    # code
 }
 
-funct arg1 arg2
+# call function
+func arg1 arg2
 ```
 
-shell 的debug
+### test
+
+#### 数值测试
+
+| 参数 | 说明           |
+| :--- | :------------- |
+| -eq  | 等于则为真     |
+| -ne  | 不等于则为真   |
+| -gt  | 大于则为真     |
+| -ge  | 大于等于则为真 |
+| -lt  | 小于则为真     |
+| -le  | 小于等于则为真 |
+
+#### 字符串测试
+
+| 参数      | 说明                     |
+| :-------- | :----------------------- |
+| =         | 等于则为真               |
+| !=        | 不相等则为真             |
+| -z 字符串 | 字符串的长度为零则为真   |
+| -n 字符串 | 字符串的长度不为零则为真 |
+
+#### 文件测试
+
+| 参数      | 说明                                 |
+| :-------- | :----------------------------------- |
+| -e 文件名 | 如果文件存在则为真                   |
+| -r 文件名 | 如果文件存在且可读则为真             |
+| -w 文件名 | 如果文件存在且可写则为真             |
+| -x 文件名 | 如果文件存在且可执行则为真           |
+| -s 文件名 | 如果文件存在且至少有一个字符则为真   |
+| -d 文件名 | 如果文件存在且为目录则为真           |
+| -f 文件名 | 如果文件存在且为普通文件则为真       |
+| -c 文件名 | 如果文件存在且为字符型特殊文件则为真 |
+| -b 文件名 | 如果文件存在且为块特殊文件则为真     |
+
+### shell 的debug
 
 ```bash
 sh -nvx script.sh
 # -n 仅检查语法不执行
 # -v 执行前将脚本内容输出
 # -x 将使用到的脚本内容输出
+```
+
+### xargs
+
+xargs 是给命令传递参数的一个过滤器，也是组合多个命令的一个工具
+
+```bash
+# xargs - build and execute command lines from standard input
+# pre-commandx | args [options] [command [initial-arguments]]
 ```
