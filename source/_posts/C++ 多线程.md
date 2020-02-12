@@ -134,8 +134,16 @@ public:
 
 ### 死锁及解决方案
 
-1. 避免死锁的一般建议，就是让两个互斥量总以相同的顺序上锁：总在互斥量B之前锁住互斥量A
+1. 避免死锁的一般建议
+   1. 避免嵌套锁
+   2. 避免在持有锁时调用用户提供的代码
+   3. 使用固定顺序获取锁
+   4. 使用锁的层次结构
 2. `std::lock` 可以一次性锁住多个(两个以上)的互斥量，并且没有副作用(死锁风险)
+3. `std::scoped_lock<>` 是一个RAII类型模板类型，与 std::lock_guard<> 的功能等价，这个新类型能接受不定数量的互斥量类型作为模板参数，以及相应的互斥量(数量和类型)作为构造参数。互斥量支持构造即上锁，与 std::lock 的用法相同，其解锁阶段是在析构中进行
+4. `std::unqiue_lock` 使用更为自由的不变量，这样`std::unique_lock` 实例不会总与互斥量的数据类型相关，使用起来要比 `std:lock_guard` 更加灵活
+   1. 可将 `std::adopt_lock` 作为第二个参数传入构造函数，对互斥量进行管理；也可以将 `std::defer_lock` 作为第二个参数传递进去，表明互斥量应保持解锁状态
+   2. 这样，就可以被 `std::unique_lock` 对象(不是互斥量)的`lock()`函数所获取，或传递 `std::unique_lock` 对象到 `std::lock()` 中
 
 ```cpp
 class cls
@@ -155,6 +163,26 @@ void myswap(cls &l, cls &r)
     std::lock(l.m_, r.m_);
     std::lock_guard<std::mutex> Lock_l(l.m_, std::adopt_lock);
     std::lock_guard<std::mutex> Lock_r(r.m_, std::adopt_lock);
+    std::swap(l.n_, r.n_);
+}
+
+// std::scoped_lock<>
+void myswap(cls &l, cls &r)
+{
+    if (&l == &r)
+        return;
+    std::scoped_lock<std::mutex, std::mutex> guard(l.m_, r.m_);
+    std::swap(l.n_, r.n_);
+}
+
+// std::unique_lock
+void myswap(cls &l, cls &r)
+{
+    if (&l == &r)
+        return;
+    std::unique_lock<std::mutex> Lock_l(l.m_, std::defer_lock);
+    std::unique_lock<std::mutex> Lock_r(r.m_, std::defer_lock);
+    std::lock(Lock_l, Lock_r);
     std::swap(l.n_, r.n_);
 }
 ```
