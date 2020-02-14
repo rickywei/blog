@@ -215,3 +215,79 @@ $$
 
 `dp[i,j]`这个有序队列由`dp[i-1,j];dp[i-1,j-c[i]]+w[i]`两个队列合并而来，合并操作为$O(K)$，
 总时间$O(NVK)$
+
+## 状态压缩DP
+
+旅行商问题（TSP，Traveling Salesman Problem）：
+给定一个$n$个顶点组成的带权有向图矩阵$d(i,j$(INF代表没有边)，求从顶点$0$出发，经过每个顶点恰好一次回到顶点$0$的最小权值
+
+![TSP](https://s2.ax1x.com/2020/02/14/1XicV0.png)
+
+TSP问题时NP难问题，所有可能的路线共$(n-1)!$种，一般此类问题$n$很小
+
+1. 假设已经访问过的顶点集合为$S$
+2. 当前所在顶点为$v$
+3. `dp[S][v]`标识从$v$出发，访问剩余所有顶点，最终回到$0$的最小权值
+4. $dp[V][0]=0$
+5. $dp[S][v]=min{dp[S\cup {u}[u]+d(v,u)|u\notin S$
+6. 在该递推式中，下标$S$代表集合，我们把它编码为一个整数，每个元素是否选取对应其二进制是否为1，**将状态压缩为一个整数**
+
+```cpp
+#include <iostream>
+#include <random>
+#include <queue>
+using namespace std;
+
+#define INF INT_MAX
+
+int BitmaskDp(int **d, const int &kN, int **dp, int S, int v)
+{
+    if (dp[S][v] >= 0) //visited set S and vertex v
+    {
+        return dp[S][v];
+    }
+    if (S == (1 << kN) - 1 && v == 0) //visited all vertex and came back vertex 0
+    {
+        return dp[S][v] = 0;
+    }
+    int res = INT_MAX;
+    for (int u = 0; u < kN; ++u)
+    {
+        if (!(S >> u & 1)) //if u is not visited, go u
+        {
+            res = min(res, BitmaskDp(d, kN, dp, S | 1 << u, u) + d[v][u]);
+        }
+    }
+    return dp[S][v] = res;
+}
+
+int main()
+{
+    const int kN = 5;
+    int **d = new int *[kN];
+    for (int i = 0; i < kN; ++i)
+    {
+        d[i] = new int[kN];
+        for (int j = 0; j < kN; ++j)
+            d[i][j] = i == j ? 0 : INF;
+    }
+    d[0][1] = 3;
+    d[0][3] = 4;
+    d[1][2] = 5;
+    d[2][0] = 4;
+    d[2][3] = 5;
+    d[3][4] = 3;
+    d[4][0] = 7;
+    d[4][1] = 1;
+
+    int **dp = new int *[1 << kN];
+    for (int i = 0; i < (1 << kN); ++i)
+    {
+        dp[i] = new int[kN];
+        for (int j = 0; j < kN; ++j)
+            dp[i][j] = -1;
+    }
+    cout << BitmaskDp(d, kN, dp, 0, 0) << endl;
+    return 0;
+}
+```
