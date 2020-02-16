@@ -233,24 +233,19 @@ TSP问题时NP难问题，所有可能的路线共$(n-1)!$种，一般此类问�
 6. 在该递推式中，下标$S$代表集合，我们把它编码为一个整数，每个元素是否选取对应其二进制是否为1，**将状态压缩为一个整数**
 
 ```cpp
-#include <iostream>
-#include <random>
-#include <queue>
-using namespace std;
+#define INF 100
 
-#define INF INT_MAX
-
-int BitmaskDp(int **d, const int &kN, int **dp, int S, int v)
+int BitmaskDp(int **d, const int kN, int **dp, int S, int v)
 {
     if (dp[S][v] >= 0) //visited set S and vertex v
     {
         return dp[S][v];
     }
-    if (S == (1 << kN) - 1 && v == 0) //visited all vertex and came back vertex 0
+    if (S == (1 << kN) - 1 && v == 0) //visited all vertexes and came back vertex 0
     {
         return dp[S][v] = 0;
     }
-    int res = INT_MAX;
+    int res = INF;
     for (int u = 0; u < kN; ++u)
     {
         if (!(S >> u & 1)) //if u is not visited, go u
@@ -258,6 +253,7 @@ int BitmaskDp(int **d, const int &kN, int **dp, int S, int v)
             res = min(res, BitmaskDp(d, kN, dp, S | 1 << u, u) + d[v][u]);
         }
     }
+
     return dp[S][v] = res;
 }
 
@@ -269,7 +265,7 @@ int main()
     {
         d[i] = new int[kN];
         for (int j = 0; j < kN; ++j)
-            d[i][j] = i == j ? 0 : INF;
+            d[i][j] = INF;
     }
     d[0][1] = 3;
     d[0][3] = 4;
@@ -278,8 +274,7 @@ int main()
     d[2][3] = 5;
     d[3][4] = 3;
     d[4][0] = 7;
-    d[4][1] = 1;
-
+    d[4][1] = 6;
     int **dp = new int *[1 << kN];
     for (int i = 0; i < (1 << kN); ++i)
     {
@@ -289,5 +284,33 @@ int main()
     }
     cout << BitmaskDp(d, kN, dp, 0, 0) << endl;
     return 0;
+}
+
+```
+
+这样，在$O(2^n n^2)$ 的时间内完成计算。对于不是整数的情况，很多时候很难确定合适的
+地推顺序，因此需要**记忆化搜索**。但是，在此问题中，对任意两个整数$i$和$j$，如果
+对应集合满足$S(i)\subseteq S(j) \rightarrow i\leq j$，因此可通过循环求解
+
+```cpp
+int BitmaskDp2(int **d, const int kN, int **dp, int S, int v)
+{
+    // dp[i][j] = INF;
+    dp[(1 << kN) - 1][0] = 0; // visited all vertexes and came back 0
+    // need to be calculated in reverse order
+    for (int S = (1 << kN) - 2; S >= 0; --S) // -1 means all vertexes have been visited
+    {                                        // -2 means 0 not in set S
+        for (int v = 0; v < kN; ++v)
+        {
+            for (int u = 0; u < kN; ++u)
+            {
+                if (!(S >> u & 1))
+                {
+                    dp[S][v] = min(dp[S][v], dp[S | 1 << u][u] + d[v][u]);
+                }
+            }
+        }
+    }
+    return dp[0][0];
 }
 ```
