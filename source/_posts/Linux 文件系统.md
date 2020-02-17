@@ -194,14 +194,14 @@ mount/unmount
 ## 文件压缩与打包
 
 ```bash
-# 压　缩 -czf
-tar -czv -f 压缩后文件名.tar.bz2 要被压缩的文件或目录名称
+# 压　缩
+tar -czf 压缩后文件名.tar.bz2 要被压缩的文件或目录名称
 
 # 查　询
-tar -ztv -f 文件名.tar.bz2
+tar -tzf 文件名.tar.bz2
 
-# 解压缩 -xzf
-tar -xcv -f 被解压文件名.tar.bz2 -C 欲解压缩的目录（默认 .）
+# 解压缩
+tar -xzf 被解压文件名.tar.bz2 -C 欲解压缩的目录（默认 .）
 
 
 # -z ：通过 gzip 的支持进行压缩/解压缩：此时文件名最好为 *.tar.gz
