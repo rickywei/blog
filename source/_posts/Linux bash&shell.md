@@ -117,7 +117,8 @@ done
 #### 条件
 
 ```bash
-if [ condition ]; then
+if [ condition ] # 或者 ;then 写在一行
+then
     # code
 elif [ condition ]; then
     # code
