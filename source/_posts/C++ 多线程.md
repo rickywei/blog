@@ -182,3 +182,89 @@ void myswap(cls &l, cls &r)
     std::swap(l.n_, r.n_);
 }
 ```
+
+### 锁的粒度
+
+1. 一个细粒度锁(a fine-grained lock)能够保护较小的数据量，一个粗粒度锁(a coarsegrainedlock)能够保护较多的数据量
+2. 如果很多线程正在等待同一个资源，当有线程持有锁的时间过长，这就会增加等待的时间
+
+```cpp
+void get_and_process_data()
+{
+    std::unique_lock<std::mutex> my_lock(the_mutex);
+    some_class data_to_process = get_next_data_chunk();
+    my_lock.unlock(); // 1 不要让锁住的互斥量越过process()函数的调用
+    result_type result = process(data_to_process);
+    my_lock.lock(); // 2 为了写入数据，对互斥量再次上锁
+    write_result(data_to_process, result);
+}
+```
+
+### 保护共享数据的其他方式
+
+1. 延迟初始化(Lazy initialization)在单线程代码很常见 -- 每一个操作都需要先对源进行检查
+
+```cpp
+std::shared_ptr<some_resource> resource_ptr;
+std::once_flag resource_flag; //
+
+void init_resource()
+{
+    resource_ptr.reset(new some_resource);
+}
+
+void foo()
+{
+    std::call_once(resource_flag, init_resource); // 可以完整的进行一次初始化
+    resource_ptr->do_something();
+}
+```
+
+2. “读者-作者锁”，一个“作者”线程独占访问和共享访问，让多个“读者”线程并发访问
+   1. 使用`std::shared_mutex`和`std::shared_timed_mutex`代替`std::mutex`
+
+## 同步并发操作
+
+### 等待一个事件或其他条件
+
+1. 持续尝试获取锁`while(true)`
+2. 在等待现成的间隙检查锁`std::this_thread::sleep_for(std::chrono::milliseconds(100));`
+3. 等待条件达成
+
+```cpp
+#include<condition_variable>
+
+std::condition_variable cv; // 仅限于和 std::mutex 一起工作
+std::condition_variable_any cva; // 和任何满足最低标准的互斥量一起工作
+
+std::mutex mut;
+std ::queue<data_chunk> data_queue; // 两线程使用队列传递数据
+std::condition_variable data_cond;
+
+void data_preparation_thread()
+{
+    while (more_data_to_prepare())
+    {
+        data_chunk const data = prepare_data();
+        std::lock_guard<std::mutex> lk(mut); // 对队列上锁
+        data_queue.push(data);  // 将准备好的数据压入队列
+        data_cond.notify_one(); // 通知等待的线程
+    }
+}
+
+void data_processing_thread()
+{
+    while (true)
+    {
+        std::unique_lock<std::mutex> lk(mut); // 使用unique_lock可在线程休眠时手动解锁
+        data_cond.wait(lk, [] { return !data_queue.empty(); }); // lambda函数结果是等待条件（该参数可选，表示期待的值）
+        // 当结果为true，wait()返回并继续持有锁，为false，wait()返回并解锁，重新等待
+        data_chunk data = data_queue.front();
+        data_queue.pop();
+        lk.unlock(); //
+        process(data);
+        if (is_last_chunk(data))
+            break;
+    }
+}
+```
