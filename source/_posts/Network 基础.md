@@ -9,6 +9,10 @@ description: Network basics
 
 ## 网络模型
 
+### 7 层模型
+
+![7层模型](https://s2.ax1x.com/2020/02/26/3tzC1e.png)
+
 ## 应用层
 
 ## 运输层

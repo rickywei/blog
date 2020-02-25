@@ -256,7 +256,7 @@ void data_processing_thread()
 {
     while (true)
     {
-        std::unique_lock<std::mutex> lk(mut); // 使用unique_lock可在线程休眠时手动解锁
+        std::unique_lock<std::mutex> lk(mut); // 使用unique_lock<>可在线程等待时解锁，lock_guard<>不行
         data_cond.wait(lk, [] { return !data_queue.empty(); }); // lambda函数结果是等待条件（该参数可选，表示期待的值）
         // 当结果为true，wait()返回并继续持有锁，为false，wait()返回并解锁，重新等待
         data_chunk data = data_queue.front();
@@ -268,3 +268,7 @@ void data_processing_thread()
     }
 }
 ```
+
+### 使用期望值等待一次性时间
+
+
