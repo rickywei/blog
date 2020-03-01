@@ -11,7 +11,7 @@ description: Network basics
 
 ### 7 层模型
 
-![7层模型]((https://s2.ax1x.com/2020/02/26/3NPOne.png))
+![7 层模型](https://s2.ax1x.com/2020/02/26/3NPOne.png)
 
 ### 5 层模型
 

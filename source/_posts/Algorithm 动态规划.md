@@ -14,6 +14,11 @@ description: dynamic programming
 1. 最优子结构
 2. 重叠子问题
 
+## 迭代方式
+
+1. 逆序 -> 递归 + memory数组
+2. 正序 -> 循环
+
 ## 线性模型
 
 状态排布为线性 `dp[i]`根据`dp[0...i-1]`得出
@@ -21,6 +26,10 @@ description: dynamic programming
 ## 区间模型
 
 区间模型的状态表示一般为`dp[i][j]`，表示区间`[i, j]`上的最优解，然后通过状态转移计算出`[i+1, j]`或者`[i, j+1]`上的最优解，逐步扩大区间的范围，最终求得`[0, n]`的最优解
+
+## 矩阵模型
+
+$m[i][j]$ 可通过其上其左（或某种顺序）求解
 
 ## 背包模型
 
@@ -44,7 +53,7 @@ for (int i = 1; i <= n; ++i)
 {
     for (int j = c[i]; j <= j; ++j)
     {
-        dp[i, j] = max(dp[i - 1, j], dp[i - 1, j - c[i]] + w[i]);
+        dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - c[i]] + w[i]);
     }
 }
 ```
@@ -85,7 +94,7 @@ for (int i = 1; i <= n; ++i)
     {
         for (int k = 0; k <= v / c[i]; ++k)
         {
-            dp[i, j] = max(dp[i, j], dp[i - 1, j - k * c[i]] + k * w[i]);
+            dp[i][j] = max(dp[i][j], dp[i - 1][j - k * c[i]] + k * w[i]);
         }
     }
 }
@@ -128,7 +137,7 @@ for (int i = 1; i <= n; ++i)
     {
         for (int k = 0; k <= m[i]; ++k)
         {
-            dp[i, j] = max(dp[i, j], dp[i - 1, j - k * c[i]] + k * w[i]);
+            dp[i][j] = max(dp[i][j], dp[i - 1][j - k * c[i]] + k * w[i]);
         }
     }
 }
@@ -145,9 +154,9 @@ for (int i = 1; i <= n; ++i)
 对每种物品，有两种不同的费用或对物品总个数有限制
 
 ```cpp
-dp[i, j, k] = max(dp[i-1,j,k],dp[i-1,v-c[i],vv-cc[i]]+w[i]);
+dp[i][j][k] = max(dp[i - 1][j][k], dp[i - 1][v - c[i]][vv - cc[i]] + w[i]);
 
-dp[j, k] = max(dp[j,k],dp[v-c[i],vv-cc[i]]+w[i]); //改善空间复杂度
+dp[j][k] = max(dp[j, k], dp[v - c[i], vv - cc[i]] + w[i]); //改善空间复杂度
 ```
 
 #### 分组的背包
@@ -186,15 +195,15 @@ for (int i = 1; i <= n; ++i)
 {
     for (int j = c[i]; j <= j; ++j)
     {
-        if (dp[i - 1, j] >= dp[i - 1, j - c[i]] + w[i])
+        if (dp[i - 1, j] >= dp[i - 1][j - c[i]] + w[i])
         {
-            dp[i, j] = dp[i - 1, j];
+            dp[i][j] = dp[i - 1, j];
             record[i, j] = 0; //该情况下，第 i 件物品没有选
         }
         else
         {
-            dp[i, j] = dp[i - 1, j - c[i]] + w[i];
-            record[i, j] = 1;
+            dp[i][j] = dp[i - 1, j - c[i]] + w[i];
+            record[i][j] = 1;
         }
     }
 }
