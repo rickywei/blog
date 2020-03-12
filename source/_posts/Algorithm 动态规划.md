@@ -22,7 +22,7 @@ description: dynamic programming
    3. dp[0] 最初的值一般需要根据题目设置
 2. 值
    1. dp[i]数组中的值，通常代表需要求解的值
-   2. dp[n]通常为最终结果 
+   2. dp[n]通常为最终结果
 
 ## 迭代方式
 
