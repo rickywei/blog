@@ -9,7 +9,7 @@ description: Vim - text editor of the Gods
 
 # Vim Commands
 
-<p></p><hr><a name="exit"><h2>How to Exit</h2></a><p>
+<h2>How to Exit</h2><p>
 <table width="100%" border="3">
   <tbody><tr>
     <td>:q[uit]</td>
@@ -52,7 +52,7 @@ description: Vim - text editor of the Gods
     <td>Quit current file and exit (same as ":q!").</td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="edit"><h2>Editing a File</h2></a><p>
+</p><p></p><h2>Editing a File</h2><p>
 <table width="100%" border="3">
   <tbody><tr>
     <td>:e[dit]</td>
@@ -77,7 +77,7 @@ description: Vim - text editor of the Gods
   </tr>
 </tbody></table>
 
-</p><p></p><hr><a name="insert"><h2>Inserting Text</h2></a><p>
+</p><p></p><h2>Inserting Text</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -109,7 +109,7 @@ description: Vim - text editor of the Gods
     <td>Begin a new line above the cursor and insert text, repeat [count] times.</td>
   </tr>
 </tbody></table>
-</p><p></p><hr><h2>Inserting a file</h2><p>
+</p><p></p><h2>Inserting a file</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -121,7 +121,7 @@ description: Vim - text editor of the Gods
     <td>Execute {cmd} and insert its standard output below the cursor. </td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="delete"><h2>Deleting Text</h2></a><p>
+</p><p></p><h2>Deleting Text</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -146,7 +146,7 @@ description: Vim - text editor of the Gods
   </tr>
   <tr>
     <td>{Visual}x  or<br> {Visual}d</td>
-    <td>Delete the highlighted text (for {Visual} see <a href="https://www.fprintf.net/vimCheatSheet.html#select">Selecting Text</a>).</td>
+    <td>Delete the highlighted text (for {Visual} see Selecting Text).</td>
   </tr>
   <tr>
     <td>{Visual}CTRL-H   or<br> {Visual}<bs></bs></td>
@@ -165,7 +165,7 @@ description: Vim - text editor of the Gods
     <td>Delete {count} lines, starting with [range]</td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="replace"><h2>Changing (or Replacing) Text</h2></a><p>
+</p><p></p><h2>Changing (or Replacing) Text</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -189,7 +189,7 @@ description: Vim - text editor of the Gods
     <td>Switch case of highlighted text</td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="substitute"><h2>Substituting</h2></a><p>
+</p><p></p><h2>Substituting</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -221,7 +221,7 @@ description: Vim - text editor of the Gods
 [p]  Print the line containing the last substitute.
 </esc></pre>
 
-<p></p><hr><a name="move"><h2>Copying and Moving Text</h2></a><p>
+<p></p><h2>Copying and Moving Text</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -254,7 +254,7 @@ description: Vim - text editor of the Gods
   </tr>
   <tr>
     <td>{Visual}["x]y</td>
-    <td>Yank the highlighted text [into register x] (for {Visual} see <a href="https://www.fprintf.net/vimCheatSheet.html#select">Selecting Text</a>).</td>
+    <td>Yank the highlighted text [into register x] (for {Visual} see Selecting Text).</td>
   </tr>
   <tr>
     <td>{Visual}["x]Y</td>
@@ -295,7 +295,7 @@ description: Vim - text editor of the Gods
     line).</td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="undo"><h2>Undo/Redo/Repeat</h2></a><p>
+</p><p></p><h2>Undo/Redo/Repeat</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -324,7 +324,7 @@ description: Vim - text editor of the Gods
     <td>Repeat last change, with count replaced with [count].</td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="motion"><h2>Moving Around</h2></a><p>
+</p><p></p><h2>Moving Around</h2><p>
 
 </p><pre>Basic motion commands:
 
@@ -516,7 +516,7 @@ space.  An empty line is also considered to be a word and a WORD.</p>
     <td>Scroll the screen so the cursor is at the bottom</td>
   </tr>
 </tbody></table>
-<p></p><hr><a name="marks"><h2>Marks</h2></a><p>
+<p></p><h2>Marks</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -560,7 +560,7 @@ space.  An empty line is also considered to be a word and a WORD.</p>
     <td>List the marks that are mentioned in {arg} (not a motion command).  For example:</td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="search"><h2>Searching</h2></a><p>
+</p><p></p><h2>Searching</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -606,10 +606,10 @@ space.  An empty line is also considered to be a word and a WORD.</p>
     </td>
   </tr>
 </tbody></table>
-</p><p></p><hr><a name="select"><h2>Selecting Text (Visual Mode)</h2></a><p>
+</p><p></p><h2>Selecting Text (Visual Mode)</h2><p>
 
 </p><p>To select text, enter visual mode with one of the commands below, and use
-<a href="https://www.fprintf.net/vimCheatSheet.html#motion">motion commands</a> to highlight the text you are interested
+motion commands to highlight the text you are interested
 in.  Then, use some command on the text. </p>
 <pre>The operators that can be used are:
   ~  switch case
@@ -637,7 +637,7 @@ in.  Then, use some command on the text. </p>
     <td>exit Visual mode without making any changes</td>
   </tr>
 </tbody></table>
-<p></p><hr><a name="suspend"><h2>How to Suspend</h2></a><p>
+<p></p><h2>How to Suspend</h2><p>
 
 <table width="100%" border="3">
   <tbody><tr>
@@ -650,12 +650,12 @@ in.  Then, use some command on the text. </p>
   </tr>
 </tbody></table>
 
-</p><hr>
-<!-- <a href="http://www.catb.org/hacker-emblem/">
-	<img src="./Vim Commands Cheat Sheet_files/glider.png">
-</a>
-<address> Daniel Gryniewicz / <a href="mailto:dang@fprintf.net">dang@fprintf.net</a> </address> -->
-
-# Vim vistual mode
+</p>
 
 # Vimrc configuration
+
+```bash
+# global /etc/vimrc
+# user ~/.vimrc
+
+```
