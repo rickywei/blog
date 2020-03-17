@@ -8,7 +8,7 @@ subtitle: 'Blog'
 description: ''
 keywords:
 author: RickyWei
-language: zh-CN
+language: en
 timezone: ''
 
 # URL
@@ -30,6 +30,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render: README.md
+
 
 # Writing
 new_post_name: :title.md # File name of new posts
