@@ -1,5 +1,5 @@
 ---
-title: Linux Vim
+title: Vim
 date: 2020-03-16 15:13:34
 update:
 tags: [Linux, Vim]
@@ -658,4 +658,20 @@ in.  Then, use some command on the text. </p>
 # global /etc/vimrc
 # user ~/.vimrc
 
+set nocompatible
+set noswapfile
+
+set ruler
+set nu
+set cul
+syntax on
+
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set showmatch
+
+set incsearch
+set hlsearch
 ```

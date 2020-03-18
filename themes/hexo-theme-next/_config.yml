@@ -275,6 +275,7 @@ reward_settings:
 
 reward:
   wechatpay: /images/wechatpay.jpg
+  PayPal:
   #alipay: /images/alipay.png
   #bitcoin: /images/bitcoin.png
 
@@ -636,17 +637,17 @@ valine:
 
 # LiveRe comments system
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-livere_uid: MTAyMC80ODA1Ny8yNDU1NA
+livere_uid:
 
 # Gitalk
 # For more information: https://gitalk.github.io, https://github.com/gitalk/gitalk
 gitalk:
-  enable: false
-  github_id: # GitHub repo owner
-  repo: # Repository name to store issues
-  client_id: # GitHub Application Client ID
-  client_secret: # GitHub Application Client Secret
-  admin_user: # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
+  enable: true
+  github_id: RickyWei
+  repo: blog-comments
+  client_id: 6517695a542386911e37
+  client_secret: 157dd5e6ad1b11ece455287f5a43f7c765f00b4c
+  admin_user: RickyWei
   distraction_free_mode: true # Facebook-like distraction free mode
   # Gitalk's display language depends on user's browser or system environment
   # If you want everyone visiting your site to see a uniform language, you can set a force language value

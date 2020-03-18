@@ -1,5 +1,5 @@
 ---
-title: Linux Regular Expression
+title: Regular Expression
 date: 2020-03-16 21:21:40
 update:
 tags: [Linux, Regular Expression]
