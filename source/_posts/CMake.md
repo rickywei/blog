@@ -7,4 +7,3 @@ categories: [C++]
 description: CMake is an open-source, cross-platform family of tools designed to build, test and package software.
 ---
 
-<iframe src="https://cmake.org/cmake/help/latest/guide/tutorial/index.html"></iframe>
