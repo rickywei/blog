@@ -73,8 +73,38 @@ In some networks, it may be attractive to perform translation between IPv4 and I
 
 ## Link Layer
 
-## APR: Address REsolution Protocol
+## APR: Address Resolution Protocol
 
-Address resolution is the process of discovering the mapping from one address to another.
+Address resolution is the process of discovering the mapping from one address to another --  from the logical Internet address to its corresponding physical hardware address.
 
-### 
+### ARP process
+
+1. 10.0.0.2 send arp request/query -- who has 10.0.0.1 tell 10.0.0.2
+2. brodacast
+3. only who has ip 10.0.0.1 reply this query
+4. 10.0.0.2 receive reply, send data and cache this arp entry
+
+![arp process](https://s1.ax1x.com/2020/03/25/8XeNhd.png)
+
+### ARP Cache
+
+This cache maintains the recent mappings from network-layer addresses to hardware addresses for each interface that uses address resolution.
+A timeout is normally associated with each entry in the ARP cache.Most implementations have a timeout of 20minutes for a completed entry and 3 minutes for an incomplete entry.
+
+### ARP Frame Format
+
+![arp frame format](https://s1.ax1x.com/2020/03/25/8XeR9s.png)
+
+### Proxy ARP
+
+Proxy ARP lets a system (generally a specially configured router)answer ARP requests for a different host. This fools the sender of the ARP request into thinking that the responding system is the destination host, when in fact the destination host may be elsewhere (or may not exist). Proxy ARP is not commonly used and is generally to be avoided if possible.
+
+### Gratuitous ARP and Address Confilict Detection
+
+Another feature of ARP is called gratuitous ARP. It occurs when a host sends an ARP request looking for its own address. This is usually done when the interface is configured “up” at bootstrap time.
+Gratuitous ARP achieves two goals:
+
+1. It lets a host determine if another host is already configured with the same IPv4 address. The host sending the gratuitous ARP is not expecting a reply to its request.
+2. If the host sending the gratuitous ARP has just changed its hardware address (perhaps the host was shut down, the interface card was replaced, and then the host was rebooted), this frame causes any other host receiving the broadcast that has an entry in its cache for the old hardware address to update its ARP cache entry accordingly
+
+Although gratuitous ARP provides some indication that multiple stations may be attempting to use the same IPv4 address, it really provides no mechanism to react to the situation
