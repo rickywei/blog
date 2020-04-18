@@ -9,21 +9,9 @@ description:
 
 # Introduction
 
-## Atchitectural Princples
+## Layer Model
 
-## Design and Implementation
-
-## The Architecture and Protocols of the TCP/IP Suite
-
-## Internets, Intranets, and Extranets
-
-## Designing Applications
-
-## Standardization Process
-
-## Implementations and Software Distributions
-
-## Attacks Involving the Internet Architecture
+![osi7](Network-Protocols/osi7.jpg)
 
 # Physical Layer
 
