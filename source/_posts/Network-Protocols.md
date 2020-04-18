@@ -66,3 +66,5 @@ description:
 # Application Layer
 
 ## Name Resolution and the Domain Name System (DNS)
+
+## HTTP
