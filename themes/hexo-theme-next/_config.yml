@@ -644,7 +644,7 @@ livere_uid:
 gitalk:
   enable: true
   github_id: RickyWei
-  repo: blog-comments
+  repo: blog
   client_id: 6517695a542386911e37
   client_secret: 157dd5e6ad1b11ece455287f5a43f7c765f00b4c
   admin_user: RickyWei
