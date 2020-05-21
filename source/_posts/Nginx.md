@@ -7,4 +7,4 @@ categories: [Nginx]
 description: Nginx -- engine x
 ---
 
-![Nginx](https://github.com/RickyWei/blog/blob/master/source/_posts/Nginx/Nginx.png)
+![Nginx](https://github.com/RickyWei/blog/blob/master/source/_posts/Nginx/Nginx.png?raw=true)
