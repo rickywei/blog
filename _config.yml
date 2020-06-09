@@ -8,7 +8,7 @@ subtitle: 'Blog'
 description: ''
 keywords:
 author: RickyWei
-language: en
+language: zh-Hans
 timezone: ''
 
 # URL
@@ -93,6 +93,7 @@ ignore:
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
+
 ## Themes: https://hexo.io/themes/
 theme: hexo-theme-next
 
@@ -120,3 +121,9 @@ symbols_count_time:
   awl: 4
   wpm: 275
   suffix: "mins"
+
+#sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml

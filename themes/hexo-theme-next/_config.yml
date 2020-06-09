@@ -105,7 +105,7 @@ creative_commons:
 
 # Schemes
 # scheme: Muse
-#scheme: Mist
+# scheme: Mist
 #scheme: Pisces
 scheme: Gemini
 
@@ -121,19 +121,21 @@ scheme: Gemini
 # External url should start with http:// or https://
 menu:
   home: / || home
-  tags: /tags/ || tags
+  # note: /note/ || book
   categories: /categories/ || th
+  tags: /tags/ || tags
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
-  #sitemap: /sitemap.xml || sitemap
+  # sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
   about: /about/ || user
+
 
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
   icons: true
-  badges: true
+  badges: false
 
 
 # ---------------------------------------------------------------
@@ -182,8 +184,8 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  #GitHub: https://github.com/yourname || github
-  #E-Mail: mailto:yourname@gmail.com || envelope
+  GitHub: https://github.com/RickyWei || github
+  E-Mail: God1W@outlook.com || envelope
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -474,7 +476,7 @@ exturl: false
 
 # Google Webmaster tools verification.
 # See: https://www.google.com/webmasters
-google_site_verification:
+google_site_verification: Uk0pCg2tsvBUpi32BLZi6zbOMFnWdoYz-6zsmtefrdM
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmaster
@@ -489,7 +491,7 @@ yandex_site_verification:
 baidu_site_verification:
 
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO.
-baidu_push: false
+baidu_push: true
 
 
 # ---------------------------------------------------------------
