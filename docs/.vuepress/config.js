@@ -16,11 +16,11 @@ module.exports = {
             '/': [
                 {
                     title: 'C++',
-                    path: 'c++',
+                    path: '/c++/',
                 },
                 {
                     title: '算法',
-                    path: 'algorithm',
+                    path: '/algorithm/',
                     children: [
                         '/algorithm/排序',
                         '/algorithm/动态规划',
