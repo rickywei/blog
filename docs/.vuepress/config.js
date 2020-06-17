@@ -1,11 +1,11 @@
 module.exports = {
+    base: '/blog/',
     title: '茴香豆有四种写法呢',
     description: 'need to learn',
     markdown: {
         lineNumbers: true
     },
     themeConfig: {
-        base: '/blog/',
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Github', link: 'https://github.com/RickyWei' },
