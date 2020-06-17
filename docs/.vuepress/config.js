@@ -15,6 +15,18 @@ module.exports = {
             sidebarDepth: 2,
             '/': [
                 {
+                    title: 'C++',
+                    path: 'c++',
+                },
+                {
+                    title: '算法',
+                    path: 'algorithm',
+                    children: [
+                        '/algorithm/排序',
+                        '/algorithm/动态规划',
+                    ]
+                },
+                {
                     title: '网络',
                     path: '/network/',
                     children: [
@@ -25,5 +37,13 @@ module.exports = {
             ]
         },
         lastUpdated: 'Last Updated'
-    }
+    },
+    plugins: [
+        'vuepress-plugin-mathjax',
+        'vuepress-plugin-zooming',
+        'vuepress-plugin-nprogress',
+        'copyright', {
+            minLength: 100,
+        }
+    ]
 }
