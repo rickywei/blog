@@ -16,7 +16,7 @@ module.exports = {
             '/': [
                 {
                     title: 'C++',
-                    path: '/c++/',
+                    path: '/cpp/',
                 },
                 {
                     title: '算法',
