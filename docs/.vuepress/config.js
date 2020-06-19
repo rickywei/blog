@@ -37,7 +37,7 @@ module.exports = {
                         '/network/应用层',
                         '/network/传输层',
                         '/network/网络层',
-                        '/network/两路曾',
+                        '/network/链路层',
                         '/network/物理层',
                     ]
                 }
