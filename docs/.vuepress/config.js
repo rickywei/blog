@@ -1,5 +1,5 @@
 module.exports = {
-    base: '/blog/',
+    base: '/blogsrc/',
     title: '茴香豆有四种写法呢',
     description: 'need to learn',
     markdown: {
