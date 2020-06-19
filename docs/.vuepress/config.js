@@ -52,7 +52,7 @@ module.exports = {
         'vuepress-plugin-nprogress',
         'copyright', {
             minLength: 100,
-            authorName: RickyWei
+            authorName: 'RickyWei'
         }
     ]
 }
