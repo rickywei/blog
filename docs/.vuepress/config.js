@@ -23,6 +23,7 @@ module.exports = {
                     title: '算法',
                     path: '/algorithm/',
                     children: [
+                        '/algorithm/力扣数据规模对应算法复杂度',
                         '/algorithm/排序',
                         '/algorithm/搜索',
                         '/algorithm/动态规划',
