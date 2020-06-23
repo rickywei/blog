@@ -18,6 +18,9 @@ module.exports = {
                 {
                     title: 'C/C++',
                     path: '/cpp/',
+                    children: [
+                        'cpp/RAII与智能指针',
+                    ]
                 },
                 {
                     title: '算法',
