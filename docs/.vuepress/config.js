@@ -28,6 +28,7 @@ module.exports = {
                     children: [
                         '/algorithm/力扣数据规模对应算法复杂度',
                         '/algorithm/排序',
+                        '/algorithm/堆',
                         '/algorithm/搜索',
                         '/algorithm/动态规划',
                         '/algorithm/树基础',
