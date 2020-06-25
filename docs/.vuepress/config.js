@@ -30,10 +30,9 @@ module.exports = {
                         '/algorithm/排序',
                         '/algorithm/堆',
                         '/algorithm/搜索',
+                        '/algorithm/贪心',
                         '/algorithm/动态规划',
-                        '/algorithm/树基础',
-                        '/algorithm/平衡树',
-                        '/algorithm/红黑树',
+                        '/algorithm/树',
                     ]
                 },
                 {
