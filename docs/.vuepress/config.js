@@ -19,6 +19,7 @@ module.exports = {
                     title: 'C/C++',
                     path: '/cpp/',
                     children: [
+                        'cpp/编译',
                         'cpp/宏定义',
                         'cpp/RAII与智能指针',
                         'cpp/opencv',
