@@ -16,17 +16,6 @@ module.exports = {
             sidebarDepth: 2,
             '/': [
                 {
-                    title: 'C/C++',
-                    path: '/cpp/',
-                    children: [
-                        'cpp/编译',
-                        'cpp/宏定义',
-                        'cpp/RAII与智能指针',
-                        'cpp/opencv',
-                        'cpp/进程备份库CRIU',
-                    ]
-                },
-                {
                     title: '算法',
                     path: '/algorithm/',
                     children: [
@@ -40,6 +29,17 @@ module.exports = {
                     ]
                 },
                 {
+                    title: 'C/C++',
+                    path: '/cpp/',
+                    children: [
+                        'cpp/编译',
+                        'cpp/宏定义',
+                        'cpp/RAII与智能指针',
+                        'cpp/opencv',
+                        'cpp/进程备份库CRIU',
+                    ]
+                },
+                {
                     title: '网络',
                     path: '/network/',
                     children: [
@@ -49,7 +49,15 @@ module.exports = {
                         '/network/链路层',
                         '/network/物理层',
                     ]
-                }
+                },
+                {
+                    title: 'OS',
+                    path: '/os/',
+                    children: [
+                        '/os/UnixIO',
+                        '/os/Unix文件系统',
+                    ]
+                },
             ]
         },
         lastUpdated: 'Last Updated'
