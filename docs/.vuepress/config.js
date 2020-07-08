@@ -56,6 +56,9 @@ module.exports = {
                     children: [
                         '/os/UnixIO',
                         '/os/Unix文件系统',
+                        '/os/Unix进程',
+                        '/os/Unix线程',
+                        '/os/Unix信号',
                     ]
                 },
             ]
