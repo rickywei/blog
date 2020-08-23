@@ -1,4 +1,4 @@
-# 力扣数据规模对应算法
+# leetcode O(n)
 
 | Input Size        | Complexity   |
 | :---------------- | :----------- |

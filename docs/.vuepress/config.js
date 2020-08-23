@@ -1,6 +1,6 @@
 module.exports = {
     base: '/blog/',
-    title: '茴香豆有四种写法呢',
+    title: 'Want to be STRONG',
     description: 'need to learn',
     serviceWorker: true,
     markdown: {
@@ -16,11 +16,11 @@ module.exports = {
             sidebarDepth: 2,
             '/': [
                 {
-                    title: '算法',
+                    title: 'Algorithm',
                     path: '/algorithm/',
                     children: [
-                        '/algorithm/力扣数据规模对应算法复杂度',
-                        '/algorithm/排序',
+                        '/algorithm/leetcodeTimeComplex',
+                        '/algorithm/binarySearch',
                         '/algorithm/堆',
                         '/algorithm/搜索',
                         '/algorithm/贪心',
