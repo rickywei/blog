@@ -2,7 +2,7 @@
 
 ## When
 
-1. To save time of search target's position/existence
+1. To save time of searching target's position/existence/count
 
 ## Issue
 
