@@ -1,0 +1,7 @@
+# Greedy
+
+## When
+
+## Issue
+
+## Template

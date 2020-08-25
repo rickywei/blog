@@ -20,12 +20,12 @@ module.exports = {
                     path: '/algorithm/',
                     children: [
                         '/algorithm/leetcodeTimeComplex',
+                        '/algorithm/hashMap',
+                        '/algorithm/math',
+                        '/algorithm/twoPointer',
                         '/algorithm/binarySearch',
-                        '/algorithm/堆',
-                        '/algorithm/搜索',
-                        '/algorithm/贪心',
-                        '/algorithm/动态规划',
-                        '/algorithm/树',
+                        '/algorithm/greedy',
+                        '/algorithm/dynamicProgramming',
                     ]
                 },
                 {
