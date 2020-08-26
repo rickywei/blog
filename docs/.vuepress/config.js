@@ -24,6 +24,9 @@ module.exports = {
                         '/algorithm/math',
                         '/algorithm/twoPointer',
                         '/algorithm/binarySearch',
+                        '/algorithm/unionFind',
+                        '/algorithm/trie',
+                        '/algorithm/BFSDFS',
                         '/algorithm/greedy',
                         '/algorithm/dynamicProgramming',
                     ]
