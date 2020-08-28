@@ -26,7 +26,7 @@ int func(string s) {
                             dp[i][i + len] =
                                 min(dp[i][i + len], dp[j + 1][i + len - 1]);
                         } else {
-                            dp[i][i + len] = 0;
+                            // dp[i][i + len] = 0;
                         }
                     }
                 }
@@ -60,7 +60,7 @@ int func(string s) {
                             dp[i][i + len] =
                                 min(dp[i][i + len], dp[j + 1][i + len - 1]);
                         } else {
-                            dp[i][i + len] = 0;
+                            // dp[i][i + len] = 0;
                         }
                     }
                 }
