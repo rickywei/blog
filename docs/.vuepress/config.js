@@ -43,7 +43,7 @@ module.exports = {
                     ]
                 },
                 {
-                    title: '网络',
+                    title: 'Network',
                     path: '/network/',
                     children: [
                         '/network/应用层',
