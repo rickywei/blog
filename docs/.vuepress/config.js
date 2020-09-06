@@ -64,6 +64,13 @@ module.exports = {
                         '/os/Unix信号',
                     ]
                 },
+                {
+                    title: 'Design',
+                    path: '/design/',
+                    children: [
+                        '/design/logger',
+                    ]
+                },
             ]
         },
         lastUpdated: 'Last Updated'
