@@ -40,6 +40,7 @@ module.exports = {
                         'cpp/RAII与智能指针',
                         'cpp/opencv',
                         'cpp/进程备份库CRIU',
+                        'cpp/cpp11singleton'
                     ]
                 },
                 {
