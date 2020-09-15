@@ -20,6 +20,7 @@ module.exports = {
                     path: '/algorithm/',
                     children: [
                         '/algorithm/leetcodeTimeComplex',
+                        '/algorithm/STL',
                         '/algorithm/hashMap',
                         '/algorithm/math',
                         '/algorithm/twoPointer',
