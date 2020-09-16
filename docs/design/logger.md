@@ -21,7 +21,7 @@ My TinyLogger is here [https://github.com/RickyWei/TinyLogger](https://github.co
 1. Generally, IO operator is slow, therefore, the design asynchronize log and log file
 2. A file writter thread running in a loop with a timeout and is blocked when buffer size is not full. The timeout ensures that logs can be written to file in time even though the buffer is not full
 3. There are two buffer in the system and they swap with each other which provide a free buffer to logger objects and avoid waiting. It reduce the critical section
-4. The stringstream use string as its raw buf so the size can be auto adjusted when there are huge logs in short time
+4. The string as the buffer so the size can be auto adjusted when there are huge logs in short time and can be easily cleared by clear() function
 
 ## Other fetures
 

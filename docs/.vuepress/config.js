@@ -70,6 +70,7 @@ module.exports = {
                     title: 'Design',
                     path: '/design/',
                     children: [
+                        '/design/designPattern',
                         '/design/logger',
                     ]
                 },
