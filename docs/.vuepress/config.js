@@ -82,6 +82,7 @@ module.exports = {
         'vuepress-plugin-mathjax',
         'vuepress-plugin-zooming',
         'vuepress-plugin-nprogress',
+        'vuepress-plugin-mermaidjs',
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'
