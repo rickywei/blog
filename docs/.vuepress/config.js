@@ -21,8 +21,10 @@ module.exports = {
                     children: [
                         '/algorithm/leetcodeTimeComplex',
                         '/algorithm/STL',
-                        '/algorithm/hashMap',
                         '/algorithm/math',
+                        '/algorithm/stack',
+                        '/algorithm/priorityQueue',
+                        '/algorithm/hashMap',
                         '/algorithm/twoPointer',
                         '/algorithm/binarySearch',
                         '/algorithm/unionFind',
