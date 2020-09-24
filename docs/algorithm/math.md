@@ -36,7 +36,7 @@ vector<int> convert(int num, int n) {
 ## Probability
 
    1. $A_n=n!$
-   2. $C_n^r=\frac{n(n-1)\cdots (n-r)}{r!}$
+   2. $C_n^r=\frac{n(n-1)\cdots (n-r)}{A_r}$
 
 ## prefix, infix, postfix
 
@@ -44,6 +44,7 @@ vector<int> convert(int num, int n) {
 
 1. To find the majority of a sequence
 2. First pass finds possible element and second pass check it
+3. This can be used to find elements which more than 1/m of the sequence and the max number of elements is 1/(m+1)
 
 ```cpp
 // first pass

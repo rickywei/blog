@@ -50,11 +50,11 @@ module.exports = {
                     title: 'Network',
                     path: '/network/',
                     children: [
-                        '/network/应用层',
-                        '/network/传输层',
-                        '/network/网络层',
-                        '/network/链路层',
-                        '/network/物理层',
+                        '/network/applicationLayer',
+                        '/network/transportLayer',
+                        '/network/networkLayer',
+                        '/network/linkLayer',
+                        '/network/physicalLayer',
                     ]
                 },
                 {

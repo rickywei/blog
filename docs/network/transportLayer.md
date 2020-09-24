@@ -1,55 +1,28 @@
-# 传输层
+# Transport Layer
 
 ## UDP
 
-### UDP头部
+### UDP header
 
-```txt
- 0                   1                   2                   3  
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Source Port          |        Destination Port       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|             Length            |            Checksum           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-```
+![UDP header](imgs/udpheader.jpg)
 
 ## TCP
 
-### TCP头部
+### TCP header
 
-```txt
- 0                   1                   2                   3  
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Source Port          |        Destination Port       |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                        Sequence Number                        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                     Acknowledgment Number                     |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Offset|  Res. |     Flags     |             Window            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|            Checksum           |         Urgent Pointer        |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Options                    |    Padding    |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-```
+![TCP header](imgs/tcpheader.jpg)
 
-### TCP三次握手
+### TCP 3-handshake
 
-```mermaid
-sequenceDiagram
-   Client ->> Server : SYN=m
-   Server ->> Client : SYN=n,ACK=m+1
-   Client ->> Server : SYN=m+1,ACK=n+1
-```
+![TCP handshake](imgs/tcphandshake.jpg)
 
-1. ISN(Initial Sequence Number)需要随机选取
-2. 三次握手为了保护服务端，
-   如果仅两次连接，可能出现client发送完syn后由于网络问题很久后收到server的ack和syn，此时client认为报文失效，而server认为已经完成握手，造成server空等待
+1. ISN(Initial Sequence Number) is select randomly
+2. 3 times handshake is a kind of protect for server side.
+   In the case that client has sent SYN but get server's ACK and
+   SYN late(timeout), client thinks the server does not response
+   but server thinks handshake has completed and wait idlely.
 
-### TCP四次挥手
+### TCP 4-handwave
 
 ![tcp 4 handwave](./imgs/tcphandwave.jpg)
 

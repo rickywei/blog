@@ -26,6 +26,12 @@
 2. Count All Palindrome Sub-Strings in a String
 
 ```cpp
+for (int len = 1; len < n; ++i) {
+    for (int i = 0; i + len - 1 < n; ++i) {
+        j = i + len - 1;
+        dp[i][j] <= dp[i][j - 1], dp[i - 1][j], dp[i-1][j-1]
+    }
+}
 ```
 
 ### n * m
