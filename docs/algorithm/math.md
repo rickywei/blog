@@ -11,7 +11,24 @@
 1. $(a+b)\%p=(a\%p+b\%p)\%p$
 2. $(a-b)\%p=(a\%p-b\%p)\%p$
 3. $(a*b)\%p=(a\%p*b\%p)\%p$
-4. / does not has this property
+4. $(a^b)\%p=((a\%p)^b)\%p$
+5. / does not has this property
+
+## exponentiating by squaring
+
+1. $3^13=3^((1101)_2)=3^8*3^4*3^1$
+
+```cpp
+long fastpow(long a, long b) {
+    long res = 1;
+    while (b > 0) {
+        if (b & 1) res *= a;
+        a *= a;
+        b >>= 1;
+    }
+    return res;
+}
+```
 
 ## GCD LCM
 
