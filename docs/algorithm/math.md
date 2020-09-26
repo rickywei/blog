@@ -6,8 +6,14 @@
    2. 3: the sume of each digit of this number divides 3
    3. 5: the last number is 0, 5
 
-## GCD LCM
+## Mod
 
+1. $(a+b)\%p=(a\%p+b\%p)\%p$
+2. $(a-b)\%p=(a\%p-b\%p)\%p$
+3. $(a*b)\%p=(a\%p*b\%p)\%p$
+4. / does not has this property
+
+## GCD LCM
 
 ```cpp
 // a=q*b+r gcd(a,b)=gcd(b,r)
@@ -39,6 +45,16 @@ vector<int> convert(int num, int n) {
    2. $C_n^r=\frac{n(n-1)\cdots (n-r)}{A_r}$
 
 ## prefix, infix, postfix
+
+1. infix to postfix
+   1. if current character is an operand, output it
+   2. else
+      1. if the precedence of current operator is greater that precedence, push it to stack
+      2. else, pop all operators from the stack which are greater than or equal to current operator
+   3. if current character is '(', push it to stack
+   4. if current character is ')', pop all operators until '('
+   5. repeat 1-4
+   6. pop stack until empty
 
 ## Boyer-Moore Voting Algorithm
 
