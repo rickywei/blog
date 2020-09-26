@@ -4,17 +4,17 @@
 
 ### UDP header
 
-![UDP header](imgs/udpheader.jpg)
+![UDP header](./imgs/udpheader.jpg)
 
 ## TCP
 
 ### TCP header
 
-![TCP header](imgs/tcpheader.jpg)
+![TCP header](./imgs/tcpheader.jpg)
 
 ### TCP 3-handshake
 
-![TCP handshake](imgs/tcphandshake.jpg)
+![TCP handshake](./imgs/tcphandshake.jpg)
 
 1. ISN(Initial Sequence Number) is select randomly
 2. 3 times handshake is a kind of protect for server side.
@@ -66,7 +66,7 @@
 2. Nagle works as sefl-clocking, the faster ACK comes back, the more data will be sent
 3. Nagle works on a trade-off which use less number packet(with big overload), but increase the delay
 
-#### 滑动窗口
+#### Slide Window
 
 ![send window](./imgs/swnd.jpg)
 ![send window](./imgs/rwnd.jpg)
@@ -84,11 +84,11 @@
 
 #### Slow Start
 
-1. Slow start happens when connection established and packet loss
-2. Slow start happens after exchange of SYN cwnd(Congestion Winodow)=IW(Initial Winodw=SMSS
+1. Slow start happens when connection established or packet loss
+2. Slow start happens after exchange of SYN and cwnd(Congestion Winodow) = IW(Initial Winodw) = SMSS
 3. If no loss packet，$W=2\times W_{pre}$
 4. Delay ACK is adopted after slow start since it decrease speed up ration
-5. TCP's send speed is $W/RTT$. CWND will be decreased to half of previus value when W is too big, this time point is ssthresh(slow start threshold)
+5. TCP's send speed is $W/RTT$. cwnd will be decreased to half of previus value when W is too big, this time point is ssthresh(slow start threshold)
 
 #### Congestion Avoidance
 
