@@ -25,6 +25,7 @@ module.exports = {
                         '/algorithm/stack',
                         '/algorithm/priorityQueue',
                         '/algorithm/hashMap',
+                        '/algorithm/tree',
                         '/algorithm/twoPointer',
                         '/algorithm/binarySearch',
                         '/algorithm/unionFind',
