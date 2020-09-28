@@ -28,6 +28,7 @@ module.exports = {
                         '/algorithm/tree',
                         '/algorithm/twoPointer',
                         '/algorithm/binarySearch',
+                        '/algorithm/divideConquer',
                         '/algorithm/unionFind',
                         '/algorithm/trie',
                         '/algorithm/BFSDFS',

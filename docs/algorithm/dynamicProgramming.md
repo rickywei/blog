@@ -29,7 +29,7 @@
 for (int len = 1; len < n; ++i) {
     for (int i = 0; i + len - 1 < n; ++i) {
         j = i + len - 1;
-        dp[i][j] <= dp[i][j - 1], dp[i - 1][j], dp[i-1][j-1]
+        dp[i][j] = CHECK(dp[i][j - 1], dp[i - 1][j], dp[i-1][j-1]
     }
 }
 ```
@@ -51,3 +51,11 @@ for (int i = 0; i < m; ++i) {
 ### Game
 
 ### bitmap
+
+1. Use bit 0 1 to enum all possible combination
+
+```cpp
+for (int state = 0; state < (1 << n); ++state) {
+    res = max(res, CHECK(state));
+}
+```
