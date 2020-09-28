@@ -15,3 +15,14 @@
 2. Be careful of the index range when searching the pointer's next position by using `while`
 
 ## Template
+
+```cpp
+// slide window
+for (int i = 0; j = 0; j < nums.size(); ++j) {
+    sm += nums[j];
+    while (i <= j && sm >= k) {
+        sm -= nums[i++];
+    }
+    res += j - i + 1;
+}
+```

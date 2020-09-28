@@ -43,10 +43,9 @@ void InOrder(Node* root) {
 }
 
 void PostOrder(Node* root) {
-    Node *p = nullptr, *pre = nullptr;
+    Node *p = nullptr, *pre = root;
     stack<Node*> s;
     s.push(root);
-    int i = 0;
     while (!s.empty()) {
         p = s.top();
         if ((!p->left && !p->right) || pre == p->right ||
@@ -70,7 +69,7 @@ void levelTravse(Node *root) {
         for (int i = 0; i < sz; ++i) {
             Node *cur = q.front();
             q.pop();
-            if (cur) cout << cur->val;
+            if (cur) cout << cur->val << " ";
             if (cur->left) q.push(cur->left);
             if (cur->right) q.push(cur->right);
         }
