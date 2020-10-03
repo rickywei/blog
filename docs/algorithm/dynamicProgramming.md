@@ -18,7 +18,7 @@
 
 ### k * n
 
-1. Best Time to Buy and Sell Stock with Cooldown
+1. `dp[i][j] => [0...i] && state i == j, j = [0...k]`
 
 ### n * n
 
