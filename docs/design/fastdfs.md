@@ -35,3 +35,7 @@
 
 1. group1/M00/00/FF/wKiyCl48KhqATsPqAABdrZgsqUU663.jpg
 2. FID = group + virtual disk path + two level sub dir + file name
+
+## Deploy
+
+![fastdfs](./img/fastdfs.png)
