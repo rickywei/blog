@@ -63,11 +63,8 @@ module.exports = {
                     title: 'OS',
                     path: '/os/',
                     children: [
-                        '/os/UnixIO',
-                        '/os/Unix文件系统',
-                        '/os/Unix进程',
-                        '/os/Unix线程',
-                        '/os/Unix信号',
+                        '/os/process',
+                        '/os/thread',
                     ]
                 },
                 {
@@ -76,6 +73,8 @@ module.exports = {
                     children: [
                         '/design/designPattern',
                         '/design/logger',
+                        '/design/fastdfs',
+                        '/design/lsmtree',
                     ]
                 },
             ]
