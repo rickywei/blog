@@ -1,93 +1,14 @@
 # Unix IO
 
-## 文件IO
+## File IO
 
-```cpp
-int open(const char* pathname, int flags, mode_t mode);
-int openat(int dirfd, const char* pathname, int flags, mode_t mode);
+1. Each process access file by fd(>0)
+2. Each file has a current file offset(>0) indicate current position(Byte) from beginning of file
+3. The return value of read() can less than required. Write() is similiar
+4. If multiple process open the same file, lseek() and write() may cause race condition. Use stom operation pread() or pwrite()
+5. read() and wirte() executed at kernel. They do not have buffer.
 
-int creat(const char* path, mode_t mode);
-
-int close(int fd);
-
-off_t lseek(int fd, off_t offset, int whence);
-
-ssize_t read(int fd, void* buf, size_t count);
-ssize_t write(int fd, const void* buf, size_t count);
-
-ssize_t pread(int fd, void* buf, size_t count, off_t offset);
-ssize_t pwrite(int fd, const void* buf, size_t count, off_t offset);
-
-int dup(int oldfd);
-int dup2(int oldfd, int newfd);
-
-int syncfs(int fd);
-int fsync(int fd);
-int fdatasync(int fd);
-
-int fcntl(int fd, int cmd, ... /* arg */);
-```
-
-1. 每个进程通过文件描述符fd(一个非负整数)访问文件
-2. 每个文件都有与其关联的current file offset（一个非负整数）表示当前位置距文件开始处的字节数
-3. 文件的mode由于历史原因，O_RDONLY定义为0，O_WRONLY定义为1，O_RDWR定义为2
-4. read的返回值可能小于要读的数目，write返回值通常相同
-5. 当有多个进程打开相同的文件时，由于lseek和write为两个函数调用，可能出现竞争，需要用原子操作的pread和pwrite
-6. read, write都在内核执行，是不带缓冲的IO函数
-
-## 标准IO
-
-```cpp
-int fwide(FILE *stream, int mode);
-
-void setbuf(FILE *stream, char *buf);
-int setvbuf(FILE *stream, char *buf, int mode, size_t size);
-
-int fflush(FILE *stream);
-
-FILE *fopen(const char *pathname, const char *mode);
-FILE *freopen(const char *pathname, const char *mode, FILE *stream);
-FILE *fdopen(int fd, const char *mode);
-
-int fclose(FILE *stream);
-
-int getc(FILE *stream);
-int fgetc(FILE *stream);
-int getchar(void);
-int ungetc(int c, FILE *stream);
-
-int putc(int c, FILE *stream);
-int fputc(int c, FILE *stream);
-int putchar(int c);
-
-int feof(FILE *stream);
-int ferror(FILE *stream);
-void clearerr(FILE *stream);
-
-char *fgets(char *restrict s, int n, FILE *restrict stream);
-char *gets(char *s);
-
-int fputs(const char *restrict s, FILE *restrict stream);
-int puts(const char *s);
-
-size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
-
-long ftell(FILE *stream);
-off_t ftello(FILE *stream);
-int fseek(FILE *stream, long offset, int whence);
-void rewind(FILE *stream);
-
-int scanf(const char *format, ...);
-int fscanf(FILE *stream, const char *format, ...);
-int sscanf(const char *str, const char *format, ...);
-
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const char *format, ...);
-```
+## Standard IO
 
 1. 对于标准I/O库，它们的操作是围绕流（stream）进行的，流是读写文件的抽象
 2. 当用标准IO打开或创建一个文件时，已经让一个流与文件关联

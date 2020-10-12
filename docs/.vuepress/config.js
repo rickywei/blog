@@ -16,6 +16,17 @@ module.exports = {
             sidebarDepth: 2,
             '/': [
                 {
+                    title: 'Fight',
+                    path: '/fight/',
+                    children: [
+                        'fight/cpp',
+                        'fight/network',
+                        'fight/os',
+                        'fight/db',
+                        'fight/designpattern',
+                    ]
+                },
+                {
                     title: 'Algorithm',
                     path: '/algorithm/',
                     children: [
@@ -40,11 +51,10 @@ module.exports = {
                     title: 'C/C++',
                     path: '/cpp/',
                     children: [
-                        'cpp/编译',
-                        'cpp/宏定义',
-                        'cpp/RAII与智能指针',
-                        'cpp/opencv',
-                        'cpp/进程备份库CRIU',
+                        'cpp/compile',
+                        'cpp/macro',
+                        'cpp/polymorphism',
+                        'cpp/RAIIsmartpointer',
                         'cpp/cpp11singleton'
                     ]
                 },
