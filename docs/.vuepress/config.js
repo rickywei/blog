@@ -19,11 +19,7 @@ module.exports = {
                     title: 'Fight',
                     path: '/fight/',
                     children: [
-                        'fight/cpp',
-                        'fight/network',
-                        'fight/os',
-                        'fight/db',
-                        'fight/designpattern',
+                        'fight/fight'
                     ]
                 },
                 {

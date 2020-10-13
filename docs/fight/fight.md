@@ -8,6 +8,7 @@
 [C++_重载、重写和重定义的区别](https://blog.csdn.net/u010275850/article/details/45583705)
 [C++智能指针简单剖析](https://www.cnblogs.com/lanxuezaipiao/p/4132096.html)
 [C++ 智能指针的正确使用方式](https://www.cyhone.com/articles/right-way-to-use-cpp-smart-pointer/)
+[C++ 内存分区模型及其分配方式](https://blog.csdn.net/bobbymly/article/details/80230918)
 
 ## db
 
