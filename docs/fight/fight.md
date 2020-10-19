@@ -3,12 +3,14 @@
 ## Algorithm
 
 - [K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/solution/tu-jie-kge-yi-zu-fan-zhuan-lian-biao-by-user7208t/)
+- [十道海量数据处理面试题与十个方法大总结](https://blog.csdn.net/v_JULY_v/article/details/6279498)
 
 ## C++
 
 ### basic
 
 - [C/C++中extern关键字详解](https://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777431.html)
+- [C语言实现函数重载](https://blog.csdn.net/gatieme/article/details/50921577)
 - [c++中static的用法详解](https://blog.csdn.net/majianfei1023/article/details/45290467)
 - [C++中const与#define的区别](https://blog.csdn.net/u012050154/article/details/51001267)
 - [C++ static 和const 的作用](https://blog.csdn.net/shihuboke/article/details/79286669)
@@ -26,9 +28,12 @@
 - [C++---空指针能调用类成员函数吗](https://blog.csdn.net/shanghx_123/article/details/89744613)
 - [C++_重载、重写和重定义的区别](https://blog.csdn.net/u010275850/article/details/45583705)
 - [C++ 多态](https://zhuanlan.zhihu.com/p/37340242)
+- [C++ 向上与向下类型转换](https://blog.csdn.net/baidu_35679960/article/details/80821222)
+- [static_cast和dynamic_cast详解](https://blog.csdn.net/u014624623/article/details/79837849)
 
 ### memory
 
+- [malloc 的实现原理 内存池 mmap sbrk 链表](https://zhuanlan.zhihu.com/p/57863097)
 - [C++智能指针简单剖析](https://www.cnblogs.com/lanxuezaipiao/p/4132096.html)
 - [C++ 智能指针的正确使用方式](https://www.cyhone.com/articles/right-way-to-use-cpp-smart-pointer/)
 - [C++ 内存分区模型及其分配方式](https://blog.csdn.net/bobbymly/article/details/80230918)
@@ -36,6 +41,16 @@
 - [C++内存泄漏及解决方法](https://blog.csdn.net/Clever_Pig/article/details/75050398)
 - [Linux 平台中调试 C/C++ 内存泄漏方法](https://sites.google.com/site/shuzhifeng/linux-ping-tai-zhong-diao-shi-c-c-nei-cun-xie-lou-fang-fa)
 - [Valgrind Memcheck 源码分析](https://blog.csdn.net/Linsoft1994/article/details/79562518)
+
+### STL
+
+- [迭代器失效的几种情况总结](https://blog.csdn.net/lujiandong1/article/details/49872763)
+- [vector扩容原理说明](https://blog.csdn.net/yangshiziping/article/details/52550291)
+- [push_back emplace_back](http://c.biancheng.net/view/6826.html)
+
+### design pattern
+
+- [C++ 线程安全的单例模式总结](https://www.cnblogs.com/xiaolincoding/p/11437231.html)
 
 ## OS
 
@@ -56,6 +71,10 @@
 - [C++11中的内存模型下篇 - C++11支持的几种内存模型](https://www.codedump.info/post/20191214-cxx11-memory-model-2/)
 - [c++并发编程1.内存序](https://zhuanlan.zhihu.com/p/55901945)
 - [std::memory_order](https://en.cppreference.com/w/cpp/atomic/memory_order)
+- [为什么多线程读写 shared_ptr 要加锁](https://blog.csdn.net/Solstice/article/details/8547547)
+- [sharedptr threadsafe](https://stackoverflow.com/questions/14482830/stdshared-ptr-thread-safety)
+- [谈谈 C/C++ 中的 volatile](https://zhuanlan.zhihu.com/p/33074506)
+- [详解C语言volatile关键字(禁止编译器优化-原地址读取)](https://blog.csdn.net/ssou_1985/article/details/12974625)
 
 ## Network
 
@@ -77,11 +96,16 @@
 
 ## DB
 
+### mysql
+
 - [mysql 数据库引擎](https://www.cnblogs.com/0201zcr/p/5296843.html)
 - [解读mysql的索引和事务的正确姿势](https://segmentfault.com/a/1190000017499633)
 - [EXPLAIN用法和结果分析](https://blog.csdn.net/why15732625998/article/details/80388236)
 - [MySQL索引优化](https://zhuanlan.zhihu.com/p/61687047)
 - [索引失效与优化详解](https://blog.csdn.net/wuseyukui/article/details/72312574)
+- [悲观锁，乐观锁，行锁，表锁，页锁，共享锁，排他锁](https://blog.csdn.net/xiangwanpeng/article/details/55106732)
+
+### leveldb
 
 ## Linux
 
