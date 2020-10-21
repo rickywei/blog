@@ -5,11 +5,7 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <Navbar
-      class=",y-nav-gre"
-      v-if="shouldShowNavbar"
-      @toggle-sidebar="toggleSidebar"
-    />
+    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
     <div class="sidebar-mask" @click="toggleSidebar(false)" />
 
@@ -140,8 +136,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.my-nav-gre {
-  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-}
-</style>
