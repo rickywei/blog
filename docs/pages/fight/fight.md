@@ -17,6 +17,7 @@
 - [内联函数和宏定义的区别](https://www.codenong.com/cs106540205/)
 - [细说new与malloc的10点区别](https://www.cnblogs.com/qg-whz/p/5140930.html)
 - [C++ 异常机制分析](https://www.cnblogs.com/QG-whz/p/5136883.html)
+- [C++11 类型推导decltype](https://www.cnblogs.com/DswCnblog/p/6537411.html)
 
 ### class
 
@@ -78,6 +79,8 @@
 
 ## Network
 
+### base
+
 - [动态路由和静态路由](https://blog.csdn.net/laoniu_c/article/details/39268387)
 - [计算机网络之路由协议详解](https://blog.csdn.net/weixin_30247781/article/details/99962393)
 - [动态选路、RIP协议&&OSPF协议详解](https://www.cnblogs.com/cherishry/p/5720915.html)
@@ -93,6 +96,10 @@
 - [TCP协议-如何保证传输可靠性](https://blog.csdn.net/liuchenxia8/article/details/80428157)
 - [TCP-IP详解：滑动窗口（Sliding Window）](https://blog.csdn.net/wdscq1234/article/details/52444277)
 - [TCP 半连接队列和全连接队列满了会发生什么？又该如何应对？](https://www.cnblogs.com/xiaolincoding/p/12995358.html)
+
+### socket prgramming
+- [Proactor 与 Reactor](https://segmentfault.com/a/1190000018331509)
+- [IO - 同步，异步，阻塞，非阻塞](https://blog.csdn.net/historyasamirror/article/details/5778378)
 
 ## DB
 
