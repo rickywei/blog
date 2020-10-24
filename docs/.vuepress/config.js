@@ -22,7 +22,7 @@ module.exports = {
             { text: 'Github', link: 'https://github.com/RickyWei' },
             { text: 'LinkedIn', link: 'https://www.linkedin.com/in/ruiji-wei' }
         ],
-        // sidebar: 'auto',
+        sidebar: 'auto',
         lastUpdated: 'Last Updated'
     },
     plugins: [
@@ -30,7 +30,7 @@ module.exports = {
         'vuepress-plugin-zooming',
         'vuepress-plugin-nprogress',
         'vuepress-plugin-mermaidjs',
-        // 'vuepress-plugin-auto-sidebar',
+        'vuepress-plugin-auto-sidebar',
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'
