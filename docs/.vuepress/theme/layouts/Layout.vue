@@ -5,7 +5,29 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
+    <head>
+      <link
+        href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+        rel="stylesheet"
+      />
+      <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+    </head>
+
+    <Navbar
+      class="container"
+      v-if="shouldShowNavbar"
+      @toggle-sidebar="toggleSidebar"
+    />
+
+    <!-- nes -->
+    <a
+      href="https://github.com/RickyWei"
+      target="_blank"
+      rel="noopener"
+      class="github-link active"
+      ><p class="nes-balloon from-right">Fork me<br />on GitHub</p>
+      <i class="nes-octocat"></i
+    ></a>
 
     <div class="sidebar-mask" @click="toggleSidebar(false)" />
 
@@ -37,6 +59,9 @@ import Navbar from "@theme/components/Navbar.vue";
 import Page from "@theme/components/Page.vue";
 import Sidebar from "@theme/components/Sidebar.vue";
 import { resolveSidebarItems } from "../util";
+
+//nes
+// import "../../../../node_modules/nes.css";
 
 export default {
   name: "Layout",
@@ -135,4 +160,15 @@ export default {
   },
 };
 </script>
+
+<style>
+html,
+body,
+pre,
+code,
+kbd,
+samp {
+  font-family: "font-family you want to use";
+}
+</style>
 
