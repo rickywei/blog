@@ -47,11 +47,11 @@ module.exports = {
                     title: 'C/C++',
                     path: '/pages/cpp/',
                     children: [
-                        'cpp/compile',
-                        'cpp/macro',
-                        'cpp/polymorphism',
-                        'cpp/RAIIsmartpointer',
-                        'cpp/cpp11singleton'
+                        '/pages/cpp/compile',
+                        '/pages/cpp/macro',
+                        '/pages/cpp/polymorphism',
+                        '/pages/cpp/RAIIsmartpointer',
+                        '/pages/cpp/cpp11singleton'
                     ]
                 },
                 {
