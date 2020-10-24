@@ -9,16 +9,16 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: 'Home', link: '/' },
-            // {
-            //     text: 'Blog', items: [
-            //         { text: 'Algorithm', link: '/pages/algorithm/' },
-            //         { text: 'C++', link: '/pages/cpp/' },
-            //         { text: 'Network', link: '/pages/network/' },
-            //         { text: 'OS', link: '/pages/os/' },
-            //         { text: 'Design', link: '/pages/design/' },
-            //         { text: 'collection', link: '/pages/collection/' },
-            //     ]
-            // },
+            {
+                text: 'Blog', items: [
+                    { text: 'Algorithm', link: '/pages/algorithm/' },
+                    { text: 'C++', link: '/pages/cpp/' },
+                    { text: 'Network', link: '/pages/network/' },
+                    { text: 'OS', link: '/pages/os/' },
+                    { text: 'Design', link: '/pages/design/' },
+                    { text: 'collection', link: '/pages/collection/' },
+                ]
+            },
             { text: 'Github', link: 'https://github.com/RickyWei' },
             { text: 'LinkedIn', link: 'https://www.linkedin.com/in/ruiji-wei' }
         ],
@@ -29,7 +29,7 @@ module.exports = {
         'vuepress-plugin-zooming',
         'vuepress-plugin-nprogress',
         'vuepress-plugin-mermaidjs',
-        'vuepress-plugin-auto-sidebar', {},
+        // 'vuepress-plugin-auto-sidebar', {},
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'
