@@ -19,7 +19,7 @@ module.exports = {
                     title: 'Fight',
                     path: '/pages/fight/',
                     children: [
-                        'fight/fight'
+                        '/pages/fight/fight'
                     ]
                 },
                 {
