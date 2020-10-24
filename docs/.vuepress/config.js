@@ -29,7 +29,7 @@ module.exports = {
         'vuepress-plugin-zooming',
         'vuepress-plugin-nprogress',
         'vuepress-plugin-mermaidjs',
-        // 'vuepress-plugin-auto-sidebar', {},
+        'vuepress-plugin-auto-sidebar',
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'
