@@ -25,7 +25,7 @@
       target="_blank"
       rel="noopener"
       class="github-link active"
-      ><p class="nes-balloon from-right">Fork me<br />on GitHub</p>
+      ><p class="nes-balloon from-right">Follow me<br />on GitHub</p>
       <i class="nes-octocat"></i
     ></a>
 
