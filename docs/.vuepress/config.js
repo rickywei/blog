@@ -22,7 +22,7 @@ module.exports = {
             { text: 'Github', link: 'https://github.com/RickyWei' },
             { text: 'LinkedIn', link: 'https://www.linkedin.com/in/ruiji-wei' }
         ],
-        sidebar: 'auto',
+        // sidebar: 'auto',
         lastUpdated: 'Last Updated'
     },
     plugins: [
