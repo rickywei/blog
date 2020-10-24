@@ -1,12 +1,17 @@
 <template>
-  <div :class="pageClasses" @touchstart="onTouchStart" @touchend="onTouchEnd">
-    <!-- <head>
+  <div
+    class="theme-container"
+    :class="pageClasses"
+    @touchstart="onTouchStart"
+    @touchend="onTouchEnd"
+  >
+    <head>
       <link
         href="https://fonts.googleapis.com/css?family=Press+Start+2P"
         rel="stylesheet"
       />
       <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
-    </head> -->
+    </head>
 
     <Navbar
       class="container"
