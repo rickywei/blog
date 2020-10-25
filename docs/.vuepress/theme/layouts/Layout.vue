@@ -1,33 +1,11 @@
 <template>
   <div
-    class="theme-container"
+    class="theme-container container"
     :class="pageClasses"
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <head>
-      <link
-        href="https://fonts.googleapis.com/css?family=Press+Start+2P"
-        rel="stylesheet"
-      />
-      <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
-    </head>
-
-    <Navbar
-      class="container"
-      v-if="shouldShowNavbar"
-      @toggle-sidebar="toggleSidebar"
-    />
-
-    <!-- nes -->
-    <a
-      href="https://github.com/RickyWei"
-      target="_blank"
-      rel="noopener"
-      class="github-link active"
-      ><p class="nes-balloon from-right">Follow me<br />on GitHub</p>
-      <i class="nes-octocat"></i
-    ></a>
+    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
     <div class="sidebar-mask" @click="toggleSidebar(false)" />
 
@@ -40,6 +18,19 @@
       </template>
     </Sidebar>
 
+    <a
+      class="github-link"
+      :class="{ active: scrollPos < 200 }"
+      href="https://github.com/RickyWei"
+      target="_blank"
+      rel="noopener"
+      @mouseover="startAnimate"
+      @mouseout="stopAnimate"
+    >
+      <p class="nes-balloon from-right">Follow me<br />on GitHub</p>
+      <i class="nes-octocat" :class="animateOctocat ? 'animate' : ''"></i>
+    </a>
+
     <Home v-if="$page.frontmatter.home" />
 
     <Page v-else :sidebar-items="sidebarItems">
@@ -50,6 +41,14 @@
         <slot name="page-bottom" />
       </template>
     </Page>
+    <button
+      type="button"
+      class="nes-btn is-success scroll-btn"
+      :class="{ active: scrollPos > 400 }"
+      @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      <span>&lt;</span>
+    </button>
   </div>
 </template>
 
@@ -60,8 +59,7 @@ import Page from "@theme/components/Page.vue";
 import Sidebar from "@theme/components/Sidebar.vue";
 import { resolveSidebarItems } from "../util";
 
-//nes
-// import "../../../../node_modules/nes.css";
+import "nes.css/css/nes.min.css";
 
 export default {
   name: "Layout",
@@ -75,6 +73,8 @@ export default {
 
   data() {
     return {
+      animateOctocat: false,
+      scrollPos: 0,
       isSidebarOpen: false,
     };
   },
@@ -127,12 +127,23 @@ export default {
   },
 
   mounted() {
+    document.addEventListener("scroll", () => {
+      this.scrollPos =
+        document.documentElement.scrollTop || document.body.scrollTop;
+    });
+
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
   },
 
   methods: {
+    startAnimate() {
+      this.animateOctocat = true;
+    },
+    stopAnimate() {
+      this.animateOctocat = false;
+    },
     toggleSidebar(to) {
       this.isSidebarOpen = typeof to === "boolean" ? to : !this.isSidebarOpen;
       this.$emit("toggle-sidebar", this.isSidebarOpen);
@@ -161,14 +172,51 @@ export default {
 };
 </script>
 
+
 <style>
-html,
-body,
-pre,
-code,
-kbd,
-samp {
-  font-family: "font-family you want to use";
+/* github link */
+.github-link {
+  position: fixed;
+  top: 100px;
+  right: -240px;
+  z-index: 999;
+  display: flex;
+  height: 100px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
+.github-link.active {
+  right: 10px;
+}
+.github-link:hover {
+  text-decoration: none;
+}
+.github-link > p.nes-balloon {
+  align-self: flex-start;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  color: #333;
+}
+.github-link > i.nes-octocat {
+  align-self: flex-end;
+}
+
+/* Scroll back to top */
+.scroll-btn {
+  position: fixed;
+  bottom: -60px;
+  right: 2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+.scroll-btn.active {
+  bottom: 25px;
+}
+.scroll-btn > span {
+  display: block;
+  transform: rotateZ(90deg);
+}
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 </style>
 

@@ -10,16 +10,19 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-router": "3.4.5",
+  "devDependencies": {},
+  "dependencies": {
+    "css-loader": "^5.0.0",
+    "nes.css": "^2.3.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.4",
+    "vue-cute-timeline": "^1.2.8",
+    "vuenes.css": "^2.1.0",
     "vuepress": "^1.7.1",
     "vuepress-plugin-auto-sidebar": "^1.5.0",
-    "vuepress-plugin-mermaidjs": "^1.8.0"
-  },
-  "dependencies": {
-    "nes.css": "^2.3.0",
     "vuepress-plugin-copyright": "^1.0.2",
     "vuepress-plugin-mathjax": "^1.2.8",
+    "vuepress-plugin-mermaidjs": "^1.8.0",
     "vuepress-plugin-nprogress": "^1.1.7",
     "vuepress-plugin-zooming": "^1.1.7"
   }

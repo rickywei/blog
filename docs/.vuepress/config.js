@@ -6,9 +6,12 @@ module.exports = {
     markdown: {
         lineNumbers: true
     },
+    // head: [
+    //     ['link', { rel: 'stylesheet', href: 'https://unpkg.com/nes.css@latest/css/nes.min.css' }]
+    // ],
     themeConfig: {
         nav: [
-            { text: 'Home', link: '/blog/' },
+            { text: 'Home', link: '/' },
             {
                 text: 'Blog', items: [
                     { text: 'Algorithm', link: '/pages/algorithm/' },
@@ -27,9 +30,10 @@ module.exports = {
     plugins: [
         'vuepress-plugin-mathjax',
         'vuepress-plugin-zooming',
-        'vuepress-plugin-nprogress',
         'vuepress-plugin-mermaidjs',
         'vuepress-plugin-auto-sidebar',
+        '@vuepress/nprogress',
+        // '@vuepress/back-to-top',
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'

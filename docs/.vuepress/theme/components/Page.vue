@@ -2,7 +2,7 @@
   <main class="page">
     <slot name="top" />
 
-    <Content class="theme-default-content" />
+    <Content class="theme-default-content" style="font-family: consolas" />
     <PageEdit />
 
     <PageNav v-bind="{ sidebarItems }" />
@@ -12,20 +12,24 @@
 </template>
 
 <script>
-import PageEdit from '@theme/components/PageEdit.vue'
-import PageNav from '@theme/components/PageNav.vue'
+import PageEdit from "@theme/components/PageEdit.vue";
+import PageNav from "@theme/components/PageNav.vue";
 
 export default {
   components: { PageEdit, PageNav },
-  props: ['sidebarItems']
-}
+  props: ["sidebarItems"],
+};
 </script>
 
 <style lang="stylus">
-@require '../styles/wrapper.styl'
+@require '../styles/wrapper.styl';
 
-.page
-  padding-bottom 2rem
-  display block
+.theme-default-content {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
+  .page {
+    padding-bottom: 2rem;
+    display: block;
+  }
+}
 </style>
