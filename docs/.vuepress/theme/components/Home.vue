@@ -1,6 +1,6 @@
 <template>
   <main
-    class="home main-content"
+    class="home"
     :aria-labelledby="data.heroText !== null ? 'main-title' : null"
   >
     <header class="hero">
@@ -17,8 +17,18 @@
       </p>
     </header>
 
-    <timeline/>
+    <div class="nes-container with-title is-centered">
+      <p class="title">About Me</p>
+      <p>人一定要有梦想.</p>
+    </div>
 
+    <div id="aboutme">
+      <img
+        class="nes-avatar is-large"
+        alt="WeChat"
+        src="/wechat.png"
+        style="image-rendering: pixelated"
+      />
     </div>
 
     <Content class="theme-default-content custom" />
@@ -30,7 +40,6 @@
 </template>
 
 <script>
-import mytime from "@theme/components/mytime.vue";
 import NavLink from "@theme/components/NavLink.vue";
 
 export default {

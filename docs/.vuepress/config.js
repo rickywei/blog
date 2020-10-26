@@ -6,9 +6,9 @@ module.exports = {
     markdown: {
         lineNumbers: true
     },
-    // head: [
-    //     ['link', { rel: 'stylesheet', href: 'https://unpkg.com/nes.css@latest/css/nes.min.css' }]
-    // ],
+    head: [
+        ['link', { rel: 'icon', href: '/icon.png' }]
+    ],
     themeConfig: {
         nav: [
             { text: 'Home', link: '/' },
@@ -23,7 +23,8 @@ module.exports = {
                 ]
             },
             { text: 'Github', link: 'https://github.com/RickyWei' },
-            { text: 'LinkedIn', link: 'https://www.linkedin.com/in/ruiji-wei' }
+            { text: 'LinkedIn', link: 'https://www.linkedin.com/in/ruiji-wei' },
+            { text: 'WeChat', link: '' }
         ],
         lastUpdated: 'Last Updated'
     },
@@ -33,7 +34,6 @@ module.exports = {
         'vuepress-plugin-mermaidjs',
         'vuepress-plugin-auto-sidebar',
         '@vuepress/nprogress',
-        // '@vuepress/back-to-top',
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'

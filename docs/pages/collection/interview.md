@@ -53,6 +53,10 @@
 
 - [C++ 线程安全的单例模式总结](https://www.cnblogs.com/xiaolincoding/p/11437231.html)
 
+### Optimize
+
+- [C语言编程优化运行速度](https://www.cnblogs.com/feisky/archive/2009/10/23/1588815.html)
+
 ## OS
 
 ### memory

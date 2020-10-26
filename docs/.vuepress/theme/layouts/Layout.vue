@@ -1,6 +1,6 @@
 <template>
   <div
-    class="theme-container container"
+    class="theme-container"
     :class="pageClasses"
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
@@ -174,6 +174,20 @@ export default {
 
 
 <style>
+/* @import url("https://fonts.googleapis.com/css?family=Press+Start+2P"); */
+/* @import "/zpix-v3.1.1.ttf"; */
+
+@font-face {
+  font-family: ZpixReviewOnline;
+  src: url(https://zpix.now.sh/zpix.woff2?zpix--online);
+}
+
+* {
+  font-family: ZpixReviewOnline;
+  font-size: large;
+  font-weight: bolder;
+}
+
 /* github link */
 .github-link {
   position: fixed;
@@ -217,6 +231,5 @@ export default {
   display: block;
   transform: rotateZ(90deg);
 }
-@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 </style>
 
