@@ -45,7 +45,7 @@
       type="button"
       class="nes-btn is-success scroll-btn"
       :class="{ active: scrollPos > 400 }"
-      @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      @click="goTop"
     >
       <span>&lt;</span>
     </button>
@@ -138,6 +138,9 @@ export default {
   },
 
   methods: {
+    goTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
     startAnimate() {
       this.animateOctocat = true;
     },

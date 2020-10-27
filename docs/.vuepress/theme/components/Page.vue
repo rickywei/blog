@@ -47,5 +47,11 @@ export default {
     font-size: initial;
     font-weight: initial;
   }
+
+  a {
+    font-family: consolas;
+    font-size: initial;
+    font-weight: initial;
+  }
 }
 </style>
