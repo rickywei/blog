@@ -36,6 +36,12 @@ export default {
     font-weight: bold;
   }
 
+  h3 {
+    font-family: consolas;
+    font-size: initial;
+    font-weight: bold;
+  }
+
   p {
     font-family: consolas;
     font-size: initial;

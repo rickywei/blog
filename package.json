@@ -17,6 +17,7 @@
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.4",
     "vue-cute-timeline": "^1.2.8",
+    "vue-pdf": "^4.2.0",
     "vuenes.css": "^2.1.0",
     "vuepress": "^1.7.1",
     "vuepress-plugin-auto-sidebar": "^1.5.0",

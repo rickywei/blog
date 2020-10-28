@@ -10,6 +10,7 @@
 ### basic
 
 - [C/C++中extern关键字详解](https://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777431.html)
+- [C++为什么不能通过函数返回值区分函数重载](https://blog.csdn.net/sinat_20265495/article/details/52487445)
 - [C语言实现函数重载](https://blog.csdn.net/gatieme/article/details/50921577)
 - [c++中static的用法详解](https://blog.csdn.net/majianfei1023/article/details/45290467)
 - [C++中const与#define的区别](https://blog.csdn.net/u012050154/article/details/51001267)
