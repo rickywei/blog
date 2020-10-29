@@ -180,3 +180,7 @@ echo $hello
 
 1. shell脚本中可使用命令`ls grep`等
 2. 需要用``包裹命令
+
+## 疑难杂症
+
+1. `008: value too great for base (error token is "008")` 008 解释为8禁止，使用`$((10#$var))`转化为10进制

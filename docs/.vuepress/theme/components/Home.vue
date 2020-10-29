@@ -19,7 +19,7 @@
 
     <div class="nes-container with-title is-centered">
       <p class="title">About Me</p>
-      <p>人一定要有梦想.</p>
+      <p>冲冲冲！！！</p>
     </div>
 
     <div id="aboutme">
