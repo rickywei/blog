@@ -10,6 +10,7 @@
    3. 结构体的总大小为结构体最宽基本类型成员大小的整数倍，如有需要编译器会在最末一个成员之后加上填充字节
 3. 类的普通函数不占字节
 4. 类的虚函数不占字节，但是会引入虚表指针，整个类占8B(该类仅包含一个虚函数)
+5. 虚继承有多个虚表，即多个vptr
 
 ```cpp
 class Base {
@@ -147,12 +148,90 @@ class Base {
 
 ## 多继承
 
-1. 非菱形
-   1. 子类的虚函数放在生命的第一个基类对的虚函数表中
-   2. 成员变量按父类被声明顺序排序，接着是子类成员变量
-2. 菱形
-   1. 假设有B,B1(B),B2(B),D(B1,B2)那么B的成员会被D继承两次，产生歧义
-   2. 使用虚继承
-      1. 虚继承的子类，如果本身定义了新的虚函数，则编译器为其生成一个虚函数指针（vptr）以及一张虚函数表，该vptr位于对象内存最前面；非虚继承直接扩展父类虚函数表
-      2. 虚继承的子类也单独保留了父类的vprt与虚函数表，这部分内容接与子类内容以一个四字节的0来分界
-      3. 虚继承的子类对象中，含有四字节的虚表指针偏移值
+### 非菱形
+
+1. 成员变量按父类被声明顺序排序，接着是子类成员变量
+2. 子类的虚函数表只有一个，表项按父类被声明的顺序，中间隔开
+3. 子类自己的虚函数会排在第一个父类的虚函数之后
+4. override时所有父类的同名函数都会被子类重写
+
+```cpp
+class Base {
+ public:
+  virtual void vfunc() { cout << "B" << endl; }
+};
+
+class Base2 {
+ public:
+  virtual void vfunc2() { cout << "B2" << endl; }
+};
+
+class Derived : public Base, Base2 {
+ public:
+  virtual void vfunc() override { cout << "D" << endl; }
+};
+// Vtable for Derived
+// Derived::_ZTV7Derived: 6 entries
+// 0     (int (*)(...))0
+// 8     (int (*)(...))(& _ZTI7Derived)
+// 16    (int (*)(...))Derived::vfunc
+// 24    (int (*)(...))-8
+// 32    (int (*)(...))(& _ZTI7Derived)
+// 40    (int (*)(...))Base2::vfunc2
+
+// Class Derived
+//    size=16 align=8
+//    base size=16 base align=8
+// Derived (0x0x7f41e7bc1e00) 0
+//     vptr=((& Derived::_ZTV7Derived) + 16)
+//   Base (0x0x7f41e2849c60) 0 nearly-empty
+//       primary-for Derived (0x0x7f41e7bc1e00)
+//   Base2 (0x0x7f41e2849cc0) 8 nearly-empty
+//       vptr=((& Derived::_ZTV7Derived) + 40)
+```
+
+### 菱形
+
+1. 假设有B,B1(B),B2(B),D(B1,B2)那么B的成员会被D继承两次，产生歧义
+   1. `d.a = 1; //wrong`
+   2. `d.B1::a = 1; d.B2::a = 1; //right`
+2. 使用虚继承解决菱形继承问题
+   1. 虚继承的子类，编译器为其生成一个虚函数指针（vptr）以及一张虚函数表，该vptr位于对象内存最前面；非虚继承直接扩展父类虚函数表
+   2. VTT是所有vptr的集合
+
+```cpp
+class Base {
+ public:
+  int a = 1;
+  virtual void vfunc() { cout << "B" << endl; }
+};
+
+class Derived : virtual public Base {
+ public:
+  virtual void vfunc() override { cout << "D" << endl; }
+};
+
+// Vtable for Derived
+// Derived::_ZTV7Derived: 8 entries
+// 0     8
+// 8     (int (*)(...))0
+// 16    (int (*)(...))(& _ZTI7Derived)
+// 24    (int (*)(...))Derived::vfunc
+// 32    18446744073709551608
+// 40    (int (*)(...))-8
+// 48    (int (*)(...))(& _ZTI7Derived)
+// 56    (int (*)(...))Derived::_ZTv0_n24_N7Derived5vfuncEv
+
+// VTT for Derived
+// Derived::_ZTT7Derived: 2 entries
+// 0     ((& Derived::_ZTV7Derived) + 24)
+// 8     ((& Derived::_ZTV7Derived) + 56)
+
+// Class Derived
+//    size=24 align=8
+//    base size=8 base align=8
+// Derived (0x0x7f0ed3167a28) 0 nearly-empty
+//     vptridx=0 vptr=((& Derived::_ZTV7Derived) + 24)
+//   Base (0x0x7f0ed3255ae0) 8 virtual
+//       vptridx=8 vbaseoffset=-24 vptr=((& Derived::_ZTV7Derived) + 56)
+```
