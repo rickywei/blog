@@ -1,3 +1,7 @@
+---
+title: Collection
+---
+
 # AAA
 
 ## Algorithm

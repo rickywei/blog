@@ -14,12 +14,13 @@ module.exports = {
             { text: 'Home', link: '/' },
             {
                 text: 'Blog', items: [
-                    { text: 'Algorithm', link: '/pages/algorithm/' },
-                    { text: 'C++', link: '/pages/cpp/' },
-                    { text: 'Network', link: '/pages/network/' },
-                    { text: 'OS', link: '/pages/os/' },
-                    { text: 'Design', link: '/pages/design/' },
-                    { text: 'collection', link: '/pages/collection/' }
+                    { text: 'Algorithm', link: '/pages/001algorithm/' },
+                    { text: 'C++', link: '/pages/002cpp/' },
+                    { text: 'Network', link: '/pages/003network/' },
+                    { text: 'Linux', link: '/pages/004linux/' },
+                    { text: 'Database', link: '/pages/005database/' },
+                    { text: 'Design', link: '/pages/006design/' },
+                    { text: 'collection', link: '/pages/007collection/' }
                 ]
             },
             { text: 'Github', link: 'https://github.com/RickyWei' },
