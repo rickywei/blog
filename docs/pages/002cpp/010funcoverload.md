@@ -45,6 +45,7 @@ int open(const char *pathname, int flags, mode_t mode);
 int open(const char *path, int oflag, ... ); // actual declaration
 
 // enables access to variadic function arguments
+// parmN <- Name of the last named parameter in the function definition
 void va_start( va_list ap, parmN );
 
 // the next variadic function argument
