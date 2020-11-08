@@ -1,17 +1,13 @@
----
-title: Collection
----
+# 合集
 
-# AAA
-
-## Algorithm
+## 算法
 
 - [K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/solution/tu-jie-kge-yi-zu-fan-zhuan-lian-biao-by-user7208t/)
 - [十道海量数据处理面试题与十个方法大总结](https://blog.csdn.net/v_JULY_v/article/details/6279498)
 
 ## C++
 
-### basic
+### 关键字
 
 - [C/C++中extern关键字详解](https://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777431.html)
 - [C++为什么不能通过函数返回值区分函数重载](https://blog.csdn.net/sinat_20265495/article/details/52487445)
@@ -24,7 +20,7 @@ title: Collection
 - [C++ 异常机制分析](https://www.cnblogs.com/QG-whz/p/5136883.html)
 - [C++11 类型推导decltype](https://www.cnblogs.com/DswCnblog/p/6537411.html)
 
-### class
+### 类
 
 - [图说C++对象模型：对象内存布局详解](https://www.cnblogs.com/QG-whz/p/4909359.html)
 - [struct和class的区别](https://blog.csdn.net/alidada_blog/article/details/83419757)
@@ -37,43 +33,51 @@ title: Collection
 - [C++ 向上与向下类型转换](https://blog.csdn.net/baidu_35679960/article/details/80821222)
 - [static_cast和dynamic_cast详解](https://blog.csdn.net/u014624623/article/details/79837849)
 
-### memory
-
-- [malloc 的实现原理 内存池 mmap sbrk 链表](https://zhuanlan.zhihu.com/p/57863097)
-- [C++智能指针简单剖析](https://www.cnblogs.com/lanxuezaipiao/p/4132096.html)
-- [C++ 智能指针的正确使用方式](https://www.cyhone.com/articles/right-way-to-use-cpp-smart-pointer/)
-- [C++ 内存分区模型及其分配方式](https://blog.csdn.net/bobbymly/article/details/80230918)
-- [C++中常见内存泄漏情形总结](https://blog.csdn.net/haimianjie2012/article/details/56496047)
-- [C++内存泄漏及解决方法](https://blog.csdn.net/Clever_Pig/article/details/75050398)
-- [Linux 平台中调试 C/C++ 内存泄漏方法](https://sites.google.com/site/shuzhifeng/linux-ping-tai-zhong-diao-shi-c-c-nei-cun-xie-lou-fang-fa)
-- [Valgrind Memcheck 源码分析](https://blog.csdn.net/Linsoft1994/article/details/79562518)
-
 ### STL
 
 - [迭代器失效的几种情况总结](https://blog.csdn.net/lujiandong1/article/details/49872763)
 - [vector扩容原理说明](https://blog.csdn.net/yangshiziping/article/details/52550291)
 - [push_back emplace_back](http://c.biancheng.net/view/6826.html)
 
-### design pattern
+### 内存管理
 
+- [malloc 的实现原理 内存池 mmap sbrk 链表](https://zhuanlan.zhihu.com/p/57863097)
+- [C++智能指针简单剖析](https://www.cnblogs.com/lanxuezaipiao/p/4132096.html)
+- [C++ 智能指针的正确使用方式](https://www.cyhone.com/articles/right-way-to-use-cpp-smart-pointer/)
+- [shared_ptr](http://senlinzhan.github.io/2015/04/24/%E6%B7%B1%E5%85%A5shared-ptr/)
+- [为什么多线程读写 shared_ptr 要加锁](https://blog.csdn.net/Solstice/article/details/8547547)
+- [将智能指针作为函数输入参数的两个问题](https://blog.csdn.net/applemonkey11/article/details/79031615)
+- [智能指针陷阱](https://blog.csdn.net/wangshubo1989/article/details/49848681)
+- [C++ 内存分区模型及其分配方式](https://blog.csdn.net/bobbymly/article/details/80230918)
+- [C++中常见内存泄漏情形总结](https://blog.csdn.net/haimianjie2012/article/details/56496047)
+- [C++内存泄漏及解决方法](https://blog.csdn.net/Clever_Pig/article/details/75050398)
+- [Linux 平台中调试 C/C++ 内存泄漏方法](https://sites.google.com/site/shuzhifeng/linux-ping-tai-zhong-diao-shi-c-c-nei-cun-xie-lou-fang-fa)
+- [Valgrind Memcheck 源码分析](https://blog.csdn.net/Linsoft1994/article/details/79562518)
+
+### C++11 其他新特性
+
+- [c++11总结](https://www.cnblogs.com/5iedu/category/1503320.html)
 - [C++ 线程安全的单例模式总结](https://www.cnblogs.com/xiaolincoding/p/11437231.html)
+- [从4行代码看右值引用](https://www.cnblogs.com/qicosmos/p/4283455.html)
+- [完美转发(std::forward)](https://www.cnblogs.com/5iedu/p/11324772.html)
+- [std::bind用法详解](https://blog.csdn.net/qq_41230365/article/details/79323517)
 
-### Optimize
+### 优化
 
 - [C语言编程优化运行速度](https://www.cnblogs.com/feisky/archive/2009/10/23/1588815.html)
 
-## OS
+## 操作系统
 
-### memory
+### 系统内存管理
 
 - [操作系统内存管理](https://blog.csdn.net/hguisu/article/details/5713164)
 
-### process
+### 进程
 
 - [进程间通信的方式](https://www.cnblogs.com/luo77/p/5816326.html)
 - [Linux进程通信之POSIX共享内存](https://blog.csdn.net/anonymalias/article/details/9938865)
 
-## thread
+## 线程
 
 - [进程和线程的区别](https://www.cnblogs.com/lmule/archive/2010/08/18/1802774.html)
 - [Linux下创建一个线程占用多少内存](https://blog.csdn.net/lvyibin890/article/details/82254697)
@@ -86,9 +90,9 @@ title: Collection
 - [谈谈 C/C++ 中的 volatile](https://zhuanlan.zhihu.com/p/33074506)
 - [详解C语言volatile关键字(禁止编译器优化-原地址读取)](https://blog.csdn.net/ssou_1985/article/details/12974625)
 
-## Network
+## 网络
 
-### base
+### 协议
 
 - [动态路由和静态路由](https://blog.csdn.net/laoniu_c/article/details/39268387)
 - [计算机网络之路由协议详解](https://blog.csdn.net/weixin_30247781/article/details/99962393)
@@ -106,11 +110,26 @@ title: Collection
 - [TCP-IP详解：滑动窗口（Sliding Window）](https://blog.csdn.net/wdscq1234/article/details/52444277)
 - [TCP 半连接队列和全连接队列满了会发生什么？又该如何应对？](https://www.cnblogs.com/xiaolincoding/p/12995358.html)
 
-### socket prgramming
-- [Proactor 与 Reactor](https://segmentfault.com/a/1190000018331509)
-- [IO - 同步，异步，阻塞，非阻塞](https://blog.csdn.net/historyasamirror/article/details/5778378)
+### 网络编程
 
-## DB
+- [IO - 同步，异步，阻塞，非阻塞](https://blog.csdn.net/historyasamirror/article/details/5778378)
+- [select函数详解](https://blog.csdn.net/y396397735/article/details/55004775)
+- [poll模型详解](https://blog.csdn.net/shixin_0125/article/details/72604343)
+- [epoll详解](https://www.cnblogs.com/lojunren/p/3856290.html)
+- [Proactor 与 Reactor](https://segmentfault.com/a/1190000018331509)
+- [Reactor模式详解](http://www.blogjava.net/DLevin/archive/2015/09/02/427045.html)
+
+### web
+
+- [浅谈Session与Cookie的区别与联系](https://blog.csdn.net/duan1078774504/article/details/51912868)
+- [在浏览器输入 URL 回车之后发生了什么](https://juejin.im/post/6844903922084085773)
+
+## 安全
+
+- [SQL注入攻击常见方式及测试方法](https://blog.csdn.net/github_36032947/article/details/78442189)
+- [跨站脚本攻击—XSS](https://juejin.im/post/6844903943143718925)
+
+## 数据库
 
 ### mysql
 
