@@ -1,4 +1,6 @@
-# 合集
+---
+title: 合集
+---
 
 ## 算法
 
@@ -10,25 +12,36 @@
 ### 关键字
 
 - [C/C++中extern关键字详解](https://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777431.html)
-- [C++为什么不能通过函数返回值区分函数重载](https://blog.csdn.net/sinat_20265495/article/details/52487445)
-- [C语言实现函数重载](https://blog.csdn.net/gatieme/article/details/50921577)
-- [c++中static的用法详解](https://blog.csdn.net/majianfei1023/article/details/45290467)
 - [C++中const与#define的区别](https://blog.csdn.net/u012050154/article/details/51001267)
 - [C++ static 和const 的作用](https://blog.csdn.net/shihuboke/article/details/79286669)
+- [c++中static的用法详解](https://blog.csdn.net/majianfei1023/article/details/45290467)
+
+### 指针
+
+- [C指针详解](https://blog.csdn.net/soonfly/article/details/51131141)
+- [浅谈C++中指针和引用的区别](https://www.cnblogs.com/dolphin0520/archive/2011/04/03/2004869.html)
+- [深入探索C++引用的实现原理](https://blog.csdn.net/lws123253/article/details/80353197)
+
+### 函数
+
+- [C++为什么不能通过函数返回值区分函数重载](https://blog.csdn.net/sinat_20265495/article/details/52487445)
+- [C语言实现函数重载](https://blog.csdn.net/gatieme/article/details/50921577)
+- [open函数重载](https://blog.csdn.net/aprilweet/article/details/53463463)
 - [内联函数和宏定义的区别](https://www.codenong.com/cs106540205/)
+
 - [细说new与malloc的10点区别](https://www.cnblogs.com/qg-whz/p/5140930.html)
+
 - [C++ 异常机制分析](https://www.cnblogs.com/QG-whz/p/5136883.html)
-- [C++11 类型推导decltype](https://www.cnblogs.com/DswCnblog/p/6537411.html)
 
 ### 类
 
-- [图说C++对象模型：对象内存布局详解](https://www.cnblogs.com/QG-whz/p/4909359.html)
 - [struct和class的区别](https://blog.csdn.net/alidada_blog/article/details/83419757)
+- [图说C++对象模型：对象内存布局详解](https://www.cnblogs.com/QG-whz/p/4909359.html)
 - [C++空类编译器自动生成的6个成员函数](https://blog.csdn.net/taiyang1987912/article/details/43485569)
 - [编译器何时创建默认构造函数和拷贝构造函数](https://blog.csdn.net/shltsh/article/details/45959271)
 - [为什么构造函数不能声明为虚函数，析构函数可以](https://www.cnblogs.com/lpxblog/p/6552601.html)
-- [C++---空指针能调用类成员函数吗](https://blog.csdn.net/shanghx_123/article/details/89744613)
-- [C++_重载、重写和重定义的区别](https://blog.csdn.net/u010275850/article/details/45583705)
+- [C++ 空指针能调用类成员函数吗](https://blog.csdn.net/shanghx_123/article/details/89744613)
+- [C++ 重载、重写和重定义的区别](https://blog.csdn.net/u010275850/article/details/45583705)
 - [C++ 多态](https://zhuanlan.zhihu.com/p/37340242)
 - [C++ 向上与向下类型转换](https://blog.csdn.net/baidu_35679960/article/details/80821222)
 - [static_cast和dynamic_cast详解](https://blog.csdn.net/u014624623/article/details/79837849)
@@ -54,23 +67,31 @@
 - [Linux 平台中调试 C/C++ 内存泄漏方法](https://sites.google.com/site/shuzhifeng/linux-ping-tai-zhong-diao-shi-c-c-nei-cun-xie-lou-fang-fa)
 - [Valgrind Memcheck 源码分析](https://blog.csdn.net/Linsoft1994/article/details/79562518)
 
-### C++11 其他新特性
+### C++11
 
 - [c++11总结](https://www.cnblogs.com/5iedu/category/1503320.html)
+- [C++11 类型推导decltype](https://www.cnblogs.com/DswCnblog/p/6537411.html)
 - [C++ 线程安全的单例模式总结](https://www.cnblogs.com/xiaolincoding/p/11437231.html)
 - [从4行代码看右值引用](https://www.cnblogs.com/qicosmos/p/4283455.html)
 - [完美转发(std::forward)](https://www.cnblogs.com/5iedu/p/11324772.html)
 - [std::bind用法详解](https://blog.csdn.net/qq_41230365/article/details/79323517)
 
-### 优化
-
 - [C语言编程优化运行速度](https://www.cnblogs.com/feisky/archive/2009/10/23/1588815.html)
+
+### 调试
+
+- [gdb调试多线程](https://blog.csdn.net/zhangye3017/article/details/80382496)
 
 ## 操作系统
 
 ### 系统内存管理
 
+- [用户态和内核态的理解和区别](https://www.cnblogs.com/jiading/articles/12247594.html)
 - [操作系统内存管理](https://blog.csdn.net/hguisu/article/details/5713164)
+- [分段，分页与段页式存储管理](https://blog.csdn.net/zephyr_be_brave/article/details/8944967)
+- [认真分析mmap：是什么 为什么 怎么用](https://www.cnblogs.com/huxiao-tee/p/4660352.html)
+- [虚拟内存管理的作用/好处](https://blog.csdn.net/Tommy_wxie/article/details/8668406)
+- [七种寻址方式](https://blog.csdn.net/weiwangchao_/article/details/5905098)
 
 ### 进程
 
