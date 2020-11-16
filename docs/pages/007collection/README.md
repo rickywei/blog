@@ -4,7 +4,15 @@ title: 合集
 
 ## 算法
 
-- [K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/solution/tu-jie-kge-yi-zu-fan-zhuan-lian-biao-by-user7208t/)
+- [排序算法对比](https://blog.csdn.net/jnu_simba/article/details/9705111)
+- [快速排序一步一步优化](https://www.cnblogs.com/vipchenwei/p/7460293.html)
+- [为什么在平均情况下快速排序比堆排序要优秀](https://www.zhihu.com/question/23873747/answer/327295185)
+- &nbsp;
+- [AVL树详解及C++模板实现](https://cloud.tencent.com/developer/article/1155143)
+- [红黑树详解](https://blog.csdn.net/inspiredbh/article/details/60474958)
+- [面试中的红黑树问题](https://www.cnblogs.com/wuchanming/p/4444961.html)
+- [b树和b+树的区别](https://blog.csdn.net/login_sonata/article/details/75268075)
+- &nbsp;
 - [十道海量数据处理面试题与十个方法大总结](https://blog.csdn.net/v_JULY_v/article/details/6279498)
 
 ## C++
@@ -19,6 +27,7 @@ title: 合集
 ### 指针
 
 - [C指针详解](https://blog.csdn.net/soonfly/article/details/51131141)
+- [NULL指针、零指针、野指针](https://www.cnblogs.com/fly1988happy/archive/2012/04/16/2452021.html)
 - [浅谈C++中指针和引用的区别](https://www.cnblogs.com/dolphin0520/archive/2011/04/03/2004869.html)
 - [深入探索C++引用的实现原理](https://blog.csdn.net/lws123253/article/details/80353197)
 
@@ -28,40 +37,50 @@ title: 合集
 - [C语言实现函数重载](https://blog.csdn.net/gatieme/article/details/50921577)
 - [open函数重载](https://blog.csdn.net/aprilweet/article/details/53463463)
 - [内联函数和宏定义的区别](https://www.codenong.com/cs106540205/)
+- [C++ 重载、重写和重定义的区别](https://blog.csdn.net/u010275850/article/details/45583705)
 
-- [细说new与malloc的10点区别](https://www.cnblogs.com/qg-whz/p/5140930.html)
-
+- &nbsp;
 - [C++ 异常机制分析](https://www.cnblogs.com/QG-whz/p/5136883.html)
 
 ### 类
 
 - [struct和class的区别](https://blog.csdn.net/alidada_blog/article/details/83419757)
-- [图说C++对象模型：对象内存布局详解](https://www.cnblogs.com/QG-whz/p/4909359.html)
+- &nbsp;
 - [C++空类编译器自动生成的6个成员函数](https://blog.csdn.net/taiyang1987912/article/details/43485569)
 - [编译器何时创建默认构造函数和拷贝构造函数](https://blog.csdn.net/shltsh/article/details/45959271)
-- [为什么构造函数不能声明为虚函数，析构函数可以](https://www.cnblogs.com/lpxblog/p/6552601.html)
+- &nbsp;
 - [C++ 空指针能调用类成员函数吗](https://blog.csdn.net/shanghx_123/article/details/89744613)
-- [C++ 重载、重写和重定义的区别](https://blog.csdn.net/u010275850/article/details/45583705)
+- [图说C++对象模型：对象内存布局详解](https://www.cnblogs.com/QG-whz/p/4909359.html)
+- [为什么构造函数不能声明为虚函数，析构函数可以](https://www.cnblogs.com/lpxblog/p/6552601.html)
 - [C++ 多态](https://zhuanlan.zhihu.com/p/37340242)
+- &nbsp;
 - [C++ 向上与向下类型转换](https://blog.csdn.net/baidu_35679960/article/details/80821222)
 - [static_cast和dynamic_cast详解](https://blog.csdn.net/u014624623/article/details/79837849)
 
 ### STL
 
+- [vector, map, list](https://blog.csdn.net/sinat_36301420/article/details/104977572)
 - [迭代器失效的几种情况总结](https://blog.csdn.net/lujiandong1/article/details/49872763)
 - [vector扩容原理说明](https://blog.csdn.net/yangshiziping/article/details/52550291)
 - [push_back emplace_back](http://c.biancheng.net/view/6826.html)
+- &nbsp;
+- [c++中map与unordered_map的区别](https://blog.csdn.net/batuwuhanpei/article/details/50727227)
 
 ### 内存管理
 
+- [C++ 内存分区模型及其分配方式](https://blog.csdn.net/bobbymly/article/details/80230918)
+- &nbsp;
+- [细说new与malloc的10点区别](https://www.cnblogs.com/qg-whz/p/5140930.html)
+- &nbsp;
 - [malloc 的实现原理 内存池 mmap sbrk 链表](https://zhuanlan.zhihu.com/p/57863097)
+- &nbsp;
 - [C++智能指针简单剖析](https://www.cnblogs.com/lanxuezaipiao/p/4132096.html)
 - [C++ 智能指针的正确使用方式](https://www.cyhone.com/articles/right-way-to-use-cpp-smart-pointer/)
 - [shared_ptr](http://senlinzhan.github.io/2015/04/24/%E6%B7%B1%E5%85%A5shared-ptr/)
 - [为什么多线程读写 shared_ptr 要加锁](https://blog.csdn.net/Solstice/article/details/8547547)
 - [将智能指针作为函数输入参数的两个问题](https://blog.csdn.net/applemonkey11/article/details/79031615)
 - [智能指针陷阱](https://blog.csdn.net/wangshubo1989/article/details/49848681)
-- [C++ 内存分区模型及其分配方式](https://blog.csdn.net/bobbymly/article/details/80230918)
+- &nbsp;
 - [C++中常见内存泄漏情形总结](https://blog.csdn.net/haimianjie2012/article/details/56496047)
 - [C++内存泄漏及解决方法](https://blog.csdn.net/Clever_Pig/article/details/75050398)
 - [Linux 平台中调试 C/C++ 内存泄漏方法](https://sites.google.com/site/shuzhifeng/linux-ping-tai-zhong-diao-shi-c-c-nei-cun-xie-lou-fang-fa)
@@ -70,12 +89,15 @@ title: 合集
 ### C++11
 
 - [c++11总结](https://www.cnblogs.com/5iedu/category/1503320.html)
+- &nbsp;
 - [C++11 类型推导decltype](https://www.cnblogs.com/DswCnblog/p/6537411.html)
+- &nbsp;
 - [C++ 线程安全的单例模式总结](https://www.cnblogs.com/xiaolincoding/p/11437231.html)
+- &nbsp;
 - [从4行代码看右值引用](https://www.cnblogs.com/qicosmos/p/4283455.html)
 - [完美转发(std::forward)](https://www.cnblogs.com/5iedu/p/11324772.html)
 - [std::bind用法详解](https://blog.csdn.net/qq_41230365/article/details/79323517)
-
+- &nbsp;
 - [C语言编程优化运行速度](https://www.cnblogs.com/feisky/archive/2009/10/23/1588815.html)
 
 ### 调试
@@ -87,10 +109,12 @@ title: 合集
 ### 系统内存管理
 
 - [用户态和内核态的理解和区别](https://www.cnblogs.com/jiading/articles/12247594.html)
+- &nbsp;
+- [虚拟内存管理的作用/好处](https://blog.csdn.net/Tommy_wxie/article/details/8668406)
 - [操作系统内存管理](https://blog.csdn.net/hguisu/article/details/5713164)
 - [分段，分页与段页式存储管理](https://blog.csdn.net/zephyr_be_brave/article/details/8944967)
 - [认真分析mmap：是什么 为什么 怎么用](https://www.cnblogs.com/huxiao-tee/p/4660352.html)
-- [虚拟内存管理的作用/好处](https://blog.csdn.net/Tommy_wxie/article/details/8668406)
+- &nbsp;
 - [七种寻址方式](https://blog.csdn.net/weiwangchao_/article/details/5905098)
 
 ### 进程
@@ -113,7 +137,34 @@ title: 合集
 
 ## 网络
 
-### 协议
+- [网关，默认网关，自动网关，路由，网关与路由器的关系](https://blog.csdn.net/hzhsan/article/details/44059861)
+- [网络中两台主机通信的完整过程](https://www.cnblogs.com/lolau/p/8137541.html)
+- [TCP/IP和OSI 模型各层协议及端口号](https://blog.csdn.net/keylion_/article/details/79512168)
+
+### 应用层
+
+- [DNS解析过程详解](https://blog.csdn.net/crazw/article/details/8986504)
+- [域名解析中A记录、CNAME、MX记录、NS记录的区别和联系](https://blog.csdn.net/crazw/article/details/8986581)
+- [DNS攻击原理与防范](https://www.williamlong.info/archives/3813.html)
+- &nbsp;
+- [http 的发展历程](https://juejin.im/post/6844904047166636046)
+
+### 传输层
+
+- [TCP,UDP,IP包头格式及说明](https://blog.csdn.net/qq_30549833/article/details/60139328)
+- [TCP和UDP的最完整的区别](https://blog.csdn.net/Li_Ning_/article/details/52117463)
+- &nbsp;
+- [UDP如何实现可靠传输](https://www.cnblogs.com/williamjie/p/11133180.html)
+- &nbsp;
+- [两张动图-彻底明白TCP的三次握手与四次挥手](https://blog.csdn.net/qzcsu/article/details/72861891)
+- [MSL、TTL及RTT的区别](https://blog.csdn.net/guizaijianchic/article/details/77744004)
+- [TCP协议-如何保证传输可靠性](https://blog.csdn.net/liuchenxia8/article/details/80428157)
+- [TCP-IP详解：滑动窗口（Sliding Window）](https://blog.csdn.net/wdscq1234/article/details/52444277)
+- [TCP 半连接队列和全连接队列满了会发生什么？又该如何应对？](https://www.cnblogs.com/xiaolincoding/p/12995358.html)
+
+### 网络层
+
+### 链路层
 
 - [动态路由和静态路由](https://blog.csdn.net/laoniu_c/article/details/39268387)
 - [计算机网络之路由协议详解](https://blog.csdn.net/weixin_30247781/article/details/99962393)
@@ -121,15 +172,8 @@ title: 合集
 - [RIP路由协议及工作原理](https://blog.csdn.net/lycb_gz/article/details/1612254)
 - [内部网关协议RIP详解一](https://juejin.im/entry/6844903682878750734)
 - [OSPF详解](https://zhuanlan.zhihu.com/p/41341540)
-- [网关，默认网关，自动网关，路由，网关与路由器的关系](https://blog.csdn.net/hzhsan/article/details/44059861)
-- [网络中两台主机通信的完整过程](https://www.cnblogs.com/lolau/p/8137541.html)
-- [两张动图-彻底明白TCP的三次握手与四次挥手](https://blog.csdn.net/qzcsu/article/details/72861891)
-- [MSL、TTL及RTT的区别](https://blog.csdn.net/guizaijianchic/article/details/77744004)
-- [TCP和UDP的最完整的区别](https://blog.csdn.net/Li_Ning_/article/details/52117463)
-- [TCP,UDP,IP包头格式及说明](https://blog.csdn.net/qq_30549833/article/details/60139328)
-- [TCP协议-如何保证传输可靠性](https://blog.csdn.net/liuchenxia8/article/details/80428157)
-- [TCP-IP详解：滑动窗口（Sliding Window）](https://blog.csdn.net/wdscq1234/article/details/52444277)
-- [TCP 半连接队列和全连接队列满了会发生什么？又该如何应对？](https://www.cnblogs.com/xiaolincoding/p/12995358.html)
+
+### 物理层
 
 ### 网络编程
 
@@ -161,7 +205,9 @@ title: 合集
 - [索引失效与优化详解](https://blog.csdn.net/wuseyukui/article/details/72312574)
 - [悲观锁，乐观锁，行锁，表锁，页锁，共享锁，排他锁](https://blog.csdn.net/xiangwanpeng/article/details/55106732)
 
-### leveldb
+### redis
+
+- [缓存穿透、缓存雪崩和缓存击穿](https://juejin.im/post/6891938285178847240)
 
 ## Linux
 
