@@ -140,6 +140,7 @@ title: 合集
 - [网关，默认网关，自动网关，路由，网关与路由器的关系](https://blog.csdn.net/hzhsan/article/details/44059861)
 - [网络中两台主机通信的完整过程](https://www.cnblogs.com/lolau/p/8137541.html)
 - [TCP/IP和OSI 模型各层协议及端口号](https://blog.csdn.net/keylion_/article/details/79512168)
+- [在浏览器输入 URL 回车之后发生了什么](https://juejin.im/post/6844903922084085773)
 
 ### 应用层
 
@@ -148,6 +149,12 @@ title: 合集
 - [DNS攻击原理与防范](https://www.williamlong.info/archives/3813.html)
 - &nbsp;
 - [http 的发展历程](https://juejin.im/post/6844904047166636046)
+- [HTTP请求、响应报文格式](https://blog.csdn.net/a19881029/article/details/14002273)
+- [POST 请求的三种常见数据提交格式](https://juejin.im/post/6844903870116675597)
+- [GET和POST的区别](https://segmentfault.com/a/1190000018129846)
+- &nbsp;
+- [Https 详解](https://juejin.im/post/6844903560270839821)
+- [HTTPS详解](https://juejin.im/post/6844903602494898183)
 
 ### 传输层
 
@@ -187,7 +194,7 @@ title: 合集
 ### web
 
 - [浅谈Session与Cookie的区别与联系](https://blog.csdn.net/duan1078774504/article/details/51912868)
-- [在浏览器输入 URL 回车之后发生了什么](https://juejin.im/post/6844903922084085773)
+
 
 ## 安全
 
