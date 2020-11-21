@@ -7,13 +7,18 @@ title: 合集
 - [排序算法对比](https://blog.csdn.net/jnu_simba/article/details/9705111)
 - [快速排序一步一步优化](https://www.cnblogs.com/vipchenwei/p/7460293.html)
 - [为什么在平均情况下快速排序比堆排序要优秀](https://www.zhihu.com/question/23873747/answer/327295185)
+- [快速排序和归并排序的区别](https://blog.csdn.net/BTUJACK/article/details/84196476)
 - &nbsp;
+- [二叉树的非递归遍历](https://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html)
 - [AVL树详解及C++模板实现](https://cloud.tencent.com/developer/article/1155143)
 - [红黑树详解](https://blog.csdn.net/inspiredbh/article/details/60474958)
 - [面试中的红黑树问题](https://www.cnblogs.com/wuchanming/p/4444961.html)
 - [b树和b+树的区别](https://blog.csdn.net/login_sonata/article/details/75268075)
 - &nbsp;
+- [hash算法原理详解](https://blog.csdn.net/tanggao1314/article/details/51457585)
 - [十道海量数据处理面试题与十个方法大总结](https://blog.csdn.net/v_JULY_v/article/details/6279498)
+- &nbsp;
+- [25匹马，5个赛道，决出前n名](https://blog.csdn.net/niaolianjiulin/article/details/76125113)
 
 ## C++
 
@@ -49,6 +54,7 @@ title: 合集
 - [C++空类编译器自动生成的6个成员函数](https://blog.csdn.net/taiyang1987912/article/details/43485569)
 - [编译器何时创建默认构造函数和拷贝构造函数](https://blog.csdn.net/shltsh/article/details/45959271)
 - &nbsp;
+- [C++成员函数在内存中的存储方式](https://blog.csdn.net/fuzhongmin05/article/details/59112081)
 - [C++ 空指针能调用类成员函数吗](https://blog.csdn.net/shanghx_123/article/details/89744613)
 - [图说C++对象模型：对象内存布局详解](https://www.cnblogs.com/QG-whz/p/4909359.html)
 - [为什么构造函数不能声明为虚函数，析构函数可以](https://www.cnblogs.com/lpxblog/p/6552601.html)
@@ -119,13 +125,27 @@ title: 合集
 
 ### 进程
 
+- [进程调度](https://blog.csdn.net/qq_35642036/article/details/82809812)
+- [Linux的公平调度（CFS）原理](https://www.jianshu.com/p/673c9e4817a8)
+- [上下文切换](https://blog.csdn.net/xifeijian/article/details/8209783)
+- &nbsp;
+- [孤儿进程与僵尸进程](https://www.cnblogs.com/anker/p/3271773.html)
+- &nbsp;
+- [fork()之后都会做哪些复制](https://blog.csdn.net/lm9140802/article/details/78577165)
+- [fork，vfork和clone详解](https://blog.csdn.net/gatieme/article/details/51417488)
+- &nbsp;
 - [进程间通信的方式](https://www.cnblogs.com/luo77/p/5816326.html)
 - [Linux进程通信之POSIX共享内存](https://blog.csdn.net/anonymalias/article/details/9938865)
 
 ## 线程
 
 - [进程和线程的区别](https://www.cnblogs.com/lmule/archive/2010/08/18/1802774.html)
+- [Linux 线程同步的三种方法](https://blog.csdn.net/zsf8701/article/details/7844316)
+- [信号量semaphore](https://www.cnblogs.com/alantu2018/p/8991393.html)
+- &nbsp;
+- [Linux下线程的调度](https://blog.csdn.net/hanchaoman/article/details/6697636)
 - [Linux下创建一个线程占用多少内存](https://blog.csdn.net/lvyibin890/article/details/82254697)
+- &nbsp;
 - [C++11中的内存模型上篇 - 内存模型基础](https://www.codedump.info/post/20191214-cxx11-memory-model-1/)
 - [C++11中的内存模型下篇 - C++11支持的几种内存模型](https://www.codedump.info/post/20191214-cxx11-memory-model-2/)
 - [c++并发编程1.内存序](https://zhuanlan.zhihu.com/p/55901945)
@@ -148,13 +168,16 @@ title: 合集
 - [域名解析中A记录、CNAME、MX记录、NS记录的区别和联系](https://blog.csdn.net/crazw/article/details/8986581)
 - [DNS攻击原理与防范](https://www.williamlong.info/archives/3813.html)
 - &nbsp;
+- [30 张图解 HTTP 常见的面试题](https://www.cnblogs.com/xiaolincoding/p/12442435.html)
 - [http 的发展历程](https://juejin.im/post/6844904047166636046)
 - [HTTP请求、响应报文格式](https://blog.csdn.net/a19881029/article/details/14002273)
 - [POST 请求的三种常见数据提交格式](https://juejin.im/post/6844903870116675597)
 - [GET和POST的区别](https://segmentfault.com/a/1190000018129846)
+- [[浅谈Session与Cookie的区别与联系](https://blog.csdn.net/duan1078774504/article/details/51912868)]
 - &nbsp;
 - [Https 详解](https://juejin.im/post/6844903560270839821)
 - [HTTPS详解](https://juejin.im/post/6844903602494898183)
+- [CA证书链](https://www.jianshu.com/p/46e48bc517d0)
 
 ### 传输层
 
@@ -166,8 +189,10 @@ title: 合集
 - [两张动图-彻底明白TCP的三次握手与四次挥手](https://blog.csdn.net/qzcsu/article/details/72861891)
 - [MSL、TTL及RTT的区别](https://blog.csdn.net/guizaijianchic/article/details/77744004)
 - [TCP协议-如何保证传输可靠性](https://blog.csdn.net/liuchenxia8/article/details/80428157)
-- [TCP-IP详解：滑动窗口（Sliding Window）](https://blog.csdn.net/wdscq1234/article/details/52444277)
+- [30张图解： TCP 重传、滑动窗口、流量控制、拥塞控制](https://www.cnblogs.com/xiaolincoding/p/12732052.html)
+- [面试官：换人！他连 TCP 这几个参数都不懂](https://www.cnblogs.com/xiaolincoding/p/13067971.html)
 - [TCP 半连接队列和全连接队列满了会发生什么？又该如何应对？](https://www.cnblogs.com/xiaolincoding/p/12995358.html)
+- [机器上出现大量time_wait怎么办](https://blog.csdn.net/fanren224/article/details/89849276)
 
 ### 网络层
 
@@ -188,15 +213,13 @@ title: 合集
 - [select函数详解](https://blog.csdn.net/y396397735/article/details/55004775)
 - [poll模型详解](https://blog.csdn.net/shixin_0125/article/details/72604343)
 - [epoll详解](https://www.cnblogs.com/lojunren/p/3856290.html)
+- &nbsp;
 - [Proactor 与 Reactor](https://segmentfault.com/a/1190000018331509)
 - [Reactor模式详解](http://www.blogjava.net/DLevin/archive/2015/09/02/427045.html)
+- &nbsp;
+- [socket选项](https://segmentfault.com/a/1190000019360464)
 
-### web
-
-- [浅谈Session与Cookie的区别与联系](https://blog.csdn.net/duan1078774504/article/details/51912868)
-
-
-## 安全
+### 网络安全
 
 - [SQL注入攻击常见方式及测试方法](https://blog.csdn.net/github_36032947/article/details/78442189)
 - [跨站脚本攻击—XSS](https://juejin.im/post/6844903943143718925)
@@ -216,7 +239,9 @@ title: 合集
 
 - [缓存穿透、缓存雪崩和缓存击穿](https://juejin.im/post/6891938285178847240)
 
-## Linux
+## 分布式
+
+## Linux命令
 
 - [ulimit 命令详解](https://www.cnblogs.com/klb561/p/10575043.html)
 
