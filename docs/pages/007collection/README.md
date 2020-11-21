@@ -86,6 +86,7 @@ title: 合集
 - [为什么多线程读写 shared_ptr 要加锁](https://blog.csdn.net/Solstice/article/details/8547547)
 - [将智能指针作为函数输入参数的两个问题](https://blog.csdn.net/applemonkey11/article/details/79031615)
 - [智能指针陷阱](https://blog.csdn.net/wangshubo1989/article/details/49848681)
+- [C++智能指针与容器](https://blog.csdn.net/qq_43405330/article/details/108824286)
 - &nbsp;
 - [C++中常见内存泄漏情形总结](https://blog.csdn.net/haimianjie2012/article/details/56496047)
 - [C++内存泄漏及解决方法](https://blog.csdn.net/Clever_Pig/article/details/75050398)
@@ -213,6 +214,7 @@ title: 合集
 - [select函数详解](https://blog.csdn.net/y396397735/article/details/55004775)
 - [poll模型详解](https://blog.csdn.net/shixin_0125/article/details/72604343)
 - [epoll详解](https://www.cnblogs.com/lojunren/p/3856290.html)
+- [惊群效应](https://blog.csdn.net/lyztyycode/article/details/78648798)
 - &nbsp;
 - [Proactor 与 Reactor](https://segmentfault.com/a/1190000018331509)
 - [Reactor模式详解](http://www.blogjava.net/DLevin/archive/2015/09/02/427045.html)
