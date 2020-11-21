@@ -19,6 +19,7 @@ title: 合集
 - [十道海量数据处理面试题与十个方法大总结](https://blog.csdn.net/v_JULY_v/article/details/6279498)
 - &nbsp;
 - [25匹马，5个赛道，决出前n名](https://blog.csdn.net/niaolianjiulin/article/details/76125113)
+- [经典老鼠毒药问题](https://blog.csdn.net/z_qifa/article/details/74440959)
 
 ## C++
 
@@ -59,6 +60,7 @@ title: 合集
 - [图说C++对象模型：对象内存布局详解](https://www.cnblogs.com/QG-whz/p/4909359.html)
 - [为什么构造函数不能声明为虚函数，析构函数可以](https://www.cnblogs.com/lpxblog/p/6552601.html)
 - [C++ 多态](https://zhuanlan.zhihu.com/p/37340242)
+- [虚函数能否为inline](https://blog.csdn.net/shltsh/article/details/45999947)
 - &nbsp;
 - [C++ 向上与向下类型转换](https://blog.csdn.net/baidu_35679960/article/details/80821222)
 - [static_cast和dynamic_cast详解](https://blog.csdn.net/u014624623/article/details/79837849)
@@ -75,6 +77,8 @@ title: 合集
 ### 内存管理
 
 - [C++ 内存分区模型及其分配方式](https://blog.csdn.net/bobbymly/article/details/80230918)
+- &nbsp;
+- [memcpy实现](https://blog.csdn.net/goodwillyang/article/details/45559925)
 - &nbsp;
 - [细说new与malloc的10点区别](https://www.cnblogs.com/qg-whz/p/5140930.html)
 - &nbsp;
@@ -220,6 +224,9 @@ title: 合集
 - [Reactor模式详解](http://www.blogjava.net/DLevin/archive/2015/09/02/427045.html)
 - &nbsp;
 - [socket选项](https://segmentfault.com/a/1190000019360464)
+- &nbsp;
+- [Nginx + CGI/FastCGI](https://www.cnblogs.com/skynet/p/4173450.html)
+- [nginx、cgi通信原理](https://blog.csdn.net/clh604/article/details/20127645)
 
 ### 网络安全
 
