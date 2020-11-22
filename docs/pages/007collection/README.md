@@ -9,6 +9,11 @@ title: 合集
 - [为什么在平均情况下快速排序比堆排序要优秀](https://www.zhihu.com/question/23873747/answer/327295185)
 - [快速排序和归并排序的区别](https://blog.csdn.net/BTUJACK/article/details/84196476)
 - &nbsp;
+- [反转单向链表和双向链表](https://www.cnblogs.com/xiaomoxian/p/5251357.html)
+- &nbsp;
+- [动态规划问题 - 经典模型的状态转移方程](https://www.cnblogs.com/tgycoder/p/5037559.html)
+- [BF、KMP、BM、Sunday算法讲解](https://www.cnblogs.com/Syhawk/p/4077295.html)
+- &nbsp;
 - [二叉树的非递归遍历](https://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html)
 - [AVL树详解及C++模板实现](https://cloud.tencent.com/developer/article/1155143)
 - [红黑树详解](https://blog.csdn.net/inspiredbh/article/details/60474958)
@@ -121,6 +126,8 @@ title: 合集
 
 - [用户态和内核态的理解和区别](https://www.cnblogs.com/jiading/articles/12247594.html)
 - &nbsp;
+- [物理内存与虚拟内存](https://xie.infoq.cn/article/e082eae8d7dc5a3d5140225f9)
+- [缺页中断——FIFO、LRU、OPT这三种置换算法](https://blog.csdn.net/u011080472/article/details/51206332)
 - [虚拟内存管理的作用/好处](https://blog.csdn.net/Tommy_wxie/article/details/8668406)
 - [操作系统内存管理](https://blog.csdn.net/hguisu/article/details/5713164)
 - [分段，分页与段页式存储管理](https://blog.csdn.net/zephyr_be_brave/article/details/8944967)
