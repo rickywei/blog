@@ -10,6 +10,7 @@ title: 合集
 - [快速排序和归并排序的区别](https://blog.csdn.net/BTUJACK/article/details/84196476)
 - &nbsp;
 - [反转单向链表和双向链表](https://www.cnblogs.com/xiaomoxian/p/5251357.html)
+- [二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/solution/mian-shi-ti-04-er-wei-shu-zu-zhong-de-cha-zhao-zuo/)
 - &nbsp;
 - [动态规划问题 - 经典模型的状态转移方程](https://www.cnblogs.com/tgycoder/p/5037559.html)
 - [BF、KMP、BM、Sunday算法讲解](https://www.cnblogs.com/Syhawk/p/4077295.html)
@@ -22,11 +23,16 @@ title: 合集
 - &nbsp;
 - [hash算法原理详解](https://blog.csdn.net/tanggao1314/article/details/51457585)
 - [十道海量数据处理面试题与十个方法大总结](https://blog.csdn.net/v_JULY_v/article/details/6279498)
+- [Top K 问题](https://juejin.cn/entry/6844903774004183047)
+- [秒杀系统设计](https://zhuanlan.zhihu.com/p/92307325)
 - &nbsp;
 - [25匹马，5个赛道，决出前n名](https://blog.csdn.net/niaolianjiulin/article/details/76125113)
 - [经典老鼠毒药问题](https://blog.csdn.net/z_qifa/article/details/74440959)
 
 ## C++
+
+- [C/C++程序编译过程详解](https://www.cnblogs.com/mickole/articles/3659112.html)
+- [Linux下动态库(.so)和静态库(.a)](https://blog.csdn.net/felixit0120/article/details/7652907)
 
 ### 关键字
 
@@ -122,6 +128,9 @@ title: 合集
 
 ## 操作系统
 
+- [Linux开机启动顺序简述](https://blog.csdn.net/weixin_34377919/article/details/91634035)
+- [键盘敲入 A 字母时，操作系统期间发生了什么](https://www.cnblogs.com/xiaolincoding/p/13550711.html)
+
 ### 系统内存管理
 
 - [用户态和内核态的理解和区别](https://www.cnblogs.com/jiading/articles/12247594.html)
@@ -132,6 +141,7 @@ title: 合集
 - [操作系统内存管理](https://blog.csdn.net/hguisu/article/details/5713164)
 - [分段，分页与段页式存储管理](https://blog.csdn.net/zephyr_be_brave/article/details/8944967)
 - [认真分析mmap：是什么 为什么 怎么用](https://www.cnblogs.com/huxiao-tee/p/4660352.html)
+- [深入剖析Linux IO原理和几种零拷贝机制的实现](https://juejin.cn/post/6844903949359644680)
 - &nbsp;
 - [七种寻址方式](https://blog.csdn.net/weiwangchao_/article/details/5905098)
 
@@ -254,6 +264,8 @@ title: 合集
 ### redis
 
 - [缓存穿透、缓存雪崩和缓存击穿](https://juejin.im/post/6891938285178847240)
+- [一致性哈希算法](https://segmentfault.com/a/1190000021199728)
+- [Redis面试题](https://blog.csdn.net/ThinkWon/article/details/103522351)
 
 ## 分布式
 
