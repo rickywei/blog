@@ -92,8 +92,8 @@ title: 合集
 - [memcpy实现](https://blog.csdn.net/goodwillyang/article/details/45559925)
 - &nbsp;
 - [细说new与malloc的10点区别](https://www.cnblogs.com/qg-whz/p/5140930.html)
-- &nbsp;
 - [malloc 的实现原理 内存池 mmap sbrk 链表](https://zhuanlan.zhihu.com/p/57863097)
+- [为什么free函数只需要传入要释放的指针，而不需要大小](https://blog.csdn.net/caogenwangbaoqiang/article/details/79834150)
 - &nbsp;
 - [C++智能指针简单剖析](https://www.cnblogs.com/lanxuezaipiao/p/4132096.html)
 - [C++ 智能指针的正确使用方式](https://www.cyhone.com/articles/right-way-to-use-cpp-smart-pointer/)
@@ -215,6 +215,7 @@ title: 合集
 - [面试官：换人！他连 TCP 这几个参数都不懂](https://www.cnblogs.com/xiaolincoding/p/13067971.html)
 - [TCP 半连接队列和全连接队列满了会发生什么？又该如何应对？](https://www.cnblogs.com/xiaolincoding/p/12995358.html)
 - [机器上出现大量time_wait怎么办](https://blog.csdn.net/fanren224/article/details/89849276)
+- [TCP连接大量CLOSE_WAIT状态问题排查](https://blog.csdn.net/yangguosb/article/details/79095255)
 
 ### 网络层
 
