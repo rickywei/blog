@@ -60,7 +60,7 @@ export default {
     font-weight: initial;
   }
 
-  thead tr th td {
+  thead, tr, th, td {
     font-family: consolas;
     font-size: initial;
     font-weight: initial;
