@@ -14,13 +14,7 @@ module.exports = {
             { text: 'Home', link: '/' },
             {
                 text: 'Blog', items: [
-                    { text: 'Algorithm', link: '/pages/001algorithm/' },
-                    { text: 'C++', link: '/pages/002cpp/' },
-                    { text: 'Network', link: '/pages/003network/' },
-                    { text: 'Linux', link: '/pages/004linux/' },
-                    { text: 'Database', link: '/pages/005database/' },
-                    { text: 'Design', link: '/pages/006design/' },
-                    { text: 'collection', link: '/pages/007collection/' }
+                    { text: 'Interview', link: '/pages/001interview/' },
                 ]
             },
             { text: 'Github', link: 'https://github.com/RickyWei' },
