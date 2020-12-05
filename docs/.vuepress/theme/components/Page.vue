@@ -59,5 +59,17 @@ export default {
     font-size: initial;
     font-weight: initial;
   }
+
+  thread {
+    font-family: consolas;
+    font-size: initial;
+    font-weight: initial;
+  }
+
+  tr {
+    font-family: consolas;
+    font-size: initial;
+    font-weight: initial;
+  }
 }
 </style>
