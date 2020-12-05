@@ -60,13 +60,13 @@ export default {
     font-weight: initial;
   }
 
-  thread {
+  thead tr th td {
     font-family: consolas;
     font-size: initial;
     font-weight: initial;
   }
 
-  tr {
+  mjx-container {
     font-family: consolas;
     font-size: initial;
     font-weight: initial;
