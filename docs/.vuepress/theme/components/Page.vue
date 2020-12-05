@@ -66,7 +66,7 @@ export default {
     font-weight: initial;
   }
 
-  mjx-container {
+  mjx-container, mjx-math, mjx-msub, mjx-mfrac, mjx-frac, mjx-num, mjx-nstrut, mjx-mrow, mjx-mo, mjx-utext, mjx-dbox, mjx-dtable, mjx-line, mjx-den {
     font-family: consolas;
     font-size: initial;
     font-weight: initial;
