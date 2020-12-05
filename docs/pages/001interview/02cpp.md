@@ -493,18 +493,21 @@ class B : public A {
    1. 数组+链表
 4. queue
    1. list / deque
-5. stack
+5. priority_queue
+   1. vector实现堆，默认最大堆（堆顶为compare比较后最后一个元素）
+   2. 使用 make_heap() push_heap() sort_heap()
+6. stack
    1. list / deque
-6. map
+7. map
    1. 红黑树
-7. set
+8. set
    1. 红黑树, key value相同
-8. unordered_map
+9. unordered_map
    1. hash_table
-9. unordered_set
-   1. hash_table
-10. multiset
-    1. 红黑树
+10. unordered_set
+    1. hash_table
+11. multiset
+    1. 红黑树，插入操作采用的是底层机制RB-tree的insert_equal()而非insert_unique()
 
 ## vector迭代器失效
 
