@@ -51,6 +51,61 @@ void qsort(int array[], int l, int r) {
 
 ## 树的遍历
 
+```cpp
+void PreOrder(Tree *root) {
+  stack<Tree *> s;
+  Tree *p = root;
+  while (p != nullptr || !s.empty()) {
+    while (p != nullptr) {
+      cout << p->val << endl;
+      s.push(p);
+      p = p->left;
+    }
+    if (!s.empty()) {
+      p = s.top();
+      s.pop();
+      p = p->right;
+    }
+  }
+}
+
+void InOrder(Tree *root) {
+  stack<Tree *> s;
+  Tree *p = root;
+  while (p != nullptr || !s.empty()) {
+    while (p != nullptr) {
+      s.push(p);
+      p = p->left;
+    }
+    if (!s.empty()) {
+      p = s.top();
+      cout << p->val << endl;
+      s.pop();
+      p = p->right;
+    }
+  }
+}
+
+void PostOrder(Tree *root) {
+  stack<Tree *> s;
+  Tree *cur;
+  Tree *pre = nullptr;
+  s.push(root);
+  while (!s.empty()) {
+    cur = s.top();
+    if ((cur->left == nullptr && cur->right == nullptr) ||
+        (pre != nullptr && (pre == cur->left || pre == cur->right))) {
+      cout << cur->val << endl;
+      s.pop();
+      pre = cur;
+    } else {
+      if (cur->right != nullptr) s.push(cur->right);
+      if (cur->left != nullptr) s.push(cur->left);
+    }
+  }
+}
+```
+
 ## LRU
 
 ```cpp
@@ -88,6 +143,143 @@ class LRU {
   unordered_map<int, list<pair<int, int>>::iterator> mp_;
 };
 ```
+
+## 二维数组中查值
+
+```cpp
+bool findNumberIn2DArray(vector<vector<int>> &matrix, int target) {
+  int i = matrix.size() - 1, j = 0;
+  while (i >= 0 && j < matrix[0].size()) {
+    if (matrix[i][j] > target)
+      i--;
+    else if (matrix[i][j] < target)
+      j++;
+    else
+      return true;
+  }
+  return false;
+}
+```
+
+## 旋转数组二分
+
+```cpp
+int search(vector<int> &nums, int target) {
+  int n = (int)nums.size();
+  if (!n) {
+    return -1;
+  }
+  if (n == 1) {
+    return nums[0] == target ? 0 : -1;
+  }
+  int l = 0, r = n - 1;
+  while (l <= r) {
+    int mid = (l + r) / 2;
+    if (nums[mid] == target) return mid;
+    if (nums[0] <= nums[mid]) {
+      if (nums[0] <= target && target < nums[mid]) {
+        r = mid - 1;
+      } else {
+        l = mid + 1;
+      }
+    } else {
+      if (nums[mid] < target && target <= nums[n - 1]) {
+        l = mid + 1;
+      } else {
+        r = mid - 1;
+      }
+    }
+  }
+  return -1;
+}
+```
+
+## 最大子数组和
+
+```cpp
+int maxSubArray(vector<int> &nums) {
+  int pre = 0, maxAns = nums[0];
+  for (const auto &x : nums) {
+    pre = max(pre + x, x);
+    maxAns = max(maxAns, pre);
+  }
+  return maxAns;
+}
+```
+
+## 最长公共子序列
+
+```cpp
+int longestCommonSubsequence(string text1, string text2) {
+  int m = text1.size(), n = text2.size();
+  int dp[m + 1][n + 1];
+  memset(dp, 0, sizeof(dp));
+  for (int i = 1; i <= m; i++) {
+    for (int j = 1; j <= n; j++) {
+      if (text1[i - 1] == text2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1] + 1;
+      } else {
+        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+  return dp[m][n];
+}
+```
+
+## 最长回文子串
+
+```cpp
+string longestPalindrome(string s) {
+  int n = s.size();
+  vector<vector<int>> dp(n, vector<int>(n));
+  string ans;
+  for (int l = 0; l < n; ++l) {
+    for (int i = 0; i + l < n; ++i) {
+      int j = i + l;
+      if (l == 0) {
+        dp[i][j] = 1;
+      } else if (l == 1) {
+        dp[i][j] = (s[i] == s[j]);
+      } else {
+        dp[i][j] = (s[i] == s[j] && dp[i + 1][j - 1]);
+      }
+      if (dp[i][j] && l + 1 > ans.size()) {
+        ans = s.substr(i, l + 1);
+      }
+    }
+  }
+  return ans;
+}
+```
+
+## 最长回文子序列
+
+```cpp
+int longestPalindromeSubseq(string s) {
+  int n = s.size();
+  vector<vector<int>> dp(n, vector<int>(n, 0));
+  for (int i = 0; i < n; i++) {
+    dp[i][i] = 1;
+  }
+  for (int len = 2; len <= n; len++) {
+    for (int i = 0; i <= n - len; i++) {
+      int j = i + len - 1;
+      if (s[i] == s[j]) {
+        dp[i][j] = dp[i + 1][j - 1] + 2;
+      } else {
+        dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+  return dp[0][n - 1];
+}
+```
+
+## 有限状态机
+
+1. 表示有限个状态以及在这些状态之间的转移和动作等行为的数学计算模型
+2. 节点为当前状态，边为转换条件
 
 ## Top K 问题
 
