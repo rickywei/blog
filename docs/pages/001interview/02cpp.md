@@ -509,6 +509,14 @@ class B : public A {
 11. multiset
     1. 红黑树，插入操作采用的是底层机制RB-tree的insert_equal()而非insert_unique()
 
+## 迭代器种类
+
+1. Input iterator(输入迭代器) 可读 只支持自增运算
+2. Output iterator(输出迭代器) 可写 只支持自增运算
+3. Forward iterator(前向迭代器) 读写 只支持自增运算
+4. Bidirectional iterator(双向迭代器) 读写 支持自增和自减运算
+5. andom access iterator(随机访问迭代器) 读写 支持完整的迭代器算术运算
+
 ## vector迭代器失效
 
 1. 删除时，后面的数据要移动，后面的迭代器都失效，但erase()函数可返回下一个元素的新的迭代器
