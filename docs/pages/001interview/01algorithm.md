@@ -1,5 +1,12 @@
 # Algorithm
 
+## 进制转换
+
+1. x 进制转 10 = x^0 + x^1 + ...
+2. 10 进制转 x
+   1. 将10进制数不断除x，取整数商作为下次被除数，小数部分乘x
+   2. 如10进制100转8进制，100/8=12.5, 12/8=1.5, 1/8=0.125，结果为144
+
 ## 排序算法
 
 1. 各种排序算法比较 ![sort](./imgalg/sort.png)
@@ -106,6 +113,14 @@ void PostOrder(Tree *root) {
 }
 ```
 
+## 红黑树
+
+1. 节点非黑即红
+2. 根节点永远为黑
+3. 所有叶子节点都为空且为黑
+4. 不能有两个连续的红节点
+5. 从任意节点到子节点的所有路径黑高相同
+
 ## LRU
 
 ```cpp
@@ -194,6 +209,44 @@ int search(vector<int> &nums, int target) {
 }
 ```
 
+## 两个有序数组的第k大值和中位数
+
+```cpp
+float findTheKBigNum(int *a, int *b, int aStart, int bStart, int aLen, int bLen,
+                     int k) {
+  // 这里使用较短的数组作为a，保证不越界
+  if (aLen > bLen) {
+    findTheKBigNum(b, a, bStart, aStart, bLen, aLen, k);
+  }
+  if (aLen == 0) {
+    return b[bStart + k - 1];
+  }
+  if (k == 1) {
+    return a[aStart] < b[bStart] ? a[aStart] : b[bStart];
+  }
+
+  int p1 = k / 2 < aLen ? k / 2 : aLen;
+  int p2 = k - p1;
+  if (a[aStart + p1 - 1] < b[bStart + p2 - 1]) {
+    return findTheKBigNum(a, b, aStart + p1, bStart, aLen - p1, bLen, k - p1);
+  } else if (a[aStart + p1 - 1] > b[bStart + p2 - 1]) {
+    return findTheKBigNum(a, b, aStart, bStart + p2, aLen, bLen - p2, k - p2);
+  } else {
+    return a[aStart + p1 - 1];
+  }
+}
+
+float mediumNum(int *a, int *b, int m, int n) {
+  int k = (m + n) / 2;
+  if ((m + n) % 2 == 0) {
+    //  如果合并后的数组长度是偶数，中位数为第k大和第k+1大之和的一半
+        return (findTheKBigNum(a, b, 0, 0, m, n, k)+findTheKBigNum（a, b, 0, 0, m, n, k+1))/2;
+  } else {
+    return findTheKBigNum(a, b, 0, 0, m, n, k + 1);
+  }
+}
+```
+
 ## kmp
 
 ```cpp
@@ -269,12 +322,12 @@ string longestPalindrome(string s) {
   int n = s.size();
   vector<vector<int>> dp(n, vector<int>(n));
   string ans;
-  for (int l = 0; l < n; ++l) {
-    for (int i = 0; i + l < n; ++i) {
-      int j = i + l;
-      if (l == 0) {
+  for (int len = 0; len < n; ++len) {
+    for (int i = 0; i + len < n; ++i) {
+      int j = i + len;
+      if (len == 0) {
         dp[i][j] = 1;
-      } else if (l == 1) {
+      } else if (len == 1) {
         dp[i][j] = (s[i] == s[j]);
       } else {
         dp[i][j] = (s[i] == s[j] && dp[i + 1][j - 1]);
@@ -311,6 +364,28 @@ int longestPalindromeSubseq(string s) {
 }
 ```
 
+## 矩阵顺时针旋转90
+
+```cpp
+// 先按主对角线旋转，在左右反转
+```
+
+## 前缀，中缀，后缀
+
+1. 中转前
+   1. 逆序扫描，其他与转后缀相似（左右括号处理互换）
+2. 中转后
+   1. 运算符栈S1，中间结果栈S2
+   2. 遇到操作数，压入S2
+   3. 遇到操作符，与S1栈顶比较
+      1. S1为空或为(，直接压入
+      2. 若优先级比S1高压入
+      3. 否则S1弹出直到可以放
+   4. 遇到(，直接放入
+   5. 遇到)，将S1弹出直到(
+   6. 扫描完时，将S1压入S2
+   7. S2的逆序即为后缀表达式
+
 ## 有限状态机
 
 1. 表示有限个状态以及在这些状态之间的转移和动作等行为的数学计算模型
@@ -337,3 +412,46 @@ int longestPalindromeSubseq(string s) {
    1. 用 1 bit 标记该值是否存在
    2. 用 2 bit 标记值是01否00存在，是否重复10
 4. heap
+
+## 赛马
+
+1. 25匹马，5个跑道，最少多少次决定前5名
+2. 前五次每5个一比，得出各组第一 A1 B1 C1 D1 E1
+3. 第六次比较 A1 B1 C1 D1 E1 找出第一名，假设为A1且顺序为 A1 B1 C1 D1 E1
+4. 第七次比较 A2 A3 B1 B2 C1 找出第二第三A2 A3，因为B1和C1肯定淘汰 D1 E1
+5. 第八次比较 A4 A5 B1 B2 C1 找出第四第五，因为B1和C1肯定淘汰 D1 E1
+
+## 毒老鼠
+
+1. 八瓶水，三只老鼠找有毒的瓶子
+2. 000=0
+  001=1
+  010=2
+  011=3
+  100=4
+  101=5
+  110=6
+  111=7
+3. 每一位对应一只老鼠，即1号老鼠混吃1 3 5 7等等，如果1死，2活，3死对应101=5号瓶子有毒
+
+## rand5 rand7
+
+rand5生成rand7，一个rand5生成0-5，一个rand5生成0 5 10 15 20，相加等到0-24，除0外其他数概率相同，取1-21模7后+1
+
+```cpp
+int x = 22;
+while (x > 21) {
+  x = rand5() + (rand5() - 1) * 5;
+}
+return 1 + x % 7;
+```
+
+rand7 rand5
+
+```cpp
+int x = MAX_INT;
+while(x > 5)
+  x = Rand7();
+return x;
+```
+

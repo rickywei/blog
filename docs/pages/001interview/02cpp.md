@@ -515,7 +515,7 @@ class B : public A {
 2. Output iterator(输出迭代器) 可写 只支持自增运算
 3. Forward iterator(前向迭代器) 读写 只支持自增运算
 4. Bidirectional iterator(双向迭代器) 读写 支持自增和自减运算
-5. andom access iterator(随机访问迭代器) 读写 支持完整的迭代器算术运算
+5. Random access iterator(随机访问迭代器) 读写 支持完整的迭代器算术运算
 
 ## vector迭代器失效
 

@@ -434,17 +434,32 @@ int epoll_wait(int epfd, struct epoll_event *events, int maxevents,
       3. epoll_ctl()将listen_fd加入且对应epoll_event为EPOLLIN
       4. epoll_wait()
       5. epoll_wait返回后，仅发生events的fd会被返回在events中，遍历即可
+   2. 事件
+      1. EPOLLIN 表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；
+      2. EPOLLOUT 表示对应的文件描述符可以写；
+      3. EPOLLPRI 表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；
+      4. EPOLLERR 表示对应的文件描述符发生错误；
+      5. EPOLLHUP 表示对应的文件描述符被挂断；
+      6. EPOLLET 将 EPOLL设为边缘触发(Edge Triggered)模式（默认为水平触发），这是相对于水平触发(Level Triggered)来说的。
+      7. EPOLLONESHOT 只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里
 4. 三者区别
    1. select最大描述符一般1024，poll epoll 是进程可打开的最大fd数量
    2. select poll都需要循环遍历O(n)，epoll回调 O(1)
-   3. select poll仅有LT模式，epoll还有ET模式；LT与ET模式的区别为，LT模式在有事件时会一直返回，ET只返回一次；如同一时刻多个连接到达，使用ET模式时，需要用while包裹accept直到EAFAIN，否则只会有一个连接建立
+   3. select poll仅有LT模式，epoll还有ET模式；LT与ET模式的区别为，LT模式在有事件时会一直返回，ET只返回一次；如同一时刻多个连接到达，使用ET模式时，需要用while包裹accept直到EAGAIN或EWOULDBLOCK，否则只会有一个连接建立
    4. epoll使用，mmap用户和内核共享epollfd，减少数据拷贝；红黑树存储fd；网卡驱动程序的callback向双向链表rd_list添加ep_item，epoll_wait根据双链表是否非空返回
 
 ## socket编程tcp选项
 
+1. SO_REUSEADDR
+   1. 改变通配绑定时处理源地址冲突的处理方式，可以先绑定特殊192.168.0.1:21再绑定通配0.0.0.0:21
+   2. 处于TIME_WAIT的addr可以被绑定成功
+2. SO_REUSEPORT
+   1. 允许多个socket绑定到相同的addr和port
+   2. 内核会对新的连接在所有绑定的socket间做负载均衡
+
 ## 惊群效应
 
-1. 惊群效应指当多线程或多进程同时阻塞等待同一个事件时，如果这个事件发生，那么所有线程会被唤醒，但仅有一个线程获得控制权，其他线程重新进入等待
+1. 惊群效应指当多线程或多进程同时阻塞等待同一个事件时，如果这个事件发生，那么所有线程会被唤醒，但仅有一个线程获得控制权，其他线程重新进入等待；如nginx中worker是master的子进程都有listen_fd，当一个连接到达时所有都被唤醒，nginx使用accept_mutex解决
 2. 惊群效应的问题；线程的无效调度，上下文切换影响性能
 3. 解决；加锁
 4. accept()无惊群
