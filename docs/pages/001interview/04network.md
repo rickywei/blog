@@ -435,18 +435,48 @@ int epoll_wait(int epfd, struct epoll_event *events, int maxevents,
       4. epoll_wait()
       5. epoll_wait返回后，仅发生events的fd会被返回在events中，遍历即可
    2. 事件
-      1. EPOLLIN 表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；
-      2. EPOLLOUT 表示对应的文件描述符可以写；
-      3. EPOLLPRI 表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；
-      4. EPOLLERR 表示对应的文件描述符发生错误；
-      5. EPOLLHUP 表示对应的文件描述符被挂断；
-      6. EPOLLET 将 EPOLL设为边缘触发(Edge Triggered)模式（默认为水平触发），这是相对于水平触发(Level Triggered)来说的。
-      7. EPOLLONESHOT 只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里
+      1. EPOLLIN 表示对应的文件描述符可以读（包括对端SOCKET正常关闭
+      2. EPOLLOUT 表示对应的文件描述符可以写
+      3. EPOLLPRI 表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）
+      4. EPOLLERR 表示对应的文件描述符发生错误
+      5. EPOLLHUP 表示对应的文件描述符被挂断
+      6. EPOLLRDHUP：对端关闭了套接字，或者对端关闭了写
+      7. EPOLLET 将 EPOLL设为边缘触发(Edge Triggered)模式（默认为水平触发），这是相对于水平触发(Level Triggered)来说的
+      8. EPOLLONESHOT 只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里
 4. 三者区别
    1. select最大描述符一般1024，poll epoll 是进程可打开的最大fd数量
    2. select poll都需要循环遍历O(n)，epoll回调 O(1)
    3. select poll仅有LT模式，epoll还有ET模式；LT与ET模式的区别为，LT模式在有事件时会一直返回，ET只返回一次；如同一时刻多个连接到达，使用ET模式时，需要用while包裹accept直到EAGAIN或EWOULDBLOCK，否则只会有一个连接建立
    4. epoll使用，mmap用户和内核共享epollfd，减少数据拷贝；红黑树存储fd；网卡驱动程序的callback向双向链表rd_list添加ep_item，epoll_wait根据双链表是否非空返回
+
+## 服务端客户端函数
+
+```cpp
+struct sockaddr {
+  sa_family_t sa_family;
+  char sa_data[14];
+}
+struct sockaddr_in {
+  sa_family_t sin_family;  /* address family: AF_INET */
+  in_port_t sin_port;      /* port in network byte order */
+  struct in_addr sin_addr; /* internet address */
+};
+int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+int listen(int sockfd, int backlog);
+int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+
+
+int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+```
+
+1. ![socket](./imgnet/socket.png)
+2. listen
+3. connect
+   1. 再第二次握手返回syn+ack后connect正常返回
+   2. 常见的错误值，syn_recv队列已满返回timeout；服务器没有监听响应地址端口返回econnrefused；中间某个路由返回错误icmp返回ehostunreach或enetunreach
+4. accept
+   1. accpet发生在三次握手之后，仅仅从队列中取出已连接
+5. shutdown/close
 
 ## socket编程tcp选项
 
@@ -456,6 +486,9 @@ int epoll_wait(int epfd, struct epoll_event *events, int maxevents,
 2. SO_REUSEPORT
    1. 允许多个socket绑定到相同的addr和port
    2. 内核会对新的连接在所有绑定的socket间做负载均衡
+3. SO_LINGER
+   1. 用来设置关闭时的具体动作
+   2. l_onoff非0为开启改选项，l_linger为0，直接发送rst关闭，非0，如果socket中有未发送的数据，进程睡眠，内核在超时时间内尽可能发送，若超时前发完，则正常关闭，否则直接关闭，close返回EWOULDBLOCK
 
 ## 惊群效应
 

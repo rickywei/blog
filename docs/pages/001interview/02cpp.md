@@ -73,20 +73,16 @@ __cplusplus
 #define DBG(fmt, ...) ({ printf(fmt, __VA_ARGS__); })
 ```
 
-## C 语言内存区块
+## c、c++ 语言内存区块
 
-![C/C++ memory layout](./imgcpp/cmemorylayout.png)
-
-1. 栈区
-   1. 局部变量，参数，返回值等
-2. 堆区
-   1. new/malloc 的对象
-   2. 默认作为自由存储区
-3. 数据区
-   1. 全局或静态变量
-4. 代码区
-   1. 只读存储区（字符常量等）
-   2. 文本区
+1. c语言布局
+   1. ![C memory layout](./imgcpp/cmemorylayout.png)
+2. c++
+   1. 栈区
+   2. 堆区（new）
+   3. 自由存储区（malloc）
+   4. 全局区/静态区（不再区分是否初始化）
+   5. 常量存储区
 
 ```cpp
 // main.cpp
@@ -332,6 +328,10 @@ Func(AddDD, &dres, &da, &db);
    5. `A *pa=nullptr;`pa可成功调用不含成员变量的函数
    6. 函数参数的默认值是静态绑定的，若子类修改父类的默认参数值，调用子类虚函数依然会绑定父类的默认参数值
 
+## 继承权限
+
+1. 权限=min(继承权限, 函数或成员继承前的权限)
+
 ## 虚函数
 
 1. 每个类都有一个`vptr`指向虚函数表（指针数组），虚函数表存放虚函数指针
@@ -521,3 +521,14 @@ class B : public A {
 
 1. 删除时，后面的数据要移动，后面的迭代器都失效，但erase()函数可返回下一个元素的新的迭代器
 2. 插入时，可能触发扩容
+
+## gdb调试
+
+1. r(run) b(break) l(list) n(next) p(print)
+2. info threads查看 thread 3 切换
+3. x/nfu addr 以f格式打印从addr开始的n个长度单元为u的内存值
+   1. n：输出单元的个数。
+   2. f：是输出格式。比如x是以16进制形式输出，o是以8进制形式输出,等等。
+   3. u：标明一个单元的长度。b是一个byte，h是两个byte（halfword），w是四个byte（word），g是八个byte（giant word）
+4. 分析core文件，gdb 程序名 core文件名
+5. 调试一个正在运行的程序，gdb -p PID
