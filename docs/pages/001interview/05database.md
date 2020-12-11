@@ -55,8 +55,14 @@
 
 1. INNODB
 2. MYISAM
-3. ISAM
-4. HEAP
+
+## innodb和myisam区别
+
+1. InnoDB 支持事务，MyISAM 不支持事务，这是 MySQL 将默认存储引擎从 MyISAM 变成 InnoDB 的重要原因之一
+2. InnoDB 支持外键，而 MyISAM 不支持
+3. InnoDB 是聚集索引，MyISAM 是非聚集索引
+4. InnoDB 不保存表的具体行数，执行 select count(*) from table 时需要全表扫描。而MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快
+5. InnoDB 最小的锁粒度是行锁，MyISAM 最小的锁粒度是表锁。一个更新语句会锁住整张表，导致其他查询和更新都会被阻塞，因此并发访问受限。这也是 MySQL 将默认存储引擎从 MyISAM 变成 InnoDB 的重要原因之一
 
 ## 聚族索引和非聚族索引
 
@@ -117,6 +123,12 @@
 1. 异步复制，主库执行完请求后理解返回，不等待从库是否接收并执行完
 2. 同步复制，等待所有从库复制后主库返回客户端
 3. 半同步复制，当有一个从库复制后，主库放回客户端
+
+## mysql命令
+
+1. 按条件计数
+   1. `SELECT COUNT(*) FROM `students` GROUP BY `class_id` > 25;`
+   2. `SELECT COUNT(*) AS `number`, `class_id` > 25 AS `type` FROM `students` GROUP BY `class_id` > 25;`
 
 ## redis缓存穿透，缓存击穿和缓存雪崩
 
