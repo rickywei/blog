@@ -7,6 +7,19 @@
    1. 将10进制数不断除x，取整数商作为下次被除数，小数部分乘x
    2. 如10进制100转8进制，100/8=12.5, 12/8=1.5, 1/8=0.125，结果为144
 
+## 蓄水池抽样
+
+1. 给定一个数据流，数据流长度N很大，且N直到处理完所有数据之前都不可知，请问如何在只遍历一遍数据（O(N)）的情况下，能够随机选取出k个不重复的数据
+2. ![proof](imgalg/proof.jpg)
+
+```cpp
+for i= k+1 to N  
+    M=random(1, i);  
+    if( M < k)  
+     SWAP the Mth value and ith value  
+end for  
+```
+
 ## 排序算法
 
 1. 各种排序算法比较 ![sort](./imgalg/sort.png)
@@ -47,6 +60,51 @@ void qsort(int array[], int l, int r) {
 
 1. 随机选取pivot / 三位区中选取pivot
 2. 到达一定深度后使用插入排序
+
+## k个一组反转链表
+
+```cpp
+// 翻转一个子链表，并且返回新的头与尾
+pair<ListNode*, ListNode*> myReverse(ListNode* head, ListNode* tail) {
+  ListNode* prev = tail->next;
+  ListNode* p = head;
+  while (prev != tail) { // 判断条件妙啊
+    ListNode* nex = p->next;
+    p->next = prev;
+    prev = p;
+    p = nex;
+  }
+  return {tail, head};
+}
+
+ListNode* reverseKGroup(ListNode* head, int k) {
+  ListNode* hair = new ListNode(0);
+  hair->next = head;
+  ListNode* pre = hair;
+
+  while (head) {
+    ListNode* tail = pre;
+    // 查看剩余部分长度是否大于等于 k
+    for (int i = 0; i < k; ++i) {
+      tail = tail->next;
+      if (!tail) {
+        return hair->next;
+      }
+    }
+    ListNode* nex = tail->next;
+    pair<ListNode*, ListNode*> result = myReverse(head, tail);
+    head = result.first;
+    tail = result.second;
+    // 把子链表重新接回原链表
+    pre->next = head;
+    tail->next = nex;
+    pre = tail;
+    head = tail->next;
+  }
+
+  return hair->next;
+}
+```
 
 ## 堆
 

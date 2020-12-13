@@ -14,7 +14,14 @@
 3. 汇编
    1. 生成机器指令
 4. 链接
-   1. 解决符号引用
+   1. 解决符号（函数，变量）的相互引用，符号的引用本质是对其在内存中具体地址的引用
+   2. 符号重定位要解决的是当前编译单元如何访问「外部」符号这个问题
+   3. 装载时重定位
+      1. 因为编译是以源文件为单位进行的，编译器此时并没有一个全局的视野，因此对一个编译单元内的符号它是无力确定其最终地址的，而对于可执行文件来说，在现代操作系统上，程序加载运行的地址是固定或可以预期的
+      2. 编译器当前并不知道 g_share 这个变量最后会被分配到哪个地址上，因此在这儿只是随便用一个假的来代替，等着到接下来链接时，再把该处地址进行修正。那么，链接器怎么知道目标文件中哪些地方需要修正呢？很简单，编译器编译文件时时，会建立一系列表项，用来记录哪些地方需要在重定位时进行修正，这些表项叫作“重定位表”(relocatioin table)
+      3. 有了如上信息，链接器在把目标文件合并成一个可执行文件并分配好各段的加载地址后，就可以重新计算那些需要重定位的符号的具体地址了
+   4. 地址无关代码
+      1. 位置无关代码在数据段开始为每一个全局符号保留了一个条目（GOT global offset table），每一个条目中保存了全局符号的绝对地址（这个绝对地址，在动态链接库装载的时候被填写），每次对动态链接中全局符号的引用，首先找到GOT中的条目，然后获得全局符号的地址，这样就实现了位置无关代码
 
 ```bash
 g++ -E hello.cc > hello.i
@@ -23,6 +30,20 @@ g++ -c b.s
 g++ -lstdc++ b.o
 ./a.out
 ```
+
+## 静态和动态链接库
+
+1. 静态
+   1. 库函数被包含在每一个运行的进程中，会造成主存的浪费
+   2. 目标文件的size过大
+   3. 每次更新一个模块都需要重新编译，更新困难，使用不方便
+2. 动态库
+   1. 是一个目标文件，包含代码和数据，它可以在程序运行时动态的加载并链接
+   2. 动态库可被多个进程共享
+
+## volatile作用
+
+1. volatile的作用就是当一个线程更新某个volatile声明的变量时，会通知其他的cpu使缓存失效，从而其他cpu想要做更新操作时，需要从内存重新读取数据
 
 ## 宏
 
@@ -302,7 +323,7 @@ Func(AddDD, &dres, &da, &db);
    1. inline需要在函数定义（而非声明）前才有用
    2. inline只是建议，编译器不一定内联展开
    3. inline函数应该是小函数且被多次调用
-   4. inline函数体内不应该有loop，if，switch
+   4. inline函数体内不应该有loop，if，switch，异常处理，递归；因为编译时无法确定到底要展开多少次
    5. inline函数不能是虚函数（虚函数发生在运行时，而内联展开在编译时）
    6. inline会将代码复制多次，占用内存
 2. inline和宏函数的区别
@@ -483,6 +504,98 @@ class B : public A {
       3. `this`指针也是`raw pointer`，在类中若想将`this`传递应该继承`enable_shared_from_this`
       4. 在调用`shared_from_this()`前应确保对象被`shared_ptr`持有，而不是一个`raw pointer`或`raw objector`，否则相当于调用`this`初始化多个`shared_ptr`
 
+```cpp
+template <typename T>
+class SmartPointer {
+ private:
+  T* _ptr;
+  size_t* _count;
+
+ public:
+  SmartPointer(T* ptr = nullptr) : _ptr(ptr) {
+    if (_ptr) {
+      _count = new size_t(1);
+    } else {
+      _count = new size_t(0);
+    }
+  }
+
+  SmartPointer(const SmartPointer& ptr) {
+    if (this != &ptr) {
+      this->_ptr = ptr._ptr;
+      this->_count = ptr._count;
+      (*this->_count)++;
+    }
+  }
+
+  SmartPointer& operator=(const SmartPointer& ptr) {
+    if (this->_ptr == ptr._ptr) {
+      return *this;
+    }
+
+    if (this->_ptr) {
+      (*this->_count)--;
+      if (this->_count == 0) {
+        delete this->_ptr;
+        delete this->_count;
+      }
+    }
+
+    this->_ptr = ptr._ptr;
+    this->_count = ptr._count;
+    (*this->_count)++;
+    return *this;
+  }
+
+  T& operator*() {
+    assert(this->_ptr == nullptr);
+    return *(this->_ptr);
+  }
+
+  T* operator->() {
+    assert(this->_ptr == nullptr);
+    return this->_ptr;
+  }
+
+  ~SmartPointer() {
+    (*this->_count)--;
+    if (*this->_count == 0) {
+      delete this->_ptr;
+      delete this->_count;
+    }
+  }
+
+  size_t use_count() { return *this->_count; }
+};
+```
+
+## 完美转发
+
+```cpp
+template<typename T>
+T&& forward(typename remove_reference<T>::type& param)
+{
+  return static_cast<T&&>(param); //可能会发生引用折叠！
+}
+```
+
+1. 完美转发保证内部函数调用时，参数类型和传入到外部时的一致
+2. 引用折叠规则
+   1. 所有右值引用折叠到右值引用上仍然是一个右值引用。如X&& &&折叠为X&&
+   2. 所有的其他引用类型之间的折叠都将变成左值引用。如X& &, X& &&, X&& &折叠为X&。可见左值引用会传染，沾上一个左值引用就变左值引用了。根本原因：在一处声明为左值，就说明该对象为持久对象，编译器就必须保证此对象可靠（左值）
+3. ![forward](imgcpp/forward.png)
+   1. 当传递给func函数的实参类型为左值Widget时，T被推导为Widget&类别。然后forward会实例化为`std::forward<Widget&>`，并返回Widget&（左值引用，根据定义是个左值！）
+   2. 而当传递给func函数的实参类型为右值Widget时，T被推导为Widget。然后forward被实例化为`std::forward<Widget>`，并返回Widget&&（注意，匿名的右值引用是个右值！）
+
+## stl六大组件
+
+1. 容器，STL容器包含两种：序列式容器主要有vector、list、deque，以及关联式容器主要有set、map、multiset、multimap
+2. 算法
+3. 迭代器，STL中迭代器主要用来把容器和算法结合起来，扮演容器与算法之间的胶合剂，是所谓的“泛型指针”
+4. 仿函数
+5. 适配器，适配器主要用来修饰容器接口、迭代器接口或仿函数接口的东西；STL提供了stack、queue两种容器适配器，stack和queue的底层完全是由deque来实现的
+6. 空间配置器，STL的空间配置器主要用来给容器进行空间的配置与管理，从实现的角度来说空间配置器是实现了一个动态分配空间、空间管理、空间释放的class template（类模板）
+
 ## stl容器底层实现
 
 1. vector
@@ -490,7 +603,7 @@ class B : public A {
 2. list
    1. 双向链表
 3. deque
-   1. 数组+链表
+   1. 数组+链表（索引数组+分段数组）
 4. queue
    1. list / deque
 5. priority_queue

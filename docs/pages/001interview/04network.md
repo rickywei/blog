@@ -96,6 +96,18 @@
    2. url附加信息，如xxx.jsp?sessionid=xxxx
    3. 页面表单的隐藏信息，同上但改方法用post
 
+## 断点续传
+
+1. http1.1支持获取部分内容，使用Range头`Range: bytes=0-499` 表示第 0-499 字节范围的内容
+2. 响应报文使用Content-Range标识当前接受的范围和文件总大小`Content-Range: bytes 0-499/22400`
+3. 状态码为206
+4. 使用Last-modified标识文件最后修改的时间，防止续传时，服务端上的文件被改变
+   1. 客户端会通过 If-Modified-Since 头将先前服务器端发过来的 Last-Modified 最后修改时间戳发送回去，这是为了让服务器端进行验证，通过这个时间戳判断客户端的页面是否是最新的，如果不是最新的，则返回新的内容，如果是最新的，则返回 304 告诉客户端其本地 cache 的页面是最新的，于是客户端就可以直接从本地加载页面了，这样在网络上传输的数据就会大大减少，同时也减轻了服务器的负担
+5. Etag（Entity Tags）主要为了解决 Last-Modified 无法解决的一些问题
+   1. 一些文件也许会周期性的更改，但是内容并不改变（仅改变修改时间），这时候我们并不希望客户端认为这个文件被修改了，而重新 GET
+   2. 某些文件修改非常频繁，例如：在秒以下的时间内进行修改（1s 内修改了 N 次），If-Modified-Since 能检查到的粒度是 s 级的，这种修改无法判断（或者说 UNIX 记录 MTIME 只能精确到秒）。
+   3. 某些服务器不能精确的得到文件的最后修改时间
+
 ## https
 
 1. https流程![https](./imgnet/https.png)
@@ -129,6 +141,18 @@
    2. 浏览器和操作系统内置了信任的ca的公钥，用于验证证书
    3. 证书链
       1. ca其实是一个层级关系，可以链式查询上层的的ca是否合法
+
+## rsa和des
+
+1. rsa
+   1. RSA加密利用了单向函数正向求解很简单，反向求解很复杂的特性
+   2. 随机找两个质数 P 和 Q ,P 与 Q 越大，越安全
+   3. 计算 n=p*q 的欧拉函数m = φ(n)，φ(n) 表示在小于等于 n 的正整数之中，与 n 构成互质关系的数的个数
+   4. 随机选择一个整数 e，条件是1< e < m，且 e 与 m 互质
+   5. 有一个整数 d，可以使得 e*d 除以 m 的余数为 1
+   6. 公钥为(n,e) 私钥为(n,d)
+   7. 加密为 cipher = text^e % n
+   8. 解密为 text = cipher^d % n
 
 ## udp头部
 
@@ -475,6 +499,9 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+
+int getsockopt(int sockfd, int level, int optname, void* optval,
+               socklen_t* optlen);
 ```
 
 1. ![socket](./imgnet/socket.png)
@@ -485,6 +512,11 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 4. accept
    1. accpet发生在三次握手之后，仅仅从队列中取出已连接
 5. shutdown/close
+
+## 实现一个带超时的connect
+
+1. 将sockfd设置成noblocking，如果connect返回0说明建立连接成功，如果返回-1且错误为EINPROCESS说明还在连接
+2. 使用select并设置timeout，在select返回后使用getsockopt在SOL_SOCKET层判断SO_ERROR是否有错误（0为正常）
 
 ## socket编程tcp选项
 
@@ -536,3 +568,58 @@ int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
    2. 写操作
       1. 同上
 3. Reactor和Proactor模式的主要区别就是真正的读取和写入操作是有谁来完成的，Reactor中需要应用程序自己读取或者写入数据，而Proactor模式中，应用程序不需要进行实际的读写过程，它只需要从缓存区读取或者写入即可，操作系统会读取缓存区或者写入缓存区到真正的IO设备
+
+## nginx热升级
+
+1. 升级
+   1. 将旧nginx二进制文件换成新的nginx二进制 文件(注意备份)
+   2. 向master进程发送USR2信号 `kill -USR2 6965`
+   3. master进程修改pid文件名，加后缀.olidbin
+   4. master进程用新nginx文件启动新master进程
+   5. 向老master进程发送WINCH/QUIT信号，关闭老master进程`kill  -QUIT 6965`
+2. 回滚
+   1. 向老master发送HUP，向新master发送QUIT
+
+## nginx 负载均衡
+
+1. 轮询模式（默认） 每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除
+2. 权重模式 指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况
+3. IP_hash模式 （IP散列） 每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题
+4. url_hash模式
+5. fair模式 按后端服务器的响应时间来分配请求，响应时间短的优先分配
+
+## nginx进程模型
+
+1. master-worker模式，一个master进程和至少一个的worker进程
+2. 单进程模式，单进程模式顾名思义只有一个进程
+
+## nginx锁
+
+1. nginx的master在listen后fork这样每个子进程都有listenfd
+2. 这样一个连接到来所有worker都会唤醒（惊群，其他的可能accept失败，在linux2.6后accept不惊群，但是使用epoll_wait等待listenfd会有惊群）
+3. 仅获得accept_mutex的worker接受这个链接
+   1. accept是一个全局变量，通过共享内存是的多进程都可见
+
+## nginx为什么多进程而非多线程
+
+1. Nginx 要保证它的高可用 高可靠性, 如果Nginx 使用了多线程的时候,由于线程之间是共享同一个地址空间的,当某一个第三方模块引发了一个地址空间导致的断错时 (eg: 地址越界), 会导致整个Nginx全部挂掉; 当采用多进程来实现时, 往往不会出现这个问题
+
+## protobuf
+
+1. Protocol Buffers 是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化，很适合做数据存储或 RPC 数据交换格式。它可用于通讯协议、数据存储等领域的语言无关、平台无关、可扩展的序列化结构数据格式
+
+## 常见网络攻击
+
+1. ddos
+2. xss（跨站脚本攻击）
+   1. 比如在留言板中留言`<script>alert(“hey!you are attacked”)</script>`，之后打开会执行这个js
+   2. 解决
+      1. 替换<>等字符，注意包括大小写，注意xss使用eval()和字符编码，注意不存在连接后的错误处理函数
+3. csrf（跨站请求伪造）
+   1. 银行网站A，它以GET请求来完成银行转账的操作，如：http://www.mybank.com/Transfer.php?toBankId=11&money=1000
+   2. 危险网站B，它里面有一段HTML的代码如下：
+   3. `<img src=http://www.mybank.com/Transfer.php?toBankId=11&money=1000>`
+   4. `首先，你登录了银行网站A，然后访问危险网站B，噢，这时你会发现你的银行账户少了1000块`
+   5. 防御
+      1. 同源检测，http的refer字段标识请求来源，需要同一网站
+      2. 用户打开页面的时候，服务器需要给这个用户生成一个Token，该Token通过加密算法对数据进行加密，一般Token都包括随机字符串和时间戳的组合，显然在提交时Token不能再放在Cookie中了，否则又会被攻击者冒用。因此，为了安全起见Token最好还是存在服务器的Session中，之后在每次页面加载时，使用JS遍历整个DOM树，对于DOM中所有的a和form标签后加入Token。这样可以解决大部分的请求，但是对于在页面加载之后动态生成的HTML代码，这种方法就没有作用，还需要程序员在编码时手动添加Token

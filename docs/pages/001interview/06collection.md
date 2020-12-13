@@ -288,3 +288,13 @@ title: 合集
 
 - [wordpress](https://websiteforstudents.com/running-multiple-wordpress-sites-on-ubuntu-16-04-lts-server-with-nginx-mariadb-and-php-7-1-support/)
 - [nginx ssl](https://www.howtoing.com/install-nginx-with-virtual-hosts-and-ssl-certificate)
+
+
+
+## tmp
+
+1. [CPU高速缓存行之伪共享](https://blog.csdn.net/iteye_9421/article/details/82726613)
+2. [linux 下动态链接实现原理](https://www.cnblogs.com/catch/p/3857964.html)
+3. [cap](https://zhuanlan.zhihu.com/p/20399316)
+4. [http对头阻塞](https://cloud.tencent.com/developer/article/1509279)
+5. [深入理解linux下进程和线程的空间分配，进程栈和线程栈的空间分配](https://blog.csdn.net/elfprincexu/article/details/78779158)
