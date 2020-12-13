@@ -289,8 +289,6 @@ title: 合集
 - [wordpress](https://websiteforstudents.com/running-multiple-wordpress-sites-on-ubuntu-16-04-lts-server-with-nginx-mariadb-and-php-7-1-support/)
 - [nginx ssl](https://www.howtoing.com/install-nginx-with-virtual-hosts-and-ssl-certificate)
 
-
-
 ## tmp
 
 1. [CPU高速缓存行之伪共享](https://blog.csdn.net/iteye_9421/article/details/82726613)
