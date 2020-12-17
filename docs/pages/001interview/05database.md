@@ -48,8 +48,8 @@
 ## innodb三种行锁算法实现隔离级别
 
 1. record locks，锁定索引上的单个记录，若未定义索引，innodb会隐式创建一个聚族索引，并引用改索引锁定记录
-2. gap locks，锁定一个范围
-3. next-key locks，以上的结合，即锁定范围又锁定本身
+2. gap locks，锁定一个范围<>
+3. next-key locks，以上的结合，即锁定范围又锁定本身<= =>
 
 ## mysql的引擎
 
@@ -108,7 +108,7 @@
 
 1. like %keyword 索引失效
    1. 因为任何字符可以匹配 % 无法查找
-   2. `select * from xxx where mobile_reverse like reverse('%5678');` mobile_reverse存储mobile的倒叙文本
+   2. 可逆序后使用索引，`select * from xxx where mobile_reverse like reverse('%5678');` mobile_reverse存储mobile的倒叙文本
 2. like keyword% 索引有效
 3. like %keyword% 索引失效，也无法反向索引
 
@@ -116,20 +116,18 @@
 
 1. 做数据热备，当主库挂掉切换到从库
 2. 原理
-   1. 书数据库的更新事件（update，insert，delete）等事件被写入binlog
+   1. 主数据库的更新事件（update，insert，delete）等事件被写入binlog
    2. 从库连接主库
    3. 主库新建线程，将binlog发送到从库
    4. 从库启动后创建io线程将binlog内容写入到relay log
-   5. 从库常见线程从realylog中，从exec_master_log_pos开始执行命令
+   5. 从库创建线程从realylog中，从exec_master_log_pos开始执行命令
 
 ## 主从延迟
 
-
-
 ## 复制方式
 
-1. 异步复制，主库执行完请求后理解返回，不等待从库是否接收并执行完
-2. 同步复制，等待所有从库复制后主库返回客户端
+1. 同步复制，等待所有从库复制后主库返回客户端
+2. 异步复制，主库执行完请求后理解返回，不等待从库是否接收并执行完
 3. 半同步复制，当有一个从库复制后，主库放回客户端
 
 ## mysql命令
@@ -142,8 +140,10 @@
 
 1. 缓存穿透
    1. 访问不存在的key，每次请求落在数据库，高并发时挂掉
+   2. 解决，直把null设为缓存
 2. 缓存击穿
    1. 大量数据访问同一个key（如秒杀），缓存过期的瞬间大量请求落在数据库
+   2. 解决，不过期
 3. 缓存雪崩
    1. 大量key同时过期
    2. 解决：随机key的过期时间；热点数据考虑不失效
@@ -164,7 +164,7 @@
 1. rdb
    1. 缺省情况下，redis将数据快照存放在磁盘的二进制文件中dump.rdb
    2. 可配置持久化策略如多久快照一次，或手动调用save
-   3. 实现：redisfork子进程写rdb文件，写完后用新文件代替旧文件
+   3. 实现：redis fork子进程写rdb文件，写完后用新文件代替旧文件
 2. AOF
    1. 追加的方式写每条写操做到文件
    2. 重启时优先使用aof重建

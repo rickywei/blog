@@ -8,6 +8,7 @@
 
 1. dns采用udp，端口53
 2. dns查询分递归查询和迭代查询
+3. 根域名服务器，顶级域（tld）如.com，权威域如.baidu.com
 
 ## http请求和响应格式
 
@@ -129,9 +130,9 @@
       1. 加密通信算法改变通知，表示随后的信息都将用「会话秘钥」加密通信
       2. 服务器握手结束通知，表示服务器的握手阶段已经结束，这一项同时把之前所有内容的发生的数据做个摘要，用来供客户端校验
 2. https加密算法
-   1. 使用非堆成加密RSA加密会话密钥
+   1. 使用非对称加密RSA加密会话密钥
    2. 后续使用加密后密钥对内容进行对称加密，如DES
-   3. 两种加米权衡了安全和效率
+   3. 两种加密权衡了安全和效率
 3. CA（证书认证机构）
    1. 证书的签发和验证![ca](./imgnet/ca.jpg)
       1. Signing阶段，首先撰写证书的元信息：签发人(Issuer)、地址、签发时间、过期失效等；当然，这些信息中还包含证书持有者(owner)的基本信息，例如owner的DN(DNS Name，即证书生效的域名)，owner的公钥等基本信息。
@@ -176,8 +177,8 @@
 
 1. 3此握手4次挥手![handshake handwave](./imgnet/synfin.jpg)
 2. 为什么3次握手
-   1. 防止重复的历史连接；如果是历史连接到达服务端，服务端返回ack后客户端根据自己的上下文（序列号或时间）判断出该连接非本次连接，发送RST给服务端终止
-   2. 同步初始化双方序列号；两次握手进能保证一方的seq被成功接收
+   1. 同步初始化双方序列号；两次握手进能保证一方的seq被成功接收
+   2. 防止重复的历史连接；如果是历史连接到达服务端，服务端返回ack后客户端根据自己的上下文（序列号或时间）判断出该连接非本次连接，发送RST给服务端终止
    3. 避免资源浪费；两次握手若客户端发送syn后未收到ack，会重新发送，服务端因为无法知道客户端是否已经收到ack，导致每个syn都会建立一个连接产生多个无效连接
 3. 为什么四次挥手
    1. tcp是全双工的，任何一方可以关闭单方向的数据传输
@@ -459,7 +460,7 @@ int epoll_wait(int epfd, struct epoll_event *events, int maxevents,
       4. epoll_wait()
       5. epoll_wait返回后，仅发生events的fd会被返回在events中，遍历即可
    2. 事件
-      1. EPOLLIN 表示对应的文件描述符可以读（包括对端SOCKET正常关闭
+      1. EPOLLIN 表示对应的文件描述符可以读（包括对端SOCKET正常关闭，所以要先检测是否是关闭）
       2. EPOLLOUT 表示对应的文件描述符可以写
       3. EPOLLPRI 表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）
       4. EPOLLERR 表示对应的文件描述符发生错误
@@ -575,7 +576,7 @@ int getsockopt(int sockfd, int level, int optname, void* optval,
    1. 将旧nginx二进制文件换成新的nginx二进制 文件(注意备份)
    2. 向master进程发送USR2信号 `kill -USR2 6965`
    3. master进程修改pid文件名，加后缀.olidbin
-   4. master进程用新nginx文件启动新master进程
+   4. master进程用新nginx文件启动新master进程（nginx会启动一个新版本的master进程和工作进程，暂时和旧版一起处理请求）
    5. 向老master进程发送WINCH/QUIT信号，关闭老master进程`kill  -QUIT 6965`
 2. 回滚
    1. 向老master发送HUP，向新master发送QUIT
@@ -619,7 +620,7 @@ int getsockopt(int sockfd, int level, int optname, void* optval,
    1. 银行网站A，它以GET请求来完成银行转账的操作，如：http://www.mybank.com/Transfer.php?toBankId=11&money=1000
    2. 危险网站B，它里面有一段HTML的代码如下：
    3. `<img src=http://www.mybank.com/Transfer.php?toBankId=11&money=1000>`
-   4. `首先，你登录了银行网站A，然后访问危险网站B，噢，这时你会发现你的银行账户少了1000块`
+   4. 首先，你登录了银行网站A，然后访问危险网站B，噢，这时你会发现你的银行账户少了1000块
    5. 防御
       1. 同源检测，http的refer字段标识请求来源，需要同一网站
       2. 用户打开页面的时候，服务器需要给这个用户生成一个Token，该Token通过加密算法对数据进行加密，一般Token都包括随机字符串和时间戳的组合，显然在提交时Token不能再放在Cookie中了，否则又会被攻击者冒用。因此，为了安全起见Token最好还是存在服务器的Session中，之后在每次页面加载时，使用JS遍历整个DOM树，对于DOM中所有的a和form标签后加入Token。这样可以解决大部分的请求，但是对于在页面加载之后动态生成的HTML代码，这种方法就没有作用，还需要程序员在编码时手动添加Token
