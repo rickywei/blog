@@ -409,7 +409,7 @@ class B : public A {
 
 ## 多继承
 
-1. 非菱形 `class C : public A, public B` 
+1. 非菱形 `class C : public A, public B`
    1. ![vtable1](./imgcpp/vtable-Page-1.png)
    2. 成员变量按父类被声明顺序排序，接着是子类成员变量
    3. 子类的虚函数表只有一个，表项按父类被声明的顺序，中间隔开
