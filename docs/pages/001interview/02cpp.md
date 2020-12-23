@@ -584,7 +584,7 @@ T&& forward(typename remove_reference<T>::type& param)
 2. 引用折叠规则
    1. 所有右值引用折叠到右值引用上仍然是一个右值引用。如X&& &&折叠为X&&
    2. 所有的其他引用类型之间的折叠都将变成左值引用。如X& &, X& &&, X&& &折叠为X&。可见左值引用会传染，沾上一个左值引用就变左值引用了。根本原因：在一处声明为左值，就说明该对象为持久对象，编译器就必须保证此对象可靠（左值）
-3. ![forward](imgcpp/forward.png)
+3. ![forward](./imgcpp/forward.png)
    1. 当传递给func函数的实参类型为左值Widget时，T被推导为Widget&类别。然后forward会实例化为`std::forward<Widget&>`，并返回Widget&（左值引用，根据定义是个左值！）
    2. 而当传递给func函数的实参类型为右值Widget时，T被推导为Widget。然后forward被实例化为`std::forward<Widget>`，并返回Widget&&（注意，匿名的右值引用是个右值！）
 
