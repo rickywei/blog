@@ -94,3 +94,12 @@ Single &Single::GetInstance() {
 2. 如果自己也有问题，打开调试功能查看加载最慢的请求
 3. 查看服务器负载，如果负载都不高，查看nginx等是否有错误日志
 4. 查看mysql的慢查询日志，看是否有查询太慢
+
+## redis日活，连续登录
+
+1. bitmap每个offset对应一个userid，key为日期（2020:12:27），value为如果该用户登陆过对应offset为1
+2. 日活，周活，月活可以所有天数间取or，连续登录可以两天间的值取and
+
+## redis推荐去重
+
+1. 使用bitmap

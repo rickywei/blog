@@ -320,38 +320,30 @@ float mediumNum(int *a, int *b, int m, int n) {
 }
 ```
 
-## kmp
+## sunday字符串匹配
 
 ```cpp
-int KMP(string s, string p) {
-  int m = s.size(), n = p.size();
-  vector<int> next(n);  // next[i]标识i之前的前缀和后缀的最长匹配
-                        // abababca = [-1,0,0,1,2,3,4,0]
-  next[0] = -1;
-  int i = 0, j = -1;
-  while (i < n) {
-    if (j == -1 || p[i] == p[j]) {
-      ++i;
-      ++j;
-      next[i] = j;
-    } else {
-      j = next[j];
-    }
+int strStr(string haystack, string needle) {
+  if (haystack.size() < needle.size()) return -1;
+  map<char, int> mp;
+  for (int i = 0; i < needle.size(); ++i) {
+    mp[needle[i]] = needle.size() - i; //move
   }
-
-  i = 0, j = 0;
-  while (i < m && j < n) {
-    if (j == -1 || s[i] == p[j]) {
-      ++i;
-      ++j;
-    } else {
-      j = next[j];  // 不匹配时i不变，j从next[j]开始
+  for (int i = 0; i <= haystack.size() - needle.size();) {
+    bool flag = true;
+    for (int j = 0; j < needle.size(); ++j) {
+      if (haystack[i + j] != needle[j]) {
+        flag = false;
+        if (mp.count(haystack[i + needle.size()]))
+          i += mp[haystack[i + needle.size()]]; //move
+        else
+          i += needle.size() + 1; //move
+        break;
+      }
     }
+    if (flag) return i;
   }
-  if (j >= n)
-    return i - j;
-  else
-    return -1;
+  return -1;
 }
 ```
 
