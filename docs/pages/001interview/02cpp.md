@@ -254,6 +254,8 @@ void (*fp8)(int) = *******say;
 2. 返回值不能用于重载
    1. 因为在编译期不会判断函数类型
    2. 我们可能忽略函数返回值，如使用`func()`而不是`int ret=func()`
+3. 仅当const参数是一个引用或指针时，C++才允许基于const类型进行函数重载
+4. 类中的函数后加const是一种重载，本质上会使默认的this指针参数变为const的，即const对象调用改版本
 
 ## 在C中实现重载
 
@@ -646,3 +648,10 @@ T&& forward(typename remove_reference<T>::type& param)
    3. u：标明一个单元的长度。b是一个byte，h是两个byte（halfword），w是四个byte（word），g是八个byte（giant word）
 4. 分析core文件，gdb 程序名 core文件名
 5. 调试一个正在运行的程序，gdb -p PID
+
+## 断点的原理
+
+1. 系统使用软件中断(trap)在x86体系结构上实现断点
+2. CPU通过一个名为int 3的特殊陷阱来实现断点。int 特指 x86 中的“陷阱指令” —— 调用预定义的中断处理函数
+3. 一旦你的进程执行了int 3指令，操作系统就会停止它
+4. 进入int3，os会向进程发送SIGTRAP信号

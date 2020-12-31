@@ -99,6 +99,7 @@ Single &Single::GetInstance() {
 
 1. bitmap每个offset对应一个userid，key为日期（2020:12:27），value为如果该用户登陆过对应offset为1
 2. 日活，周活，月活可以所有天数间取or，连续登录可以两天间的值取and
+3. `setbit key offset value` -> `setbit onlineuser id 1`; `getbit key offset` `bitcount key start end`
 
 ## redis推荐去重
 
