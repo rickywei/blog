@@ -249,6 +249,26 @@
 
 1. Redis 可以实现主从同步和从从同步。当第一次同步时，主节点做一次 BGSAVE，并同时将后续修改操作记录到内存中，待完成后将 RDB 文件全量同步到复制节点，复制节点接受完成后将 RDB 镜像加载到内存，加载完成后再通知主节点将期间修改的操作记录，同步到复制节点进行重放，这样就完成了同步过程
 
+## redis分布式锁
+
+1. setnx命令，意思就是 set if not exist，如果lockKey不存在，把key存入Redis，保存成功后如果result返回1，表示设置成功，如果非1，表示失败，别的线程已经设置过了。
+2. expire()，设置过期时间，防止死锁，假设，如果一个锁set后，一直不删掉，那这个锁相当于一直存在，产生死锁
+3. 加锁总共分两步，第一步jedis.setnx，第二步jedis.expire设置过期时间，setnx与expire不是一个原子操作，如果程序执行完第一步后异常了，第二步jedis.expire(lockKey, expireTime)没有得到执行，相当于这个锁没有过期时间，有产生死锁的可能
+4. 将加锁和设置过期时间合二为一，一行代码搞定，原子操作
+
+```java
+Long result = jedis.setnx(lockKey, requestId);
+if (result == 1) {
+   // 第二步：设置过期时间
+   jedis.expire(lockKey, expireTime);
+}
+
+if (1 == jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime)) {
+      return true;//加锁成功        
+}        
+return false;//加锁失败
+```
+
 ## cap原理
 
 1. CAP原理认为，一个提供数据服务的存储系统无法同时完美的满足

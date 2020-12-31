@@ -655,3 +655,33 @@ T&& forward(typename remove_reference<T>::type& param)
 2. CPU通过一个名为int 3的特殊陷阱来实现断点。int 特指 x86 中的“陷阱指令” —— 调用预定义的中断处理函数
 3. 一旦你的进程执行了int 3指令，操作系统就会停止它
 4. 进入int3，os会向进程发送SIGTRAP信号
+
+## 不传参修改一个变量
+
+1. 因为所有的局部变量，均是在栈上申请空间，而pass函数又在main函数之中进行调用，那么实际上，公用一个栈上进行变量的操作
+
+```cpp
+void pass(){
+    int b=333;
+    int *p=&b;
+    while(*p!=222){
+        p++;
+        cout<<"address: "<<p<<endl;
+    }
+    *p=333;
+    return;
+}
+ 
+ 
+int main(){
+    int a=222;
+    cout<<a<<endl;
+    cout<<"address: "<<&a<<endl;
+    pass();
+    cout<<a<<endl;
+    cout<<"address: "<<&a<<endl;
+ 
+    system("pause");
+    return 0;
+}
+```
