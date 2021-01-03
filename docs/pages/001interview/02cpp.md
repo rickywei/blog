@@ -589,6 +589,7 @@ T&& forward(typename remove_reference<T>::type& param)
 3. ![forward](./imgcpp/forward.png)
    1. 当传递给func函数的实参类型为左值Widget时，T被推导为Widget&类别。然后forward会实例化为`std::forward<Widget&>`，并返回Widget&（左值引用，根据定义是个左值！）
    2. 而当传递给func函数的实参类型为右值Widget时，T被推导为Widget。然后forward被实例化为`std::forward<Widget>`，并返回Widget&&（注意，匿名的右值引用是个右值！）
+4. 若不是用完美转发，则传入process的是个左值类型而非右值引用
 
 ## stl六大组件
 
@@ -622,8 +623,13 @@ T&& forward(typename remove_reference<T>::type& param)
    1. hash_table
 10. unordered_set
     1. hash_table
+    2. bucket数量（slot）最开始为1，扩容后新大小为旧大小两倍后的最小质数（1->3->7->37）
+    3. 插入相同的值不会引起扩容
 11. multiset
     1. 红黑树，插入操作采用的是底层机制RB-tree的insert_equal()而非insert_unique()
+12. unordered_multiset
+    1. hash_table，并使用vector作为每个桶
+    2. 扩容同unordered_set，并且，当有一个vector的负载因子（load_factor = size / bucket_count）超过阈值时（max_load_factor,stl中为1），引发扩容（bucket）
 
 ## 迭代器种类
 

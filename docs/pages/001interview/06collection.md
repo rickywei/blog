@@ -297,3 +297,6 @@ title: 合集
 4. [http对头阻塞](https://cloud.tencent.com/developer/article/1509279)
 5. [深入理解linux下进程和线程的空间分配，进程栈和线程栈的空间分配](https://blog.csdn.net/elfprincexu/article/details/78779158)
 6. [sunday](https://www.jianshu.com/p/2e6eb7386cd3)
+7. [tcp乱序和重复包](https://www.zhihu.com/question/280521822/answer/423570673)
+8. [TCP 连接上面能发多少个 HTTP 请求](https://zhuanlan.zhihu.com/p/61423830)
+9. [64匹马，8个赛道，找出跑得最快的4匹马](https://blog.csdn.net/u013829973/article/details/80787928)
