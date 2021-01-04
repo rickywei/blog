@@ -80,7 +80,8 @@
 2. 二级索引最终只能拿到主键id，获取内容还需回表
 3. 只需要使用到二级索引的查询，不需要进行回表操作的方式称为覆盖索引
    1. 再有索引idx_author_name时，`select id,author,name from book where author = 'author1';`不回表
-   2. `select * from book where author='author1';` select * 会回表
+   2. 主键为a索引为b，c查询where b=10时不会表，查询*也不回表，因为索引包含主键a，同时索引包含b，c
+   3. `select * from book where author='author1';` select * 会回表
 
 ## 索引的实现
 
