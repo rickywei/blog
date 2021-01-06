@@ -300,3 +300,4 @@ title: 合集
 7. [tcp乱序和重复包](https://www.zhihu.com/question/280521822/answer/423570673)
 8. [TCP 连接上面能发多少个 HTTP 请求](https://zhuanlan.zhihu.com/p/61423830)
 9. [64匹马，8个赛道，找出跑得最快的4匹马](https://blog.csdn.net/u013829973/article/details/80787928)
+10. [mmap与write、read性能对比](https://blog.lpc-win32.com/2019/06/16/mmap/)
