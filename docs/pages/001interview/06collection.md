@@ -301,3 +301,4 @@ title: 合集
 8. [TCP 连接上面能发多少个 HTTP 请求](https://zhuanlan.zhihu.com/p/61423830)
 9. [64匹马，8个赛道，找出跑得最快的4匹马](https://blog.csdn.net/u013829973/article/details/80787928)
 10. [mmap与write、read性能对比](https://blog.lpc-win32.com/2019/06/16/mmap/)
+11. [mysql中的log](https://www.cnblogs.com/wy123/p/8365234.html)
