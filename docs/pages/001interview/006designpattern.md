@@ -139,3 +139,7 @@ Single &Single::GetInstance() {
 3. 消息模式
    1. 点对点，FIFO每个消息只能被某一个消费者消费一次
    2. 订阅和发布
+
+## fastdfs
+
+- [fastdfs](http://www.ityouknow.com/fastdfs/2018/01/06/distributed-file-system-fastdfs.html)

@@ -212,7 +212,7 @@
 2. hash
 3. list
 4. set
-5. sorted set
+5. sorted set(zset)
 
 ## redis对比memcache
 

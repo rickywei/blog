@@ -289,6 +289,12 @@ title: 合集
 - [wordpress](https://websiteforstudents.com/running-multiple-wordpress-sites-on-ubuntu-16-04-lts-server-with-nginx-mariadb-and-php-7-1-support/)
 - [nginx ssl](https://www.howtoing.com/install-nginx-with-virtual-hosts-and-ssl-certificate)
 
+## 
+
+- [nginx spwan-cgi](https://www.cnblogs.com/diegodu/p/6030058.html)
+- [fastcgi.conf内容](https://blog.csdn.net/m0_37315653/article/details/83448592)
+- [fastdfs](http://www.ityouknow.com/fastdfs/2018/01/06/distributed-file-system-fastdfs.html)
+
 ## tmp
 
 1. [CPU高速缓存行之伪共享](https://blog.csdn.net/iteye_9421/article/details/82726613)
