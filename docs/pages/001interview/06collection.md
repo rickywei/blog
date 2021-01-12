@@ -308,3 +308,7 @@ title: 合集
 9. [64匹马，8个赛道，找出跑得最快的4匹马](https://blog.csdn.net/u013829973/article/details/80787928)
 10. [mmap与write、read性能对比](https://blog.lpc-win32.com/2019/06/16/mmap/)
 11. [mysql中的log](https://www.cnblogs.com/wy123/p/8365234.html)
+12. [mysql最左匹配](https://blog.csdn.net/qq_39390545/article/details/108540362)
+13. [volatile为什么不能保证原子性](https://blog.csdn.net/xdzhouxin/article/details/81236356)
+14. [C++多线程获取返回值的方法](https://www.linuxprobe.com/include-linux-delete.html)
+15. [https ca](https://www.jianshu.com/p/b0b6b88fe9fe)
