@@ -12,6 +12,8 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
+    "@vssue/api-github-v3": "^1.4.7",
+    "@vssue/vuepress-plugin-vssue": "^1.4.7",
     "css-loader": "^5.0.0",
     "nes.css": "^2.3.0",
     "node-sass": "^4.14.1",
@@ -21,6 +23,7 @@
     "vuenes.css": "^2.1.0",
     "vuepress": "^1.7.1",
     "vuepress-plugin-auto-sidebar": "^1.5.0",
+    "vuepress-plugin-comment": "^0.7.3",
     "vuepress-plugin-copyright": "^1.0.2",
     "vuepress-plugin-mathjax": "^1.2.8",
     "vuepress-plugin-mermaidjs": "^1.8.0",
