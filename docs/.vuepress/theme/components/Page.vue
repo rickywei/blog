@@ -3,10 +3,15 @@
     <slot name="top" />
 
     <Content class="theme-default-content" style="font-family: consolas" />
+
     <PageEdit />
 
     <PageNav v-bind="{ sidebarItems }" />
 
+    <ClientOnly >
+      <Vssue class="theme-default-content"/>
+    </ClientOnly>
+    
     <slot name="bottom" />
   </main>
 </template>
