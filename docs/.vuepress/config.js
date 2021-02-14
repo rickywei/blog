@@ -14,7 +14,8 @@ module.exports = {
             { text: 'Home', link: '/' },
             {
                 text: 'Blog', items: [
-                    { text: 'Interview', link: '/pages/001interview/' },
+                    { text: 'GoLang', link: '/pages/000golang/' },
+                    { text: 'Interview', link: '/pages/999interview/' },
                 ]
             },
             { text: 'Github', link: 'https://github.com/RickyWei' },
