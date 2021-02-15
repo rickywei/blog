@@ -107,7 +107,7 @@ Single &Single::GetInstance() {
 
 ## rpc
 
-![rpc](./imgdesign/rpc.png)
+![rpc](https://raw.githubusercontent.com/RickyWei/blog/img/img/rpc.png)
 
 1. 主要组成
    1. 服务端：服务接口，服务实现，服务暴露（把自己ip注册到注册中心，可以被客户端发现）

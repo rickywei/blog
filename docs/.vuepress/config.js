@@ -14,13 +14,10 @@ module.exports = {
             { text: 'Home', link: '/' },
             {
                 text: 'Blog', items: [
-                    { text: 'GoLang', link: '/pages/000golang/' },
                     { text: 'Interview', link: '/pages/999interview/' },
                 ]
             },
             { text: 'Github', link: 'https://github.com/RickyWei' },
-            { text: 'LinkedIn', link: 'https://www.linkedin.com/in/ruiji-wei' },
-            { text: 'WeChat', link: '' }
         ],
         lastUpdated: 'Last Updated'
     },

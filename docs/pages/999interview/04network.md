@@ -2,7 +2,7 @@
 
 ## 网络模型
 
-1. OSI七层，TCP/IP四层，普通五层 ![network layer](./imgnet/networklayer.jpg)
+1. OSI七层，TCP/IP四层，普通五层 ![networklayer](https://raw.githubusercontent.com/RickyWei/blog/img/img/networklayer.jpg)
 
 ## dns
 
@@ -12,8 +12,8 @@
 
 ## http请求和响应格式
 
-1. http请求 ![request header](./imgnet/req-message.png)
-2. http响应 ![response header](./imgnet/res-message.png)
+1. http请求 ![req-message](https://raw.githubusercontent.com/RickyWei/blog/img/img/req-message.png)
+2. http响应 ![res-message](https://raw.githubusercontent.com/RickyWei/blog/img/img/res-message.png)
 
 ## http状态码
 
@@ -84,8 +84,8 @@
    2. 服务端主动推送利用带宽
       1. 不等到浏览器解析到需要某个资源在，而是服务器本身知道改页面需要的资源，在一次请求后主动推送
    3. 使用同一域名单 tcp 连接来规避 tcp 的慢启动和多连接竞争带宽的问题
-   4. ![http2 io multiplexing](./imgnet/http2iom.jpg)使用多路复用机制（即一个tcp报文中可以包含两个请求的响应数据）实现资源的并行请求来解决 http/1.1 的 http 层级的队头阻塞问题（无法解决 tcp 数据包层级的队头阻塞）
-   5. 在 http 和 tcp 层中间引入了二进制分帧层将 http 的请求数据拆分成带有 http 请求 ID 的多个 tcp 数据帧，服务器接收完所有该时刻同时发送的所有 http 请求的所有帧后（如何判断已经接收完了该 http 请求的所有帧），拼接 tcp 数据帧成一个完成的 http 请求，然后处理响应数据![http2 io](./imgnet/http2.jpg)
+   4. ![http2iom](https://raw.githubusercontent.com/RickyWei/blog/img/img/http2iom.jpg)使用多路复用机制（即一个tcp报文中可以包含两个请求的响应数据）实现资源的并行请求来解决 http/1.1 的 http 层级的队头阻塞问题（无法解决 tcp 数据包层级的队头阻塞）
+   5. 在 http 和 tcp 层中间引入了二进制分帧层将 http 的请求数据拆分成带有 http 请求 ID 的多个 tcp 数据帧，服务器接收完所有该时刻同时发送的所有 http 请求的所有帧后（如何判断已经接收完了该 http 请求的所有帧），拼接 tcp 数据帧成一个完成的 http 请求，然后处理响应数据![http2](https://raw.githubusercontent.com/RickyWei/blog/img/img/http2.jpg)
    6. 问题
       1. tcp 层级的队头阻塞
          1. http/2 中，一个域名的多个请求经过二进制分帧层处理的后的 n 多个 tcp 数据包共用一个 tcp 连接管道进行传输，如果任意一个 tcp 数据包丢失则会暂停该 tcp 管道，等待丢失的包重新传输，此时就会阻塞所有请求
@@ -93,7 +93,7 @@
       2. tcp 协议僵化（操作系统不能及时更新协议）
       3. 中间设备的僵化（更新tcp协议使得旧的传输设备无法解析，导致丢弃）
 5. 3.0
-   1. 基于udp实现quic![quic](./imgnet/quic.jpg)
+   1. 基于udp实现quic![quic](https://raw.githubusercontent.com/RickyWei/blog/img/img/quic.jpg)
 
 ## session和cookie
 
@@ -126,7 +126,7 @@
 
 ## https
 
-1. https流程![https](./imgnet/https.png)
+1. https流程![https](https://raw.githubusercontent.com/RickyWei/blog/img/img/https.png)
    1. client hello
       1. 客户端支持的 SSL/TLS 协议版本
       2. 客户端生产的随机数（Client Random），后面用于生产「会话秘钥」
@@ -149,7 +149,7 @@
    2. 后续使用加密后密钥对内容进行对称加密，如DES；位运算快
    3. 两种加密权衡了安全和效率
 3. CA（证书认证机构）
-   1. 证书的签发和验证![ca](./imgnet/ca.jpg)
+   1. 证书的签发和验证![ca](https://raw.githubusercontent.com/RickyWei/blog/img/img/ca.jpg)
       1. Signing阶段，首先撰写证书的元信息：签发人(Issuer)、地址、签发时间、过期失效等；当然，这些信息中还包含证书持有者(owner)的基本信息，例如owner的DN(DNS Name，即证书生效的域名)，owner的公钥等基本信息。
       2. 通过通用的Hash算法将信息摘要提取出来；
       3. Hash摘要通过Issuer(CA)私钥进行非对称加密，生成一个签名密文；
@@ -172,7 +172,7 @@
 
 ## udp头部
 
-1. udp头部![udp header](./imgnet/udpheader.jpg)
+1. udp头部![udpheader](https://raw.githubusercontent.com/RickyWei/blog/img/img/udpheader.jpg)
 
 ## tcp乱序和重复包
 
@@ -182,21 +182,21 @@
 
 ## tcp封包
 
-1. ![capsulation](./imgnet/encapsulation.png)
+1. ![encapsulation](https://raw.githubusercontent.com/RickyWei/blog/img/img/encapsulation.png)
 
 ## tcp头部
 
-1. tcp头部![tcp header](./imgnet/tcpheader.jpg)
+1. tcp头部![tcpheader](https://raw.githubusercontent.com/RickyWei/blog/img/img/tcpheader.jpg)
    1. 5 <= data offset <= 15，单位32-bits words，tcp最小20B最大60B=20B+40B选项
-2. tcp options![tcp options](./imgnet/tcpoptions.png)
+2. tcp options![tcpoptions](https://raw.githubusercontent.com/RickyWei/blog/img/img/tcpoptions.png)
 
 ## tcp状态
 
-1. ![tcp state](./imgnet/Tcp_state_diagram_fixed_new.svg.png)
+1. ![Tcp_state_diagram_fixed_new.svg](https://raw.githubusercontent.com/RickyWei/blog/img/img/Tcp_state_diagram_fixed_new.svg.png)
 
 ## tcp三次握手和四次挥手
 
-1. 3此握手4次挥手![handshake handwave](./imgnet/synfin.jpg)
+1. 3此握手4次挥手![synfin](https://raw.githubusercontent.com/RickyWei/blog/img/img/synfin.jpg)
 2. 为什么3次握手
    1. 同步初始化双方序列号；两次握手进能保证一方的seq被成功接收
    2. 防止重复的历史连接；如果是历史连接到达服务端，服务端返回ack后客户端根据自己的上下文（序列号或时间）判断出该连接非本次连接，发送RST给服务端终止
@@ -214,7 +214,7 @@
 ## tcp可靠传输
 
 1. 校验和
-   1. tcp伪头部![tcp pseudo header](./imgnet/tcppseudoheader.jpg)
+   1. tcp伪头部![tcppseudoheader](https://raw.githubusercontent.com/RickyWei/blog/img/img/tcppseudoheader.jpg)
    2. 计算校验和时使用伪首部，伪首部仅用来计算校验和，并不真正传递
 2. seq和ack机制
 3. 重传
@@ -224,8 +224,8 @@
       3. 较小RTO可能导致频繁重发，增加网络拥塞又导致更多重发；较大RTO重发时间慢没有效率
       4. 如果超时重发的数据再次超时，超时时间间隔加倍
    2. 快重传
-      1. 收到连续三个相同ACK就重传，不必等待超时![fast retransmission](./imgnet/fast.png)
-      2. SACK可确定是仅重传部分还是所有都需要重传![SACK](./imgnet/sack.png)
+      1. 收到连续三个相同ACK就重传，不必等待超时![fast](https://raw.githubusercontent.com/RickyWei/blog/img/img/fast.png)
+      2. SACK可确定是仅重传部分还是所有都需要重传![sack](https://raw.githubusercontent.com/RickyWei/blog/img/img/sack.png)
          1. 在TCP头部的选项字段中添加SACK，可将已缓存的数据信息发送给对方
          2. SACK kind=4，用于告知对方本方是否支持SACK，可在握手时添加该选项；SACK kind=5用于数据传输
          3. SACK选项本身占2B（kind+length）；后面每个块占8B（两个32位数标识未确认的seq的范围）
@@ -258,7 +258,7 @@
 
 ## tcp拥塞控制
 
-1. ![tcp congestion control](./imgnet/TCP_Slow-Start_and_Congestion_Avoidance.svg.png)
+1. ![TCP_Slow-Start_and_Congestion_Avoidance.svg](https://raw.githubusercontent.com/RickyWei/blog/img/img/TCP_Slow-Start_and_Congestion_Avoidance.svg.png)
 2. 慢启动
    1. 建立连接后$cwnd = 1$在收到一个ack后$cwnd = cwnd * 2$
    2. 当$cwnd >= ssthresh(slow start threshold)$后进入拥塞避免
@@ -287,23 +287,23 @@
 
 ## ip地址分类
 
-1. 经典分类![ip class](./imgnet/ipclass.jpg)
-2. 特殊用途的ip![reversed ip](./imgnet/ipaspecialddr.jpg)
+1. 经典分类![ipclass](https://raw.githubusercontent.com/RickyWei/blog/img/img/ipclass.jpg)
+2. 特殊用途的ip![ipaspecialddr](https://raw.githubusercontent.com/RickyWei/blog/img/img/ipaspecialddr.jpg)
 3. VLSM变长子网掩码
    1. A B C类分类已经不再实用，不再区分
    2. VLSM用于划分子网
    3. VLSM可以将部分host号用作子网号（/25，相当于一位用作子网划分，创建两个子网）
 4. CIDR（Classless Inter-Domain Routing）无类别域间路由
    1. CIDR用于减少路由表项，伴随VLSM产生
-   2. route aggregation ![route aggregation](./imgnet/aggregation.jpg)
+   2. route aggregation ![aggregation](https://raw.githubusercontent.com/RickyWei/blog/img/img/aggregation.jpg)
 
 ## 子网
 
-1. 子网![subnet](./imgnet/subnet.jpg)
+1. 子网![subnet](https://raw.githubusercontent.com/RickyWei/blog/img/img/subnet.jpg)
 
 ## NAT
 
-1. NAT![nat](./imgnet/nat.png)
+1. NAT![nat](https://raw.githubusercontent.com/RickyWei/blog/img/img/nat.png)
 2. nat分类
    1. 基础nat
       1. 一个ip对应一个ip，并不能减少ip数量
@@ -318,11 +318,11 @@
 
 ## ip头部
 
-1. ip头部![ip header](./imgnet/ipheader.jpg)
+1. ip头部![ipheader](https://raw.githubusercontent.com/RickyWei/blog/img/img/ipheader.jpg)
 
 ## ip分片与重组
 
-1. ![ip fragmentation](./imgnet/ipfragment.png)
+1. ![ipfragment](https://raw.githubusercontent.com/RickyWei/blog/img/img/ipfragment.png)
 2. 分片
    1. 当数据大小 > MTU 时进行
    2. 分割后的每个包，头部基本相同（id，srcip，desip等相同，长度不同），数据被分割
@@ -431,7 +431,7 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 
 ## io复用
 
-1. IO模型![io multiplex](./imgnet/iomultiplex1.png) ![io multiplex](./imgnet/iomultiplex2.png)
+1. IO模型![iomultiplex1](https://raw.githubusercontent.com/RickyWei/blog/img/img/iomultiplex1.png)   ![iomultiplex2](https://raw.githubusercontent.com/RickyWei/blog/img/img/iomultiplex2.png)
 
 ## select poll epoll
 
@@ -535,7 +535,7 @@ int getsockopt(int sockfd, int level, int optname, void* optval,
                socklen_t* optlen);
 ```
 
-1. ![socket](./imgnet/socket.png)
+1. ![socket](https://raw.githubusercontent.com/RickyWei/blog/img/img/socket.png)
 2. listen
 3. connect
    1. 再第二次握手返回syn+ack后connect正常返回

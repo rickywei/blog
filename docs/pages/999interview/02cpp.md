@@ -2,7 +2,7 @@
 
 ## 编译及g++选项
 
-![Compile Overview](./imgcpp/compile.png)
+![compile](https://raw.githubusercontent.com/RickyWei/blog/img/img/compile.png)
 
 1. 预处理
    1. 处理条件编译指令
@@ -98,7 +98,7 @@ __cplusplus
 ## c、c++ 语言内存区块
 
 1. c语言布局
-   1. ![C memory layout](./imgcpp/cmemorylayout.png)
+   1. ![cmemorylayout](https://raw.githubusercontent.com/RickyWei/blog/img/img/cmemorylayout.png)
 2. c++
    1. 栈区
    2. 堆区（new）
@@ -413,7 +413,7 @@ class B : public A {
 ## 多继承
 
 1. 非菱形 `class C : public A, public B`
-   1. ![vtable1](./imgcpp/vtable-Page-1.png)
+   1. ![vtable-Page-1](https://raw.githubusercontent.com/RickyWei/blog/img/img/vtable-Page-1.png)
    2. 成员变量按父类被声明顺序排序，接着是子类成员变量
    3. 子类的虚函数表只有一个，表项按父类被声明的顺序，中间隔开
    4. top_offset用于当从子类到基类的转换时改变`this`指针
@@ -423,7 +423,7 @@ class B : public A {
       1. `d.a = 1; //wrong`
       2. `d.B::a = 1; d.C::a = 1; //right`
    2. 使用虚继承解决菱形继承问题
-      1. ![vtable2](./imgcpp/vtable-Page-2.png)
+      1. ![vtable-Page-2](https://raw.githubusercontent.com/RickyWei/blog/img/img/vtable-Page-2.png)
       2. 虚继承的子类，编译器为其生成一个虚函数指针（vptr）以及一张虚函数表，该vptr位于对象内存最前面；非虚继承直接扩展父类虚函数表
       3. VTT是所有vptr的集合
 
@@ -587,7 +587,7 @@ T&& forward(typename remove_reference<T>::type& param)
 2. 引用折叠规则
    1. 所有右值引用折叠到右值引用上仍然是一个右值引用。如X&& &&折叠为X&&
    2. 所有的其他引用类型之间的折叠都将变成左值引用。如X& &, X& &&, X&& &折叠为X&。可见左值引用会传染，沾上一个左值引用就变左值引用了。根本原因：在一处声明为左值，就说明该对象为持久对象，编译器就必须保证此对象可靠（左值）
-3. ![forward](./imgcpp/forward.png)
+3. ![forward](https://raw.githubusercontent.com/RickyWei/blog/img/img/forward.png)
    1. 当传递给func函数的实参类型为左值Widget时，T被推导为Widget&类别。然后forward会实例化为`std::forward<Widget&>`，并返回Widget&（左值引用，根据定义是个左值！）
    2. 而当传递给func函数的实参类型为右值Widget时，T被推导为Widget。然后forward被实例化为`std::forward<Widget>`，并返回Widget&&（注意，匿名的右值引用是个右值！）
 4. 若不是用完美转发，则传入process的是个左值类型而非右值引用

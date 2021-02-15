@@ -67,7 +67,7 @@
 
 ## 聚族索引和非聚族索引
 
-1. ![index](./imgdb/index.png)
+1. ![index](https://raw.githubusercontent.com/RickyWei/blog/img/img/index.png)
 2. 聚族索引
    1. 数据和索引放在一起
    2. 一个表仅有一个聚族索引，默认为主键，未定义主键时innodb选择一个唯一的非空索引代替，若没有innodb隐式定义一个主键
@@ -141,8 +141,6 @@
    3. 半同步复制，当有一个从库复制后，主库返回客户端
 
 ## 主从延迟
-
-1. 
 
 ## mysql中的log
 
@@ -251,7 +249,7 @@
 
 ## 跳表
 
-1. ![skiplist](./img/../imgdb/skiplist.png)
+1. ![skiplist](https://raw.githubusercontent.com/RickyWei/blog/img/img/skiplist.png)
 2. 跳跃表是一种基于链表的扩展，跳跃表还是一个链表，是一个有序的链表，在遍历的时候基于比较，但普通链表只能遍历，跳跃表加入了一个层的概念，层级越高元素越少，每次先从高层查找，直到找到合适的位置，从图中可以看到高层的节点远远少于底层的节点数，从而实现了跳跃式查找
 
 ## redis缓存穿透，缓存击穿和缓存雪崩
