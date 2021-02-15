@@ -30,14 +30,14 @@ module.exports = {
         'vuepress-plugin-mermaidjs',
         'vuepress-plugin-auto-sidebar',
         '@vuepress/nprogress',
-        '@vssue/vuepress-plugin-vssue', {
+        ['@vssue/vuepress-plugin-vssue': {
             platform: 'github',
             owner: 'RickyWei',
             repo: 'blog',
             clientId: '6c63593563563a3b5f11',
             clientSecret: '488389fb136aa8b83f71d9d18bf9fe99ebd6c95f',
             autoCreateIssue: true,
-        },
+        }],
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'
