@@ -72,5 +72,16 @@ export default {
     font-size: initial;
     font-weight: initial;
   }
+
+  valine-vuepress-comment {
+    padding-bottom: 2rem;
+    display: block;
+  }
+
+  vcontent{
+    font-family: consolas;
+    font-size: initial;
+    font-weight: initial
+  }
 }
 </style>
