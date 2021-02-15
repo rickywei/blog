@@ -18,17 +18,33 @@
     </header>
 
     <div class="nes-container with-title is-centered">
-      <p class="title">About Me</p>
+      <p class="title">Info</p>
       <p>冲冲冲！！！</p>
     </div>
-
-    <div id="aboutme">
-      <img
-        class="nes-avatar is-large"
-        alt="WeChat"
-        src="/wechat.png"
-        style="image-rendering: pixelated"
-      />
+    <br />
+    <div class="nes-container with-title">
+      <!-- <p class="title" text-align="center">Links</p> -->
+      <p>I will publish new content in following platform...</p>
+      <ul>
+        <li>
+          WeChat
+          <img
+            src="https://raw.githubusercontent.com/RickyWei/blog/img/img/wechat.jpg"
+          />
+        </li>
+        <li>
+          Zhihu
+          <a href="https://www.zhihu.com/people/caijizhuoma" target="_blank"
+            >https://www.zhihu.com/people/caijizhuoma</a
+          >
+        </li>
+        <li>
+          CSDN
+          <a href="https://blog.csdn.net/caijizhuoma2021" target="_blank"
+            >https://blog.csdn.net/caijizhuoma2021
+          </a>
+        </li>
+      </ul>
     </div>
 
     <Content class="theme-default-content custom" />
