@@ -25,19 +25,22 @@ module.exports = {
         lastUpdated: 'Last Updated'
     },
     plugins: [
+        [
+            'vuepress-plugin-comment',
+            {
+                choosen: 'valine',
+                options: {
+                    el: '#valine-vuepress-comment',
+                    appId: '5vYpoEcm1zNKf8pzduje2U2i-gzGzoHsz',
+                    appKey: 'L3PN5qv7hmFXHF6RkTlAOLUG'
+                }
+            }
+        ],
         'vuepress-plugin-mathjax',
         'vuepress-plugin-zooming',
         'vuepress-plugin-mermaidjs',
         'vuepress-plugin-auto-sidebar',
         '@vuepress/nprogress',
-        ['@vssue/vuepress-plugin-vssue': {
-            platform: 'github',
-            owner: 'RickyWei',
-            repo: 'blog',
-            clientId: '6c63593563563a3b5f11',
-            clientSecret: '488389fb136aa8b83f71d9d18bf9fe99ebd6c95f',
-            autoCreateIssue: true,
-        }],
         'copyright', {
             minLength: 100,
             authorName: 'RickyWei'

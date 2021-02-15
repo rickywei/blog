@@ -7,10 +7,6 @@
     <PageEdit />
 
     <PageNav v-bind="{ sidebarItems }" />
-
-    <ClientOnly >
-      <Vssue class="theme-default-content"/>
-    </ClientOnly>
     
     <slot name="bottom" />
   </main>
