@@ -692,3 +692,8 @@ int main(){
     return 0;
 }
 ```
+
+---
+欢迎关注微信~~
+
+![wechat](https://raw.githubusercontent.com/RickyWei/blog/img/img/wechat.jpg)

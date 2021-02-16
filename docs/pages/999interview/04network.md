@@ -654,3 +654,8 @@ int getsockopt(int sockfd, int level, int optname, void* optval,
    5. 防御
       1. 同源检测，http的refer字段标识请求来源，需要同一网站
       2. 用户打开页面的时候，服务器需要给这个用户生成一个Token，该Token通过加密算法对数据进行加密，一般Token都包括随机字符串和时间戳的组合，显然在提交时Token不能再放在Cookie中了，否则又会被攻击者冒用。因此，为了安全起见Token最好还是存在服务器的Session中，之后在每次页面加载时，使用JS遍历整个DOM树，对于DOM中所有的a和form标签后加入Token。这样可以解决大部分的请求，但是对于在页面加载之后动态生成的HTML代码，这种方法就没有作用，还需要程序员在编码时手动添加Token
+
+---
+欢迎关注微信~~
+
+![wechat](https://raw.githubusercontent.com/RickyWei/blog/img/img/wechat.jpg)

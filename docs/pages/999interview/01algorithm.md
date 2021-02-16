@@ -564,3 +564,8 @@ return x;
 $$
 \frac{2}{3}=\frac{1/2*(1-(1/4)^n)}{1-1/4}
 $$
+
+---
+欢迎关注微信~~
+
+![wechat](https://raw.githubusercontent.com/RickyWei/blog/img/img/wechat.jpg)
