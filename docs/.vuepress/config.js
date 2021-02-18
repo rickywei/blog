@@ -12,11 +12,9 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: 'Home', link: '/' },
-            {
-                text: 'Blog', items: [
-                    { text: 'Interview', link: '/pages/999interview/' },
-                ]
-            },
+
+            { text: 'Interview', link: '/pages/interview/' },
+            { text: 'Unarchived', link: '/pages/unarchived/' },
             { text: 'Github', link: 'https://github.com/RickyWei' },
         ],
         lastUpdated: 'Last Updated'
