@@ -7,7 +7,7 @@
     <PageEdit />
 
     <PageNav v-bind="{ sidebarItems }" />
-    
+
     <slot name="bottom" />
   </main>
 </template>
@@ -43,6 +43,12 @@ export default {
     font-weight: bold;
   }
 
+  h4 {
+    font-family: consolas;
+    font-size: initial;
+    font-weight: bold;
+  }
+
   p {
     font-family: consolas;
     font-size: initial;
@@ -72,7 +78,5 @@ export default {
     font-size: initial;
     font-weight: initial;
   }
-
-  
 }
 </style>
