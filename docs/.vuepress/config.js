@@ -14,7 +14,7 @@ module.exports = {
             { text: 'Home', link: '/' },
 
             { text: 'Interview', link: '/pages/interview/' },
-            { text: 'Unarchived', link: '/pages/unarchived/' },
+            { text: 'Leetcode', link: '/pages/Leetcode/' },
             { text: 'Github', link: 'https://github.com/RickyWei' },
         ],
         lastUpdated: 'Last Updated'
