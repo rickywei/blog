@@ -79,4 +79,25 @@ export default {
     font-weight: initial;
   }
 }
+
+#valine-vuepress-comment {
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  display: block;
+  max-width: $contentWidth;
+
+  #veditor {
+    font-family: consolas;
+    font-size: initial;
+    font-weight: initial;
+  }
+
+  .vcontent {
+    p {
+      font-family: consolas;
+      font-size: initial;
+      font-weight: initial;
+    }
+  }
+}
 </style>
