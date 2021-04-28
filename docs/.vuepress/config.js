@@ -12,10 +12,18 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: 'Home', link: '/' },
+            {
+                text: 'Archived',
+                items: [
+                    { text: 'Linux', link: '/pages/linux/' },
+                    { text: 'Python', link: '/pages/python/' },
+                    { text: 'Go', link: '/pages/go/' },
+                    { text: 'MIT6.824', link: '/pages/mit6.824/' },
+                    { text: 'Leetcode', link: '/pages/leetcode/' },
+                    { text: 'Interview', link: '/pages/interview/' },
+                ]
+            },
 
-            { text: 'Interview', link: '/pages/interview/' },
-            { text: 'Leetcode', link: '/pages/leetcode/' },
-            { text: 'MIT6.824', link: '/pages/mit6.824/' },
             { text: 'Github', link: 'https://github.com/RickyWei' },
         ],
         lastUpdated: 'Last Updated'

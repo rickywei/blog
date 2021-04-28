@@ -17,14 +17,79 @@
       </p>
     </header>
 
-    <div class="nes-container with-title is-centered">
-      <p class="title">Info</p>
-      <p>冲冲冲！！！</p>
+    <div class="nes-container with-title">
+      <p class="title">Language</p>
+      <a href="/pages/cpp"><button class="nes-btn is-success">C/C++</button></a>
+      <a href="/pages/go"><button class="nes-btn is-success">Go</button></a>
+      <a href="/pages/python"
+        ><button class="nes-btn is-success">Python</button></a
+      >
     </div>
     <br />
+
+    <div class="nes-container with-title">
+      <p class="title">Database</p>
+      <a href="/pages/mysql"
+        ><button class="nes-btn is-success">MySQL</button></a
+      >
+      <a href="/pages/redis"
+        ><button class="nes-btn is-success">Redis</button></a
+      >
+    </div>
+    <br />
+
+    <div class="nes-container with-title">
+      <p class="title">Network</p>
+      <a href="/pages/network"
+        ><button class="nes-btn is-success">Network</button></a
+      >
+    </div>
+    <br />
+
+    <div class="nes-container with-title">
+      <p class="title">Algorithm</p>
+      <a href="/pages/leetcode"
+        ><button class="nes-btn is-success">Leetcode</button></a
+      >
+    </div>
+    <br />
+
+    <div class="nes-container with-title">
+      <p class="title">Operating System</p>
+      <a href="/pages/linux"
+        ><button class="nes-btn is-success">Linux</button></a
+      >
+    </div>
+    <br />
+
+    <div class="nes-container with-title">
+      <p class="title">Distributed Systems</p>
+      <a href="/pages/mit6.824"
+        ><button class="nes-btn is-success">MIT6.824</button></a
+      >
+    </div>
+    <br />
+
+    <div class="nes-container with-title">
+      <p class="title">Design Pattern</p>
+      <a href="/pages/24pattern"
+        ><button class="nes-btn is-success">24Pattern</button></a
+      >
+    </div>
+    <br />
+
+    <div class="nes-container with-title">
+      <p class="title">Tools</p>
+      <a href="/pages/git"><button class="nes-btn is-success">Git</button></a>
+      <a href="/pages/vscode"
+        ><button class="nes-btn is-success">VSCode</button></a
+      >
+    </div>
+    <br />
+
     <div class="nes-container with-title">
       <!-- <p class="title" text-align="center">Links</p> -->
-      <p>I will publish new content in following platform...</p>
+      <p>I will also publish new content in following platform...</p>
       <ul>
         <li>
           WeChat
