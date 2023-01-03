@@ -144,7 +144,3 @@ Single &Single::GetInstance() {
 
 - [fastdfs](http://www.ityouknow.com/fastdfs/2018/01/06/distributed-file-system-fastdfs.html)
 
----
-欢迎关注微信~~
-
-![wechat](https://raw.githubusercontent.com/RickyWei/blog/img/img/wechat.jpg)

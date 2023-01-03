@@ -213,7 +213,3 @@ s = string(bs)
 fmt.Println(s)
 ```
 
----
-欢迎关注微信~~
-
-![wechat](https://raw.githubusercontent.com/RickyWei/blog/img/img/wechat.jpg)

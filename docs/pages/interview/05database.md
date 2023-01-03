@@ -334,7 +334,3 @@ return false;//加锁失败
    3. Candidate：如果Follower副本在一段时间内没有收到Leader副本的心跳，则判断Leader可能已经故障，此时启动选主过程，此时副本会变成Candidate状态，直到选主结束
    4. 开始时大家都是folloer然后拉票，票多的人成为leader，若一次投票没有投出，因为每个follower的等待超时不同，会有先的follower开始第二次选举
 
----
-欢迎关注微信~~
-
-![wechat](https://raw.githubusercontent.com/RickyWei/blog/img/img/wechat.jpg)
