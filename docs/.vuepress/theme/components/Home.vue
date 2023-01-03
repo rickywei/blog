@@ -19,9 +19,9 @@
 
     <div class="nes-container with-title">
       <p class="title">Language</p>
-      <a href="/pages/cpp"><button class="nes-btn is-success">C/C++</button></a>
-      <a href="/pages/go"><button class="nes-btn is-success">Go</button></a>
-      <a href="/pages/python"
+      <a href="/blog/pages/cpp"><button class="nes-btn is-success">C/C++</button></a>
+      <a href="/blog/pages/go"><button class="nes-btn is-success">Go</button></a>
+      <a href="/blog/pages/python"
         ><button class="nes-btn is-success">Python</button></a
       >
     </div>
@@ -29,10 +29,10 @@
 
     <div class="nes-container with-title">
       <p class="title">Database</p>
-      <a href="/pages/mysql"
+      <a href="/blog/pages/mysql"
         ><button class="nes-btn is-success">MySQL</button></a
       >
-      <a href="/pages/redis"
+      <a href="/blog/pages/redis"
         ><button class="nes-btn is-success">Redis</button></a
       >
     </div>
@@ -40,7 +40,7 @@
 
     <div class="nes-container with-title">
       <p class="title">Network</p>
-      <a href="/pages/network"
+      <a href="/blog/pages/network"
         ><button class="nes-btn is-success">Network</button></a
       >
     </div>
@@ -48,7 +48,7 @@
 
     <div class="nes-container with-title">
       <p class="title">Algorithm</p>
-      <a href="/pages/leetcode"
+      <a href="/blog/pages/leetcode"
         ><button class="nes-btn is-success">Leetcode</button></a
       >
     </div>
@@ -56,7 +56,7 @@
 
     <div class="nes-container with-title">
       <p class="title">Operating System</p>
-      <a href="/pages/linux"
+      <a href="/blog/pages/linux"
         ><button class="nes-btn is-success">Linux</button></a
       >
     </div>
@@ -64,7 +64,7 @@
 
     <div class="nes-container with-title">
       <p class="title">Design Pattern</p>
-      <a href="/pages/24pattern"
+      <a href="/blog/pages/24pattern"
         ><button class="nes-btn is-success">24Pattern</button></a
       >
     </div>
@@ -72,8 +72,8 @@
 
     <div class="nes-container with-title">
       <p class="title">Tools</p>
-      <a href="/pages/git"><button class="nes-btn is-success">Git</button></a>
-      <a href="/pages/vscode"
+      <a href="/blog/pages/git"><button class="nes-btn is-success">Git</button></a>
+      <a href="/blog/pages/vscode"
         ><button class="nes-btn is-success">VSCode</button></a
       >
     </div>
