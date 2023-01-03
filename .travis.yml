@@ -2,8 +2,7 @@ language: node_js
 node_js:
   - 10
 install:
-  - yarn config set ignore --engines true
-  - yarn install
+  - yarn install --ignore-engines
 script:
   - yarn docs:build
 deploy:
