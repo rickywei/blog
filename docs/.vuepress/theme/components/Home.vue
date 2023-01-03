@@ -63,14 +63,6 @@
     <br />
 
     <div class="nes-container with-title">
-      <p class="title">Distributed Systems</p>
-      <a href="/pages/mit6.824"
-        ><button class="nes-btn is-success">MIT6.824</button></a
-      >
-    </div>
-    <br />
-
-    <div class="nes-container with-title">
       <p class="title">Design Pattern</p>
       <a href="/pages/24pattern"
         ><button class="nes-btn is-success">24Pattern</button></a
