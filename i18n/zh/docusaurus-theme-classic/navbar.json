@@ -1,14 +1,14 @@
 {
   "title": {
-    "message": "My Site",
+    "message": "我的站点",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "My Site Logo",
+    "message": "我的站点标志",
     "description": "The alt text of navbar logo"
   },
   "item.label.Go": {
-    "message": "Go",
+    "message": "转至",
     "description": "Navbar item with label Go"
   },
   "item.label.GitHub": {
