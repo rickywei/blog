@@ -1,7 +1,6 @@
 # !/bin/bash
 
-mkdir -p i18n/zh/docusaurus-plugin-content-docs/current
-cp -r docs/** i18n/zh/docusaurus-plugin-content-docs/current
+cnpm run crowdin:sync
 
 git add .
 git commit 

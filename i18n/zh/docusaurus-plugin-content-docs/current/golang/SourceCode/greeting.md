@@ -1,5 +1,5 @@
 ---
-description: Create a doc page with rich content.
+description: 创建一个内容丰富的doc 页面。
 ---
 
 # Hello from Docusaurus
