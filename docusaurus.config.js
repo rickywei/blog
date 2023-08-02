@@ -34,11 +34,9 @@ const config = {
     localeConfigs: {
       en: {
         htmlLang: 'en-US',
-        path: 'en',
       },
       zh: {
         htmlLang: 'zh-CN',
-        path: 'zh',
       },
     },
   },
