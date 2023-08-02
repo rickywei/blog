@@ -1,7 +1,7 @@
 # !/bin/bash
 
-mkdir -p i18n/fr/docusaurus-plugin-content-docs/current
-cp -r docs/** i18n/fr/docusaurus-plugin-content-docs/current
+mkdir -p i18n/zh/docusaurus-plugin-content-docs/current
+cp -r docs/** i18n/zh/docusaurus-plugin-content-docs/current
 
 git add .
 git commit 
