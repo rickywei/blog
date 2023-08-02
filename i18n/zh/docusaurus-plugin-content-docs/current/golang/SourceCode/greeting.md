@@ -2,9 +2,9 @@
 description: 创建一个内容丰富的doc 页面。
 ---
 
-# Hello from Docusaurus
+# 来自 Docusaurus 的问候
 
-Are you ready to create the documentation site for your open source project?
+您准备好为您的开源项目创建文档网站了吗？
 
 ## Headers
 
