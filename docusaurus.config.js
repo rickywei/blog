@@ -22,7 +22,7 @@ const config = {
   projectName: 'blog', // Usually your repo name.
   trailingSlash: false,
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -80,8 +80,7 @@ const config = {
           {
             href: 'https://github.com/RickyWei',
             position: 'right',
-            className: 'header-github-link',
-            'aria-label': 'GitHub repository',
+            label: 'GitHub',
           },
         ],
       },
@@ -113,10 +112,6 @@ const config = {
           {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
               {
                 label: 'GitHub',
                 href: 'https://github.com/RickyWei/blog',

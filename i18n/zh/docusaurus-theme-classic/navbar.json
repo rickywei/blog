@@ -10,5 +10,9 @@
   "item.label.Go": {
     "message": "Go",
     "description": "Navbar item with label Go"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
   }
 }
