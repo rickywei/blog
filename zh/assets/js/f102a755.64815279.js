@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog=self.webpackChunkblog||[]).push([[823],{2591:o=>{o.exports=JSON.parse('{"title":"GoLang","description":"Learn about GoLang!","keywords":["golang","go"],"slug":"/category/golang","permalink":"/blog/zh/docs/category/golang","navigation":{"next":{"title":"Hello from Docusaurus","permalink":"/blog/zh/docs/golang/SourceCode/greeting"}}}')}}]);
