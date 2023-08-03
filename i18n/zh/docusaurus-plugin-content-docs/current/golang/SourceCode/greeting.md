@@ -6,20 +6,20 @@ description: 创建一个内容丰富的doc 页面。
 
 您准备好为您的开源项目创建文档网站了吗？
 
-## Headers
+## 信头
 
-will show up on the table of contents on the upper right
+将在右上角的目录中显示
 
-So that your users will know what this page is all about without scrolling down or even without reading too much.
+这样您的用户就会知道这个页面是什么，而不会向下滚动，甚至不会阅读太多。
 
-## Only h2 and h3 will be in the TOC by default.
+## 默认情况下，TOC 中只有h2和h3。
 
-You can configure the TOC heading levels either per-document or in the theme configuration.
+您可以在每个文档或主题配置中配置TOC的标题级别。
 
-The headers are well-spaced so that the hierarchy is clear.
+头部有很好的间隔，因此等级是明确的。
 
-- lists will help you
-- present the key points
-- that you want your users to remember
-  - and you may nest them
-    - multiple times
+- 列表将帮助你
+- 显示关键点
+- 你想要你的用户记住这个信息
+  - 并且你可以排他们，
+    - 多次
