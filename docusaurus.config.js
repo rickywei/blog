@@ -80,7 +80,8 @@ const config = {
           {
             href: 'https://github.com/RickyWei',
             position: 'right',
-            label: 'GitHub',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
           },
         ],
       },

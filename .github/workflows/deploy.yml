@@ -20,6 +20,8 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+      - name: i18n
+        run: npm run crowdin:sync
       - name: Build website
         run: npm run build
 
