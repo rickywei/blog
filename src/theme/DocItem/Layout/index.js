@@ -49,6 +49,8 @@ export default function DocItemLayout({ children }) {
           </article>
           <DocItemPaginator />
         </div>
+        <br></br>
+        <br></br>
         <Giscus
           repo="RickyWei/blog"
           repoId="MDEwOlJlcG9zaXRvcnkyMzAxMzgxMTU="
