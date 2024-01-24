@@ -1,0 +1,136 @@
+---
+description: 数位dp
+---
+
+# 数位dp
+
+数位dp题目特征
+1. 统计一定范围内满足条件的数的个数
+2. 上界n通常很大如10^10
+
+## 只存在上界
+
+:::info[[233. 数字 1 的个数](https://leetcode.cn/problems/number-of-digit-one/description/)]
+给定一个整数 n，计算所有小于等于 n 的非负整数中数字 1 出现的个数。
+
+示例 1：<br/>
+输入：n = 13<br/>
+输出：6
+
+示例 2：<br/>
+输入：n = 0<br/>
+输出：0
+ 
+提示：<br/>
+0 <= n <= 10^9
+:::
+
+```cpp
+class Solution {
+ public:
+  int countDigitOne(int n) {
+    // 将数字转换为字符串方便枚举数位
+    string nums = to_string(n);
+    int m = nums.size(), dp[m][10];
+    memset(dp, -1, sizeof(dp));
+
+    // int i ->         当前枚举到了哪一位
+    // bool limit ->    当前数位取值是否受到限制，比如n=123，那么百位智能取1或者跳过
+    // bool select ->   之前是否已经选过数字
+    // 剩余参数根据题目要求添加
+    function<int(int, bool, bool, int cnt)> dfs = [&](int i, bool limit, bool select, int cnt)  -> int {
+      // 当所有数位都枚举完成时返回结果
+      if (i == m) return cnt;
+      // 如果但前位置没有约束且之前选过数字且已经计算过返回结果
+      // !limit 是因为如果该limit为true，表示取值就在上界，那么该种情况只遍历一次，没有重复计算
+      // select 是因为如果前面都跳过，那么当前肯定是个非法状态
+      if (!limit && select && dp[i][cnt] != -1) return dp[i][cnt];
+      int res = 0;
+      // 之前数位都跳过，继续跳过该数位
+      if (!select) {
+        res = dfs(i + 1, false, false, cnt);
+      }
+      // 计算当前数位上界
+      int hi = limit ? nums[i] - '0' : 9;
+      // 如果之前选过数，则当前数位枚举从0开始，否则从1开始，因为递归时select为true
+      // 如果之前没选过数，该位选0相当于跳过该位
+      for (int d = (1 - select); d <= hi; ++d) {
+        // 注意limit判断
+        res += dfs(i + 1, limit && d == hi, true, cnt + (d == 1));
+      }
+      if (!limit && select) dp[i][cnt] = res;
+      return res;
+    };
+
+    return dfs(0, true, false, 0);
+  }
+};
+```
+
+## 同时存在上下界
+
+:::info[[2801. 统计范围内的步进数字数目](https://leetcode.cn/problems/count-stepping-numbers-in-range/description/)]
+给你两个正整数 low 和 high ，都用字符串表示，请你统计闭区间 [low, high] 内的 步进数字 数目 <br/>
+如果一个整数相邻数位之间差的绝对值都 恰好 是 1 ，那么这个数字被称为 步进数字 <br/>
+请你返回一个整数，表示闭区间 [low, high] 之间步进数字的数目 <br/>
+由于答案可能很大，请你将它对 109 + 7 取余 后返回 <br/>
+注意：步进数字不能有前导 0 <br/>
+
+ 
+
+示例 1：<br/>
+输入：low = "1", high = "11"<br/>
+输出：10<br/>
+解释：区间 [1,11] 内的步进数字为 1 ，2 ，3 ，4 ，5 ，6 ，7 ，8 ，9 和 10 总共有 10 个步进数字。所以输出为 10<br/>
+
+示例 2：<br/>
+输入：low = "90", high = "101"<br/>
+输出：2<br/>
+解释：区间 [90,101] 内的步进数字为 98 和 101,总共有 2 个步进数字。所以输出为 2 
+ 
+提示：<br/>
+1 <= int(low) <= int(high) < 10100<br/>
+1 <= low.length, high.length <= 100<br/>
+low 和 high 只包含数字。<br/>
+low 和 high 都不含前导 0 <br/>
+:::
+
+```cpp
+class Solution {
+ public:
+  int countSteppingNumbers(string low, string high) {
+    const int MOD = 1e9 + 7;
+    int n = high.size(), dp[n][10];
+    // 下界用'0'补齐方便计算
+    low = string(n - low.size(), '0') + low;
+    memset(dp, -1, sizeof(dp));
+
+    function<int(int, bool, bool, bool, int last)> dfs = [&](int i, bool limit_low, bool limit_high, bool select, int last) -> int {
+      if (i == n) return select;
+      if (!limit_low && !limit_high && select && dp[i][last] != -1)
+        return dp[i][last];
+      int res = 0;
+      // 之前数位都跳过，且该数为可跳过（下界为0）时跳过
+      if (!select && low[i] == '0') {
+        // 此时limit_low=true, limit_high=false
+        res = dfs(i + 1, true, false, false, last);
+      }
+      int lo = limit_low ? low[i] - '0' : 0;
+      int hi = limit_high ? high[i] - '0' : 9;
+      // 枚举数位从max(lo, 1-select)开始
+      for (int d = max(lo, 1 - select); d <= hi; ++d) {
+        if (last != -1 && abs(d - last) != 1) continue;
+        res = (res + dfs(i + 1, limit_low && d == lo, limit_high && d == hi,true, d)) % MOD;
+      }
+      if (!limit_low && !limit_high && select) dp[i][last] = res;
+      return res;
+    };
+
+    return dfs(0, true, true, false, -1);
+  }
+};
+```
+
+## 参考
+
+> https://leetcode.cn/problems/count-of-integers/solutions/2296043/shu-wei-dp-tong-yong-mo-ban-pythonjavacg-9tuc

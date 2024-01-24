@@ -61,7 +61,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'Ricky\'s Blog',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -72,6 +72,30 @@ const config = {
             sidebarId: 'golangSidebar',
             position: 'left',
             label: 'Go',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'cppSidebar',
+            position: 'left',
+            label: 'C++',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'algorithmSidebar',
+            position: 'left',
+            label: 'Algorithm',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'storageSidebar',
+            position: 'left',
+            label: 'Storage',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'designSidebar',
+            position: 'left',
+            label: 'Design',
           },
           {
             type: 'localeDropdown',
@@ -97,16 +121,12 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Linkedin',
+                href: 'https://www.linkedin.com/in/ruiji-wei/',
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: 'https://twitter.com/RickyWeii',
               },
             ],
           },
@@ -115,7 +135,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/rickywei/blog',
+                href: 'https://github.com/rickywei',
               },
             ],
           },
