@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[240],{6798:e=>{e.exports=JSON.parse('{"title":"Storage","description":"Learn about Storage!","keywords":["redis","mysql"],"slug":"/category/storage","permalink":"/blog/docs/category/storage","navigation":{"next":{"title":"greeting","permalink":"/blog/docs/storage/Redis/greeting"}}}')}}]);
