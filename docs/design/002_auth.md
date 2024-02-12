@@ -57,7 +57,7 @@ func sign(method, url, appId, appKey, appSecret string, args map[string]string) 
 
 ## 如何防止重放攻击
 
-1. 在参数中添加timestamp并一起签名，服务端验证时需校验timestamp在一定时间范围内，如timestamp <= now <= timestamp+60s
+1. 在参数中添加timestamp并一起签名，服务端验证时需校验timestamp在一定时间范围内，如`timestamp <= now <= timestamp + 60s`
 2. 在参数中添加nonce（随机值）并一起签名，服务端验证时需校验该nonce值应该没有被使用过，同时标记一段时间内该nonce不可用，如写入redis `SETEX AppId+AppKey+nonce 60 ""`
 3. 仅使用timestamp时，攻击者可在一个范围内重放攻击；仅使用nonce攻击者可以在每隔一段时间重放攻击
 
