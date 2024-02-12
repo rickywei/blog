@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[328],{5350:e=>{e.exports=JSON.parse('{"title":"C++","description":"Learn about C++!","keywords":["cpp","c++"],"slug":"/category/c","permalink":"/blog/docs/category/c","navigation":{"next":{"title":"C++ \u7f16\u8bd1\u6d41\u7a0b","permalink":"/blog/docs/cpp/001\u7f16\u8bd1"}}}')}}]);
